@@ -1,0 +1,26 @@
+.printerCard {
+  overflow: hidden;
+  transform-origin: center;
+  transition: transform 220ms ease-out;
+}
+
+.printerCard:hover {
+  animation: scaleInOut 1.2s ease-in-out infinite;
+}
+
+.printerCard img {
+  display: block;
+  transform-origin: center;
+}
+
+@keyframes scaleInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
