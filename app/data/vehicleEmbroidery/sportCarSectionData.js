@@ -17,7 +17,10 @@ export const sportCarSectionData = {
     text: "Get Sport Car Logo Quote",
     href: "/contact",
   },
-  secondaryButton: null,
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Sport Car Logo Embroidery Digitizing",
   swapLayout: true,

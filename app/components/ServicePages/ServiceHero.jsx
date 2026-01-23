@@ -17,6 +17,7 @@ import ScrollAnimation from "../UI/ScrollAnimation";
  * @param {array} features - Array of feature strings for bullet points
  * @param {object} primaryButton - { text: string, href: string }
  * @param {object} secondaryButton - { text: string, href: string }
+ * @param {object} galleryButton - { text: string, href: string } - Optional button to link to gallery
  * @param {array} featureCards - Array of { title: string, description: string } for feature cards
  * @param {string} imageSrc - Image path or null for placeholder
  * @param {string} imageAlt - Alt text for image
@@ -31,6 +32,7 @@ export default function ServiceHero({
     features = [],
     primaryButton,
     secondaryButton,
+    galleryButton,
     featureCards = [],
     imageSrc = null,
     imageAlt = "Service illustration",
@@ -103,7 +105,7 @@ export default function ServiceHero({
                         )}
 
                         {/* Action Buttons */}
-                        {(primaryButton || secondaryButton) && (
+                        {(primaryButton || secondaryButton || galleryButton) && (
                             <ScrollAnimation animation="fadeInUp" delay={0.6}>
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6">
                                     {primaryButton && (
@@ -123,6 +125,15 @@ export default function ServiceHero({
                                             {secondaryButton.text}
                                         </Link>
                                     )}
+
+                                    {galleryButton && (
+                                        <Link
+                                            href={galleryButton.href}
+                                            className="inline-block bg-lv-blue hover:bg-blue-700 text-white font-bold px-7 py-3.5 rounded-[10px] transition-all duration-200 text-center text-[15px] shadow-lg hover:shadow-xl"
+                                        >
+                                            {galleryButton.text}
+                                        </Link>
+                                    )}
                                 </div>
                             </ScrollAnimation>
                         )}
@@ -130,16 +141,16 @@ export default function ServiceHero({
                         {/* Feature Cards */}
                         {featureCards.length > 0 && (
                             <ScrollAnimation animation="fadeInUp" delay={0.7}>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10">
+                                <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-8 md:mt-10 justify-center">
                                     {featureCards.map((card, index) => (
                                         <div
                                             key={index}
-                                            className="bg-white rounded-xl p-4 md:p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 aspect-[2/1] flex flex-col justify-center"
+                                            className="bg-white rounded-xl px-4 py-2 md:py-2.5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 flex-1 md:flex-initial md:min-w-0"
                                         >
-                                            <h3 className="font-bold text-gray-800 text-xs md:text-sm mb-1 whitespace-nowrap truncate">
+                                            <h3 className="font-bold text-gray-800 text-xs md:text-sm mb-0.5 whitespace-nowrap">
                                                 {card.title}
                                             </h3>
-                                            <p className="text-gray-600 text-[10px] md:text-xs whitespace-nowrap truncate">
+                                            <p className="text-gray-600 text-[10px] md:text-xs whitespace-nowrap">
                                                 {card.description}
                                             </p>
                                         </div>
@@ -235,22 +246,31 @@ export default function ServiceHero({
                                             {secondaryButton.text}
                                         </Link>
                                     )}
+
+                                    {galleryButton && (
+                                        <Link
+                                            href={galleryButton.href}
+                                            className="inline-block bg-lv-blue hover:bg-blue-700 text-white font-bold px-7 py-3.5 rounded-[10px] transition-all duration-200 text-center text-[15px] shadow-lg hover:shadow-xl"
+                                        >
+                                            {galleryButton.text}
+                                        </Link>
+                                    )}
                                 </div>
                             </ScrollAnimation>
 
                             {/* Feature Cards */}
                             {featureCards.length > 0 && (
                                 <ScrollAnimation animation={swapLayout ? 'fadeInLeft' : 'fadeInRight'} delay={0.7}>
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10">
+                                    <div className="flex flex-col md:flex-row gap-4 md:gap-6 mt-8 md:mt-10 justify-start">
                                         {featureCards.map((card, index) => (
                                             <div
                                                 key={index}
-                                                className="bg-white rounded-xl p-4 md:p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 aspect-[2/1] flex flex-col justify-center"
+                                                className="bg-white rounded-xl px-4 py-2 md:py-2.5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 flex-1 md:flex-initial md:min-w-0"
                                             >
-                                                <h3 className="font-bold text-gray-800 text-xs md:text-sm mb-1 whitespace-nowrap truncate">
+                                                <h3 className="font-bold text-gray-800 text-xs md:text-sm mb-0.5 whitespace-nowrap">
                                                     {card.title}
                                                 </h3>
-                                                <p className="text-gray-600 text-[10px] md:text-xs whitespace-nowrap truncate">
+                                                <p className="text-gray-600 text-[10px] md:text-xs whitespace-nowrap">
                                                     {card.description}
                                                 </p>
                                             </div>

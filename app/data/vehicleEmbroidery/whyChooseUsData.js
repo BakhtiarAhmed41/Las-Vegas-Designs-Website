@@ -18,8 +18,8 @@ export const whyChooseUsData = {
     href: "/contact",
   },
   secondaryButton: {
-    text: "View Examples",
-    href: "#portfolio",
+    text: "View Example Stitch Outs",
+    href: "#gallery",
   },
   faqHeading: "FREQUENTLY ASKED QUESTIONS",
   faqs: [

@@ -17,21 +17,21 @@ export const vehicleEmbroideryHeroData = {
     href: "/contact",
   },
   secondaryButton: {
-    text: "View Examples",
-    href: "#portfolio",
+    text: "View Example Stitch Outs",
+    href: "#gallery",
   },
   featureCards: [
     {
-      title: "Fast turnaround",
-      description: "Usually 24 to 48 hours",
+      title: "Fast Turnaround",
+      description: "Usually 12 to 24 Hours",
     },
     {
       title: "Machine formats",
-      description: "DST, PES, JEF, EXP, VP3",
+      description: "DST, PES, EXP, JEF and more",
     },
     {
-      title: "Support",
-      description: "Revisions included",
+      title: "Order Support",
+      description: "Free edits and adjustments",
     },
   ],
   imageSrc: null,

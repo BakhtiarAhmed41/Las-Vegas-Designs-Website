@@ -16,69 +16,79 @@ export default function VehicleEmbroideryGallery() {
     const intervalRef = useRef(null);
     const carouselRef = useRef(null);
 
-    // Sample work data
-    const projects = [
-        {
-            id: 1,
-            image: "/assets/images/custom vector images/Custom vector art service-1.jpg",
-            title: "Custom Vector Art Service",
-            alt: "Custom Vector Art Service",
-        },
-        {
-            id: 2,
-            image: "/assets/images/custom vector images/peterbilt Trcuk to vector-7.png",
-            title: "Peterbilt Truck Vector",
-            alt: "Peterbilt Truck Vector",
-        },
-        {
-            id: 3,
-            image: "/assets/images/custom vector images/Pets and animals portrayed vector image-8.jpg",
-            title: "Pet Portrait Vector",
-            alt: "Pet Portrait Vector",
-        },
-        {
-            id: 4,
-            image: "/assets/images/cnc and laser cut images/Custom laser cut and Engraved files-01.png",
-            title: "Laser Cut and Engraved Files",
-            alt: "Laser Cut and Engraved Files",
-        },
-        {
-            id: 5,
-            image: "/assets/images/svg images/Custom SVG files for Cricut and Silhouette-01.jpg",
-            title: "Custom SVG Files",
-            alt: "Custom SVG Files",
-        },
-        {
-            id: 6,
-            image: "/assets/images/custom vector images/complex vector-5.jpg",
-            title: "Complex Vector Artwork",
-            alt: "Complex Vector Artwork",
-        },
-        {
-            id: 7,
-            image: "/assets/images/cnc and laser cut images/Custom stencil cut file-4.jpg",
-            title: "Stencil Cut File",
-            alt: "Stencil Cut File",
-        },
-        {
-            id: 8,
-            image: "/assets/images/svg images/ONE COLOR SVG FILES-02.jpg",
-            title: "One Color SVG Files",
-            alt: "One Color SVG Files",
-        },
-        {
-            id: 9,
-            image: "/assets/images/custom vector images/scrren printing-6.jpg",
-            title: "Screen Printing Artwork",
-            alt: "Screen Printing Artwork",
-        },
-        {
-            id: 10,
-            image: "/assets/images/cnc and laser cut images/custom engraved file for logo, text and custom designs-6.jpg",
-            title: "Custom Engraved File",
-            alt: "Custom Engraved File",
-        },
-    ];
+  // Sample work data
+  const projects = [
+    {
+      id: 1,
+      image: "/assets/images/custom vector images/Custom vector art service-1.jpg",
+      title: "Custom Vector Art Service",
+      description: "Professional vector conversion with clean lines and accurate details",
+      alt: "Custom Vector Art Service",
+    },
+    {
+      id: 2,
+      image: "/assets/images/custom vector images/peterbilt Trcuk to vector-7.png",
+      title: "Peterbilt Truck Vector",
+      description: "Heavy-duty truck embroidery with precise mechanical details",
+      alt: "Peterbilt Truck Vector",
+    },
+    {
+      id: 3,
+      image: "/assets/images/custom vector images/Pets and animals portrayed vector image-8.jpg",
+      title: "Pet Portrait Vector",
+      description: "Custom pet digitizing with lifelike textures and expression",
+      alt: "Pet Portrait Vector",
+    },
+    {
+      id: 4,
+      image: "/assets/images/cnc and laser cut images/Custom laser cut and Engraved files-01.png",
+      title: "Laser Cut and Engraved Files",
+      description: "Precision cutting patterns optimized for clean edges",
+      alt: "Laser Cut and Engraved Files",
+    },
+    {
+      id: 5,
+      image: "/assets/images/svg images/Custom SVG files for Cricut and Silhouette-01.jpg",
+      title: "Custom SVG Files",
+      description: "Cricut-ready designs with smooth cutting paths",
+      alt: "Custom SVG Files",
+    },
+    {
+      id: 6,
+      image: "/assets/images/custom vector images/complex vector-5.jpg",
+      title: "Complex Vector Artwork",
+      description: "Detailed multi-layer embroidery with advanced stitch techniques",
+      alt: "Complex Vector Artwork",
+    },
+    {
+      id: 7,
+      image: "/assets/images/cnc and laser cut images/Custom stencil cut file-4.jpg",
+      title: "Stencil Cut File",
+      description: "Custom stencil patterns for screen printing and airbrushing",
+      alt: "Stencil Cut File",
+    },
+    {
+      id: 8,
+      image: "/assets/images/svg images/ONE COLOR SVG FILES-02.jpg",
+      title: "One Color SVG Files",
+      description: "Simple single-color designs perfect for vinyl cutting",
+      alt: "One Color SVG Files",
+    },
+    {
+      id: 9,
+      image: "/assets/images/custom vector images/scrren printing-6.jpg",
+      title: "Screen Printing Artwork",
+      description: "Print-ready designs with proper color separation",
+      alt: "Screen Printing Artwork",
+    },
+    {
+      id: 10,
+      image: "/assets/images/cnc and laser cut images/custom engraved file for logo, text and custom designs-6.jpg",
+      title: "Custom Engraved File",
+      description: "Precision engraving files for logos and custom text",
+      alt: "Custom Engraved File",
+    },
+  ];
 
     // Auto-rotate carousel - infinite loop
     useEffect(() => {
@@ -157,8 +167,8 @@ export default function VehicleEmbroideryGallery() {
         return diff;
     };
 
-    return (
-        <section className="bg-gradient-to-b from-white to-gray-50 py-12 md:py-16 lg:py-20">
+  return (
+    <section id="gallery" className="bg-gradient-to-b from-white to-gray-50 py-12 md:py-16 lg:py-20 scroll-mt-20">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
                 {/* Section Header */}
                 <ScrollAnimation animation="fadeInUp" delay={0.1}>
@@ -263,21 +273,23 @@ export default function VehicleEmbroideryGallery() {
                                                 </div>
 
                                                 {/* Title Section */}
-                                                <div className="relative h-[25%] flex items-center justify-center px-4 py-3 bg-white/10 backdrop-blur-sm">
+                                                <div className="relative h-[25%] flex flex-col items-center justify-center px-4 py-3 bg-gray-100">
                                                     <h3
-                                                        className={`font-semibold text-gray-800 text-center ${isCenter
-                                                                ? "text-base md:text-lg lg:text-xl"
-                                                                : "text-base md:text-lg lg:text-xl"
+                                                        className={`font-semibold text-gray-800 text-center line-clamp-1 ${isCenter
+                                                                ? "text-base md:text-lg lg:text-xl mb-1"
+                                                                : "text-sm md:text-base lg:text-lg mb-1"
                                                             }`}
-                                                        style={{
-                                                            display: "-webkit-box",
-                                                            WebkitLineClamp: 2,
-                                                            WebkitBoxOrient: "vertical",
-                                                            overflow: "hidden",
-                                                        }}
                                                     >
                                                         {project.title}
                                                     </h3>
+                                                    <p
+                                                        className={`text-gray-600 text-center line-clamp-2 ${isCenter
+                                                                ? "text-xs md:text-sm"
+                                                                : "text-[10px] md:text-xs"
+                                                            }`}
+                                                    >
+                                                        {project.description}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </article>
@@ -285,19 +297,19 @@ export default function VehicleEmbroideryGallery() {
                                 })}
                             </div>
 
-                            {/* Navigation Arrows */}
-                            <button
-                                onClick={goToPrevious}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" || e.key === " ") {
-                                        e.preventDefault();
-                                        goToPrevious();
-                                    }
-                                }}
-                                className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 z-40 bg-white/90 hover:bg-white text-gray-600 hover:text-lv-red rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-lv-red focus:ring-offset-2"
-                                aria-label="Previous project"
-                                tabIndex={0}
-                            >
+              {/* Navigation Arrows */}
+              <button
+                onClick={goToPrevious}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    goToPrevious();
+                  }
+                }}
+                className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 z-40 bg-white/90 hover:bg-white text-gray-600 hover:text-lv-red rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-lv-red focus:ring-offset-2 cursor-pointer"
+                aria-label="Previous project"
+                tabIndex={0}
+              >
                                 <svg
                                     className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 group-hover:scale-110 transition-transform"
                                     fill="none"
@@ -314,18 +326,18 @@ export default function VehicleEmbroideryGallery() {
                                 </svg>
                             </button>
 
-                            <button
-                                onClick={goToNext}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" || e.key === " ") {
-                                        e.preventDefault();
-                                        goToNext();
-                                    }
-                                }}
-                                className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 z-40 bg-white/90 hover:bg-white text-gray-600 hover:text-lv-red rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-lv-red focus:ring-offset-2"
-                                aria-label="Next project"
-                                tabIndex={0}
-                            >
+              <button
+                onClick={goToNext}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    goToNext();
+                  }
+                }}
+                className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 z-40 bg-white/90 hover:bg-white text-gray-600 hover:text-lv-red rounded-full p-3 md:p-4 shadow-lg hover:shadow-xl transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-lv-red focus:ring-offset-2 cursor-pointer"
+                aria-label="Next project"
+                tabIndex={0}
+              >
                                 <svg
                                     className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 group-hover:scale-110 transition-transform"
                                     fill="none"

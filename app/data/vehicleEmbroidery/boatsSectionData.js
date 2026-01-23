@@ -17,7 +17,10 @@ export const boatsSectionData = {
     text: "Get Boat Logo Quote",
     href: "/contact",
   },
-  secondaryButton: null,
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Boat Logo Embroidery Digitizing",
   swapLayout: false,
