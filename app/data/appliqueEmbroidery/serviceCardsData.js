@@ -1,0 +1,122 @@
+// Appliqué Embroidery Page - Service Cards Data
+
+export const serviceCardsData = {
+  heading: null,
+  description: null,
+  cards: [
+    {
+      label: "RUNNING STITCH APPLIQUÉ",
+      title: "Running Stitch Appliqué Digitizing",
+      icon: "🧵",
+      features: [
+        "Light running stitch borders for natural look",
+        "Subtle stitching that blends into fabric",
+        "Clean, low-profile finish",
+        "Ideal for tight spaces and simple designs",
+        "Handcrafted appearance with durability",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Running Stitch Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "SATIN STITCH APPLIQUÉ",
+      title: "Satin Stitch Appliqué Digitizing",
+      icon: "✨",
+      features: [
+        "Bold satin stitch borders for strong edges",
+        "Polished and professional finish",
+        "Ideal for larger logos and statement designs",
+        "Firm fabric securing with dense stitching",
+        "Works well on jackets and uniforms",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Satin Stitch Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "ZIGZAG APPLIQUÉ",
+      title: "Zigzag Appliqué Digitizing",
+      icon: "⚡",
+      features: [
+        "Zigzag stitch borders for flexible coverage",
+        "Lighter stitch density than satin",
+        "Prevents fabric fraying effectively",
+        "Ideal for stretch fabrics and knit materials",
+        "Flexible finish that moves with garment",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Zigzag Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "BLANKET STITCH APPLIQUÉ",
+      title: "Blanket Stitch Appliqué Digitizing",
+      icon: "🔲",
+      features: [
+        "Decorative blanket stitch edge coverage",
+        "Traditional hand-sewn appearance",
+        "Strong edge securing with visual appeal",
+        "Ideal for rustic and vintage designs",
+        "Creates distinctive border texture",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Blanket Stitch Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "DECORATIVE EDGE APPLIQUÉ",
+      title: "Decorative Edge Appliqué Digitizing",
+      icon: "🎨",
+      features: [
+        "Custom decorative stitch patterns for edges",
+        "Unique border designs for special projects",
+        "Enhanced visual appeal and texture",
+        "Ideal for custom logos and artistic designs",
+        "Combines functionality with aesthetics",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Decorative Edge Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "3D PUFF APPLIQUÉ",
+      title: "3D Puff Appliqué Digitizing",
+      icon: "📦",
+      features: [
+        "Appliqué over puff foam for raised effect",
+        "Allows larger designs than standard 3D puff",
+        "Reduces stitch break issues on big lettering",
+        "Ideal for jacket backs and oversized logos",
+        "Bold finish with added depth and dimension",
+        "Machine-ready appliqué digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "3D Puff Appliqué Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+  ],
+};

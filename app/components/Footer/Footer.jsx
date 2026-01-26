@@ -13,10 +13,10 @@ export default function Footer() {
   return (
     <>
       {/* Main Footer Section */}
-      <footer className="w-full bg-[#2E4255] text-white py-12 px-6 md:px-12">
-        <div className="max-w-[1400px] mx-auto">
+      <footer className="w-full bg-[#2E4255] text-white py-12 px-6 md:px-12 overflow-x-hidden">
+        <div className="max-w-[1400px] mx-auto w-full">
       {/* Footer Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-8">
             {/* Column 1: About Us */}
             <div>
               <h3 className="text-sm font-bold uppercase mb-4 tracking-wide">
@@ -98,7 +98,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 <li>
                   <Link
-                    href="/services/hat-logo-digitizing"
+                    href="/hat-embroidery"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
               Hat Logo Digitizing
@@ -106,7 +106,7 @@ export default function Footer() {
             </li>
                 <li>
                   <Link
-                    href="/services/applique-logo-digitizing"
+                    href="/applique-embroidery"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
               Applique Logo Digitizing
@@ -130,22 +130,24 @@ export default function Footer() {
             </li>
                 <li>
                   <Link
-                    href="/services/vehicle-logo-digitizing"
+                    href="/vehicle-embroidery"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
               Vehicle Logo Digitizing
                   </Link>
             </li>
           </ul>
+            </div>
 
-        {/* Vector Services */}
-              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide mt-8">
+            {/* Column 3: Vector Services & CNC & Laser Cut Services */}
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide">
                 VECTOR SERVICES
           </h3>
               <ul className="space-y-2.5">
                 <li>
                   <Link
-                    href="/services/one-color-svg"
+                    href="/svg"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
               One Color SVG
@@ -153,48 +155,21 @@ export default function Footer() {
             </li>
                 <li>
                   <Link
-                    href="/services/full-color-svg"
+                    href="/svg"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
               Full Color SVG
                   </Link>
             </li>
-                <li>
-                  <Link
-                    href="/services/cnc-laser-cut-files"
-                    className="text-sm text-white/70 hover:text-white transition-colors"
-                  >
-              CNC & Laser Cut Files
-                  </Link>
-            </li>
-                <li>
-                  <Link
-                    href="/services/custom-engraving-files"
-                    className="text-sm text-white/70 hover:text-white transition-colors"
-                  >
-              Custom Engraving Files
-                  </Link>
-            </li>
-                <li>
-                  <Link
-                    href="/services/custom-vector-art"
-                    className="text-sm text-white/70 hover:text-white transition-colors"
-                  >
-              Custom Vector Art
-                  </Link>
-                </li>
               </ul>
-            </div>
 
-            {/* Column 3: CNC & Laser Cut Services */}
-            <div>
-              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide">
+              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide mt-8">
                 CNC & LASER CUT SERVICES
               </h3>
               <ul className="space-y-2.5">
                 <li>
                   <Link
-                    href="/services/cnc-cut-files"
+                    href="/cnc-laser-cut"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     CNC Cut Files
@@ -202,7 +177,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/services/engraving-files"
+                    href="/cnc-laser-cut"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     Engraving Files
@@ -210,7 +185,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/services/laser-cut-files"
+                    href="/cnc-laser-cut"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     Laser Cut Files
@@ -218,16 +193,18 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="/services/stencil-designs"
+                    href="/cnc-laser-cut"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     Stencil Designs
                   </Link>
                 </li>
               </ul>
+            </div>
 
-              {/* Custom Vector Services */}
-              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide mt-8">
+            {/* Column 4: Custom Vector Services */}
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-4 tracking-wide">
                 CUSTOM VECTOR SERVICES
               </h3>
               <ul className="space-y-2.5">
@@ -255,15 +232,7 @@ export default function Footer() {
                     DTF Printing
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/custom-vector"
-                    className="text-sm text-white/70 hover:text-white transition-colors"
-                  >
-                    Screen Printing
-                  </Link>
-            </li>
-          </ul>
+            </ul>
         </div>
 
             {/* Column 4: Quick Links */}

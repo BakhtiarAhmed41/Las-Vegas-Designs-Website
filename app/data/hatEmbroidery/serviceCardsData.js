@@ -1,0 +1,122 @@
+// Hat Embroidery Page - Service Cards Data
+
+export const serviceCardsData = {
+  heading: null,
+  description: null,
+  cards: [
+    {
+      label: "FRONT CAP EMBROIDERY",
+      title: "Front Cap Logo Digitizing",
+      icon: "🧢",
+      features: [
+        "Digitized for curved front cap panels",
+        "Logo height optimized for 2 to 2.5 inches",
+        "Stitching adjusted for center seam placement",
+        "Prevents distortion and thread breaks",
+        "Ideal for team hats and company branding",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Front Cap Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "BEANIE EMBROIDERY",
+      title: "Beanie Logo Digitizing",
+      icon: "🎩",
+      features: [
+        "Digitized specifically for knit beanie fabrics",
+        "Best logo height between 1.75 to 2.25 inches",
+        "Prevents sinking into knit material",
+        "Simpler designs for clean results",
+        "Ideal for winter wear and custom beanies",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Beanie Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "VISOR EMBROIDERY",
+      title: "Visor Logo Digitizing",
+      icon: "🕶️",
+      features: [
+        "Digitized for curved visor surfaces",
+        "Limited space handled with careful sizing",
+        "Simpler designs work best",
+        "Prevents distortion on strong curves",
+        "Ideal for sports visors and custom headwear",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Visor Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "3D PUFF HAT EMBROIDERY",
+      title: "3D Puff Hat Logo Digitizing",
+      icon: "📦",
+      features: [
+        "Raised 3D puff stitching for hats and caps",
+        "Suitable for 2mm, 3mm, and up to 4mm foam",
+        "Best for bold text and solid shapes",
+        "Prevents foam collapsing and stitch breaks",
+        "Can be used on hoodies and jackets too",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "3D Puff Hat Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "SIDE HAT & PANEL EMBROIDERY",
+      title: "Side Hat and Panel Logo Digitizing",
+      icon: "⚡",
+      features: [
+        "Digitized for side-of-hat and side panel placement",
+        "Common logo width between 2.5 to 3 inches",
+        "Stitches clean near seams and panel edges",
+        "Details adjusted for small areas",
+        "Ideal for secondary branding and team hats",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Side Hat Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "BACK OF HAT EMBROIDERY",
+      title: "Back of Hat Logo Digitizing",
+      icon: "🔙",
+      features: [
+        "Digitized specifically for back of hat placement",
+        "Best for small logos, text, and names",
+        "Stitching adjusted for curved back panels",
+        "Stays centered and easy to read",
+        "Ideal for personalization and taglines",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Back of Hat Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+  ],
+};

@@ -20,11 +20,11 @@ export default function Navbar3() {
             label: "Digitizing",
             hasDropdown: true,
             sub: [
-                { label: "Applique Logo Digitizing", href: "#" },
-                { label: "Hat Logo Digitizing", href: "#" },
-                { label: "Left Chest Digitizing", href: "#" },
-                { label: "Jacket Back Logo Digitizing", href: "#" },
-                { label: "Custom Pet Embroidery Digitizing", href: "#" },
+                { label: "Applique Logo Digitizing", href: "/applique-embroidery" },
+                { label: "Hat Logo Digitizing", href: "/hat-embroidery" },
+                { label: "Left Chest Digitizing", href: "/left-chest-embroidery" },
+                { label: "Jacket Back Logo Digitizing", href: "/jacket-back-embroidery" },
+                { label: "Custom Pet Embroidery Digitizing", href: "/pet-portrait-embroidery" },
                 { label: "Car & Truck Embroidery Digitizing", href: "/vehicle-embroidery" },
             ],
         },
@@ -84,18 +84,18 @@ export default function Navbar3() {
     };
 
     return (
-        <header className="w-full bg-white">
+        <header className="w-full bg-white overflow-visible">
             {/* ------------------------------------------------------ */}
             {/* 🔹 CONTACT INFO BAR */}
             {/* ------------------------------------------------------ */}
-            <div className="hidden lg:block bg-[#EEF2FB] border-b border-border-light w-full">
+            <div className="hidden lg:block bg-[#EEF2FB] border-b border-border-light w-full overflow-hidden">
                 <div className="w-full px-6 py-2.5">
                     <div className="flex items-center justify-center gap-8 flex-wrap max-w-[1400px] mx-auto">
                         {contactDetails.map((item, index) => (
                             <a
                                 key={index}
                                 href={item.href}
-                                className="text-black hover:text-lv-blue font-bold text-[13px] transition-colors duration-200"
+                                className="text-black hover:text-lv-blue font-bold text-[13px] transition-colors duration-200 whitespace-nowrap"
                             >
                                 {item.label}
                             </a>
@@ -107,8 +107,8 @@ export default function Navbar3() {
             {/* ------------------------------------------------------ */}
             {/* 🔹 MAIN NAVIGATION BAR */}
             {/* ------------------------------------------------------ */}
-            <div className="bg-[white] w-full">
-                <div className="max-w-[1400px] mx-auto px-6 py-5 flex items-center justify-center w-full gap-8">
+            <div className="bg-[white] w-full relative">
+                <div className="max-w-[1400px] mx-auto px-6 py-5 flex items-center justify-between w-full">
                     {/* Logo */}
                     <Link href="/" className="flex items-center shrink-0">
                         <Image
@@ -122,8 +122,8 @@ export default function Navbar3() {
                     </Link>
 
                     {/* Desktop Navigation - Center Aligned */}
-                    <div className="hidden lg:flex">
-                        <nav className="flex items-center gap-8 bg-white rounded-full px-8 py-3 shadow-md">
+                    <div className="hidden lg:flex flex-1 justify-center items-center min-w-0">
+                        <nav className="flex items-center gap-6 bg-white rounded-full px-6 py-3 shadow-md shrink-0">
                             {navLinks.map((item) => (
                                 <div key={item.label} className="relative group">
                                     {item.hasDropdown ? (
@@ -141,8 +141,8 @@ export default function Navbar3() {
 
                                             {/* Dropdown Menu */}
                                             {item.sub && (
-                                                <div className="absolute left-0 top-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                                    <div className="bg-white border border-border-light rounded shadow-lg py-2 w-64">
+                                                <div className="absolute left-0 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                                    <div className="bg-white border border-border-light rounded shadow-lg py-2 w-64 overflow-hidden">
                                                         {item.sub.map((subItem) => (
                                                             <Link
                                                                 key={subItem.label}

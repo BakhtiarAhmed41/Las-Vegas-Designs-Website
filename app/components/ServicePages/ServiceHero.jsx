@@ -40,12 +40,15 @@ export default function ServiceHero({
     hasContainer = false,
     narrowLayout = false, // If true, uses 60/30 layout instead of 50/50
     centered = false, // If true, renders centered text-only layout
+    customMaxWidth = null, // Custom max-width (e.g., "1680px" for 20% wider)
 }) {
     // If centered layout, render centered content only
     if (centered) {
+        const maxWidthClass = customMaxWidth ? `max-w-[${customMaxWidth}]` : "max-w-[1400px]";
+
         return (
             <section className="bg-white py-8 md:py-12 lg:py-16">
-                <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+                <div className={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 xl:px-12`}>
                     <div className="max-w-4xl mx-auto text-center">
                         {/* Service Label */}
                         {serviceLabel && (
@@ -164,9 +167,11 @@ export default function ServiceHero({
         );
     }
 
+    const maxWidthClass = customMaxWidth ? `max-w-[${customMaxWidth}]` : "max-w-[1400px]";
+
     return (
         <section className="bg-white py-8 md:py-12 lg:py-16">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div className={`${maxWidthClass} mx-auto px-4 sm:px-6 lg:px-8 xl:px-12`}>
                 <div className={`${hasContainer ? 'bg-gray-50 rounded-2xl p-6 md:p-8 lg:p-10' : ''}`}>
                     <div className={`grid grid-cols-1 ${narrowLayout ? 'lg:grid-cols-[55%_40%]' : 'lg:grid-cols-2'} gap-8 md:gap-12 lg:gap-16 items-center ${swapLayout ? 'lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1' : ''}`}>
                         {/* Content Section */}

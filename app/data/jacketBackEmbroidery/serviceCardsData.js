@@ -1,0 +1,122 @@
+// Jacket Back Embroidery Page - Service Cards Data
+
+export const serviceCardsData = {
+  heading: null,
+  description: null,
+  cards: [
+    {
+      label: "JACKET BACK EMBROIDERY",
+      title: "Jacket Back Logo Digitizing",
+      icon: "🧥",
+      features: [
+        "Large designs from 10 to 18 inches or more",
+        "Digitized to avoid heavy density and stitching issues",
+        "Stitch paths planned to reduce trims and thread changes",
+        "Ideal for jackets, hoodies, and outerwear",
+        "Clean, balanced, and smooth stitching results",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Jacket Back Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "CENTER CHEST EMBROIDERY",
+      title: "Center Chest Logo Digitizing",
+      icon: "👕",
+      features: [
+        "Perfect placement in the center of the chest",
+        "Works best for designs around 5 to 10 inches",
+        "Big enough to stand out without looking crowded",
+        "Smooth and even stitching results",
+        "Great for hoodies, sweatshirts, and t-shirts",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Center Chest Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "FULL BACK EMBROIDERY",
+      title: "Full Back Logo Digitizing",
+      icon: "🎯",
+      features: [
+        "Large full-back designs from 10 to 18 inches",
+        "Brand logos, company names, and custom text",
+        "Team, club, motorcycle, and vehicle designs",
+        "Sports, racing, and military patch digitizing",
+        "Fewer thread color changes and minimal trims",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Full Back Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "SLEEVE EMBROIDERY",
+      title: "Sleeve Logo Digitizing",
+      icon: "👔",
+      features: [
+        "Long sleeve designs from 10 to 14 inches",
+        "Short sleeve logos sized around 3 to 3.5 inches",
+        "Runs clean along sleeves without distortion",
+        "Great for text, names, and vertical layouts",
+        "Works well on hoodies, sweatshirts, and jackets",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Sleeve Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "UPPER BACK EMBROIDERY",
+      title: "Upper Back Logo Digitizing",
+      icon: "🔝",
+      features: [
+        "Digitized for yoke placement across upper back",
+        "Common sizes range from 8 to 10 inches",
+        "Ideal for brand names, slogans, and team names",
+        "Stitches straight and stays readable",
+        "Perfect placement on the garment",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Upper Back Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+    {
+      label: "LOWER BACK EMBROIDERY",
+      title: "Lower Back Logo Digitizing",
+      icon: "⬇️",
+      features: [
+        "Placed below the waist for bold but balanced look",
+        "Works best from 9 to 12 inches, up to 14 inches",
+        "Ideal for text-based designs and slogans",
+        "Stitches straight and stays readable",
+        "Great for branding without going full back",
+        "Machine-ready embroidery digitizing files",
+      ],
+      imageSrc: null,
+      imageAlt: "Lower Back Logo Digitizing",
+      button: {
+        text: "Get Quote",
+        href: "/contact",
+      },
+    },
+  ],
+};
