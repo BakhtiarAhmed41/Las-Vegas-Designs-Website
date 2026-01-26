@@ -17,6 +17,10 @@ export const catSectionData = {
     text: "Get Cat Portrait Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Cat Photo Embroidery Digitizing",
   swapLayout: false,

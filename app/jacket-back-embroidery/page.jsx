@@ -7,6 +7,7 @@ import ChatButton from "../components/Buttons/ChatButton";
 import ServiceHero from "../components/ServicePages/ServiceHero";
 import ServiceCards from "../components/ServicePages/ServiceCards";
 import JacketPlacement from "../components/ServicePages/JacketPlacement";
+import VehicleEmbroideryGallery from "../components/Gallery/VehicleEmbroideryGallery";
 import { jacketBackHeroData } from "../data/jacketBackEmbroidery/heroData";
 import { centerChestSectionData } from "../data/jacketBackEmbroidery/centerChestSectionData";
 import { fullBackSectionData } from "../data/jacketBackEmbroidery/fullBackSectionData";
@@ -51,6 +52,9 @@ export default function JacketBackEmbroideryPage() {
 
             {/* Upper & Lower Back Section - Normal Layout */}
             <ServiceHero {...upperLowerBackSectionData} />
+
+            {/* Gallery Section - 360 Degree Carousel */}
+            <VehicleEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

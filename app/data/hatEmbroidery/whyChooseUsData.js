@@ -17,6 +17,10 @@ export const whyChooseUsData = {
     text: "Get Hat Embroidery Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   faqHeading: "FREQUENTLY ASKED QUESTIONS",
   faqs: [
     {

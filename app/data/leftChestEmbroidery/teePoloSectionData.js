@@ -17,6 +17,10 @@ export const teePoloSectionData = {
     text: "Get Tee & Polo Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Tee and Polo Logo Digitizing",
   swapLayout: true,

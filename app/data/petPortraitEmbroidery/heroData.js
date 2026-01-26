@@ -17,6 +17,10 @@ export const petPortraitHeroData = {
     text: "Get Pet Portrait Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   featureCards: [
     {
       title: "Fast Turnaround",

@@ -17,6 +17,10 @@ export const puffSectionData = {
     text: "Get 3D Puff Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "3D Puff Logo Digitizing",
   swapLayout: true,

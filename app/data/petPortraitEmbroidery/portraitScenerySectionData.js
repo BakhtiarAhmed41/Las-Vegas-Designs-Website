@@ -17,6 +17,10 @@ export const portraitScenerySectionData = {
     text: "Get Portrait & Scenery Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Portrait and Scenery Embroidery Digitizing",
   swapLayout: true,

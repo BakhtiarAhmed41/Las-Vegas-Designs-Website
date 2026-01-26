@@ -17,6 +17,10 @@ export const dogSectionData = {
     text: "Get Dog Portrait Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Dog Photo Embroidery Digitizing",
   swapLayout: true,

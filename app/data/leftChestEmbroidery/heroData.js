@@ -17,6 +17,10 @@ export const leftChestHeroData = {
     text: "Get Left Chest Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   featureCards: [
     {
       title: "Fast Turnaround",

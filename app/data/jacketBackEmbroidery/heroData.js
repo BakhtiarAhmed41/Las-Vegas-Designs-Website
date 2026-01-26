@@ -17,6 +17,10 @@ export const jacketBackHeroData = {
     text: "Get Jacket Back Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   featureCards: [
     {
       title: "Fast Turnaround",

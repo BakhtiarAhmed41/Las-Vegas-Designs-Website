@@ -17,6 +17,10 @@ export const beanieSectionData = {
     text: "Get Beanie Logo Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Beanie Logo Digitizing",
   swapLayout: true,

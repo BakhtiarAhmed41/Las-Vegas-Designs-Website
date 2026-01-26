@@ -17,6 +17,10 @@ export const visorSectionData = {
     text: "Get Visor Logo Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Visor Logo Digitizing",
   swapLayout: false,

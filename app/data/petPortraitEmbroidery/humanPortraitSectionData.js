@@ -17,6 +17,10 @@ export const humanPortraitSectionData = {
     text: "Get Human Portrait Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Human Portrait Embroidery Digitizing",
   swapLayout: false,

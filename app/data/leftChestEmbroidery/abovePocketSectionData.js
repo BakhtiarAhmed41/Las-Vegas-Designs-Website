@@ -17,6 +17,10 @@ export const abovePocketSectionData = {
     text: "Get Above Pocket Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Above Pocket Logo Digitizing",
   swapLayout: true,

@@ -17,6 +17,10 @@ export const pocketSectionData = {
     text: "Get Pocket Logo Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Pocket Logo Digitizing",
   swapLayout: false,

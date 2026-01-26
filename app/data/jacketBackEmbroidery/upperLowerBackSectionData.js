@@ -17,6 +17,10 @@ export const upperLowerBackSectionData = {
     text: "Get Upper/Lower Back Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Upper and Lower Back Logo Digitizing",
   swapLayout: false,

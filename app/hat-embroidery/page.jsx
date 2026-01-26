@@ -6,6 +6,7 @@ import GoUp from "../components/Buttons/GoUp";
 import ChatButton from "../components/Buttons/ChatButton";
 import ServiceHero from "../components/ServicePages/ServiceHero";
 import ServiceCards from "../components/ServicePages/ServiceCards";
+import VehicleEmbroideryGallery from "../components/Gallery/VehicleEmbroideryGallery";
 import { hatEmbroideryHeroData } from "../data/hatEmbroidery/heroData";
 import { beanieSectionData } from "../data/hatEmbroidery/beanieSectionData";
 import { visorSectionData } from "../data/hatEmbroidery/visorSectionData";
@@ -51,6 +52,9 @@ export default function HatEmbroideryPage() {
 
             {/* Back of Hat Section - Swapped Layout */}
             <ServiceHero {...backHatSectionData} />
+
+            {/* Gallery Section - 360 Degree Carousel */}
+            <VehicleEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

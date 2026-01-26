@@ -17,6 +17,10 @@ export const centerChestSectionData = {
     text: "Get Center Chest Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Center Chest Logo Digitizing",
   swapLayout: true,

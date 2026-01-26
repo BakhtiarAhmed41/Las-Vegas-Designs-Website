@@ -17,6 +17,10 @@ export const sleeveSectionData = {
     text: "Get Sleeve Logo Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Short Sleeve Logo Digitizing",
   swapLayout: false,

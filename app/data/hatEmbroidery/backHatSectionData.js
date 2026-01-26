@@ -17,6 +17,10 @@ export const backHatSectionData = {
     text: "Get Back Hat Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Back of Hat Logo Digitizing",
   swapLayout: true,

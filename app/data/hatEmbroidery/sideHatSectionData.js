@@ -17,6 +17,10 @@ export const sideHatSectionData = {
     text: "Get Side Hat Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Side Hat Logo Digitizing",
   swapLayout: false,

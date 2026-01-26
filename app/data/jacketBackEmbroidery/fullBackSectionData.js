@@ -17,6 +17,10 @@ export const fullBackSectionData = {
     text: "Get Full Back Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: null,
   imageAlt: "Full Back Logo Digitizing",
   swapLayout: false,
