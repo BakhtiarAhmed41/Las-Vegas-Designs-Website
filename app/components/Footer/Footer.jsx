@@ -267,7 +267,7 @@ export default function Footer() {
             </li>
                 <li>
                   <Link
-                    href="/privacy"
+                    href="/privacy-policy"
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     Privacy Policy
