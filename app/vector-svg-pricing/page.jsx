@@ -5,6 +5,7 @@ import TopTicker from "../components/TopPicker/TopPicker";
 import Navbar from "../components/Navbar/Navbar3";
 import Footer from "../components/Footer/Footer";
 import PricingHero from "../components/Pricing/PricingHero";
+import ScrollAnimation from "../components/UI/ScrollAnimation";
 import GoUp from "../components/Buttons/GoUp";
 import ChatButton from "../components/Buttons/ChatButton";
 import Link from "next/link";
@@ -54,130 +55,138 @@ export default function VectorSvgPricingPage() {
 
       <section className="bg-slate-50 py-10 md:py-14 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PricingHero
-            title="Vector & SVG pricing"
-            intro={`Pick a starting plan below. If your artwork needs cleanup, color separation, or extra detailing, request a quote and we will review first.`}
-            tabs={[
-              { href: "/embroidery-pricing", label: "Embroidery Digitizing" },
-              { href: "/vector-svg-pricing", label: "Vector and SVG" },
-              { href: "/cnc-laser-pricing", label: "CNC and Laser Files" },
-            ]}
-            activeIndex={1}
-            tip={`If you are not sure, pick the middle plan. We can adjust after review.`}
-            features={[
-              { badge: "24", label: "Typical turnaround", text: "Most standard jobs delivered within 12 to 24 hours. Rush available on request." },
-              { badge: "QC", label: "Free Color Changes", text: "Color edits available for most vector formats (AI, SVG, EPS, etc.)." },
-              { badge: "QC", label: "Quality checks", text: "Clean paths, proper scaling, and print-ready quality at final size." },
-              { badge: "OK", label: "Edits included", text: "If something needs a tweak, we adjust and resend. Keep your order number for tracking." },
-            ]}
-          />
+          <ScrollAnimation animation="fadeInUp" delay={0}>
+            <PricingHero
+              title="Vector & SVG pricing"
+              intro={`Pick a starting plan below. If your artwork needs cleanup, color separation, or extra detailing, request a quote and we will review first.`}
+              tabs={[
+                { href: "/embroidery-pricing", label: "Embroidery Digitizing" },
+                { href: "/vector-svg-pricing", label: "Vector and SVG" },
+                { href: "/cnc-laser-pricing", label: "CNC and Laser Files" },
+              ]}
+              activeIndex={1}
+              tip={`If you are not sure, pick the middle plan. We can adjust after review.`}
+              features={[
+                { badge: "24", label: "Typical turnaround", text: "Most standard jobs delivered within 12 to 24 hours. Rush available on request." },
+                { badge: "QC", label: "Free Color Changes", text: "Color edits available for most vector formats (AI, SVG, EPS, etc.)." },
+                { badge: "QC", label: "Quality checks", text: "Clean paths, proper scaling, and print-ready quality at final size." },
+                { badge: "OK", label: "Edits included", text: "If something needs a tweak, we adjust and resend. Keep your order number for tracking." },
+              ]}
+            />
+          </ScrollAnimation>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
-            <PricingCard
-              title="Single Color SVG"
-              subtitle="Clean vector conversion for simple logos and single-color designs."
-              price="$15"
-              maxPrice="Up to $30"
-              maxSize="Any size"
-              features={[
-                "Single color vector conversion",
-                "Clean paths and outlines",
-                "AI, SVG, EPS, PDF formats",
-                "Turnaround 6-12 Hrs",
-                "Urgent option available, $5 extra",
-              ]}
-            />
-            <PricingCard
-              title="Full Color Vector"
-              subtitle="Multi-color vector artwork with gradients and complex color work."
-              price="$25"
-              maxPrice="Subject to complexity"
-              maxSize="Any size"
-              features={[
-                "Full color vector conversion",
-                "Gradients and complex colors",
-                "All major vector formats",
-                "Support turnaround 12 to 24 hours",
-                "Urgent turnaround depends on detail level",
-              ]}
-            />
-            <PricingCard
-              title="Complex Artwork"
-              subtitle="Detailed illustrations, complex logos, and artwork requiring extensive cleanup."
-              price="$35"
-              maxPrice="Subject to complexity"
-              maxSize="Subject to complexity"
-              features={[
-                "Complex artwork conversion",
-                "Extensive cleanup and refinement",
-                "Multiple format options",
-                "Support turnaround 12 to 24 hours",
-                "Pricing based on detail level and complexity",
-              ]}
-            />
-          </div>
+          <ScrollAnimation animation="fadeInUp" delay={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+              <PricingCard
+                title="Single Color SVG"
+                subtitle="Clean vector conversion for simple logos and single-color designs."
+                price="$15"
+                maxPrice="Up to $30"
+                maxSize="Any size"
+                features={[
+                  "Single color vector conversion",
+                  "Clean paths and outlines",
+                  "AI, SVG, EPS, PDF formats",
+                  "Turnaround 6-12 Hrs",
+                  "Urgent option available, $5 extra",
+                ]}
+              />
+              <PricingCard
+                title="Full Color Vector"
+                subtitle="Multi-color vector artwork with gradients and complex color work."
+                price="$25"
+                maxPrice="Subject to complexity"
+                maxSize="Any size"
+                features={[
+                  "Full color vector conversion",
+                  "Gradients and complex colors",
+                  "All major vector formats",
+                  "Support turnaround 12 to 24 hours",
+                  "Urgent turnaround depends on detail level",
+                ]}
+              />
+              <PricingCard
+                title="Complex Artwork"
+                subtitle="Detailed illustrations, complex logos, and artwork requiring extensive cleanup."
+                price="$35"
+                maxPrice="Subject to complexity"
+                maxSize="Subject to complexity"
+                features={[
+                  "Complex artwork conversion",
+                  "Extensive cleanup and refinement",
+                  "Multiple format options",
+                  "Support turnaround 12 to 24 hours",
+                  "Pricing based on detail level and complexity",
+                ]}
+              />
+            </div>
+          </ScrollAnimation>
 
           {/* Informational Boxes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            <InfoBox
-              title="What affects the price"
-              text="Complexity, number of shapes, cleanup level, color count, gradients, and how clean the source artwork is. Clear source files result in lower pricing."
-              subBoxes={[
-                {
-                  title: "Clean artwork",
-                  items: ["Better result and faster delivery", "Low cost"],
-                  type: "positive",
-                },
-                {
-                  title: "More detail",
-                  items: ["More time consuming", "More cost"],
-                  type: "warning",
-                },
-              ]}
-            />
-            <InfoBox
-              title="What you always get"
-              text="We provide print-ready files, simple support for edits, and clean results that scale properly. If you need multiple formats, tell us at once and we include them."
-              subBoxes={[
-                {
-                  title: "Formats included",
-                  items: ["AI", "SVG", "EPS", "PDF", "PNG", "and more"],
-                  type: "info",
-                },
-                {
-                  title: "Support included",
-                  items: ["Minor fixes and adjustments if needed"],
-                  type: "info",
-                },
-              ]}
-            />
-          </div>
+          <ScrollAnimation animation="fadeInUp" delay={0.2}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              <InfoBox
+                title="What affects the price"
+                text="Complexity, number of shapes, cleanup level, color count, gradients, and how clean the source artwork is. Clear source files result in lower pricing."
+                subBoxes={[
+                  {
+                    title: "Clean artwork",
+                    items: ["Better result and faster delivery", "Low cost"],
+                    type: "positive",
+                  },
+                  {
+                    title: "More detail",
+                    items: ["More time consuming", "More cost"],
+                    type: "warning",
+                  },
+                ]}
+              />
+              <InfoBox
+                title="What you always get"
+                text="We provide print-ready files, simple support for edits, and clean results that scale properly. If you need multiple formats, tell us at once and we include them."
+                subBoxes={[
+                  {
+                    title: "Formats included",
+                    items: ["AI", "SVG", "EPS", "PDF", "PNG", "and more"],
+                    type: "info",
+                  },
+                  {
+                    title: "Support included",
+                    items: ["Minor fixes and adjustments if needed"],
+                    type: "info",
+                  },
+                ]}
+              />
+            </div>
+          </ScrollAnimation>
 
           {/* CTA Section */}
-          <div className="text-center mb-16 bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 md:p-12 border border-slate-200 shadow-lg">
-            <h2 className="text-2xl md:text-3xl font-bold text-lv-blue mb-3">
-              Need an exact quote for your file?
-            </h2>
-            <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-              Send your image and tell us the size and intended use. We reply fast
-              with the right plan and price.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="#faqs"
-                className="inline-flex items-center justify-center rounded-full bg-white border-2 border-lv-red text-lv-red px-8 py-3 text-sm font-semibold shadow-md hover:bg-lv-red hover:text-white transition-all duration-300"
-              >
-                Read FAQs
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-full bg-lv-red px-8 py-3 text-sm font-semibold text-white shadow-md hover:bg-lv-red-dark hover:shadow-lg transition-all duration-300"
-              >
-                Get a Quote
-              </Link>
+          <ScrollAnimation animation="fadeInUp" delay={0.3}>
+            <div className="text-center mb-16 bg-gradient-to-br from-slate-50 to-white rounded-2xl p-8 md:p-12 border border-slate-200 shadow-lg">
+              <h2 className="text-2xl md:text-3xl font-bold text-lv-blue mb-3">
+                Need an exact quote for your file?
+              </h2>
+              <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
+                Send your image and tell us the size and intended use. We reply fast
+                with the right plan and price.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link
+                  href="#faqs"
+                  className="inline-flex items-center justify-center rounded-full bg-white border-2 border-lv-red text-lv-red px-8 py-3 text-sm font-semibold shadow-md hover:bg-lv-red hover:text-white transition-all duration-300"
+                >
+                  Read FAQs
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full bg-lv-red px-8 py-3 text-sm font-semibold text-white shadow-md hover:bg-lv-red-dark hover:shadow-lg transition-all duration-300"
+                >
+                  Get a Quote
+                </Link>
+              </div>
             </div>
-          </div>
+          </ScrollAnimation>
 
           {/* How It Works Section */}
           <HowItWorksSection />
@@ -264,10 +273,10 @@ function InfoBox({ title, text, subBoxes }) {
           <div
             key={index}
             className={`p-3 rounded-xl ${box.type === "positive"
-                ? "bg-green-50 border-2 border-green-300 shadow-sm"
-                : box.type === "warning"
-                  ? "bg-red-50 border-2 border-red-300 shadow-sm"
-                  : "bg-slate-50 border-2 border-slate-300 shadow-sm"
+              ? "bg-green-50 border-2 border-green-300 shadow-sm"
+              : box.type === "warning"
+                ? "bg-red-50 border-2 border-red-300 shadow-sm"
+                : "bg-slate-50 border-2 border-slate-300 shadow-sm"
               }`}
           >
             <p className="font-bold text-sm mb-1 text-slate-900">{box.title}</p>
