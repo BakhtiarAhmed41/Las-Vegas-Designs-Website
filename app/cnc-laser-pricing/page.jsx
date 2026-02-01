@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import TopTicker from "../components/TopPicker/TopPicker";
 import Navbar from "../components/Navbar/Navbar3";
 import Footer from "../components/Footer/Footer";
+import PricingHero from "../components/Pricing/PricingHero";
 import GoUp from "../components/Buttons/GoUp";
 import ChatButton from "../components/Buttons/ChatButton";
 import Link from "next/link";
@@ -53,79 +54,23 @@ export default function CncLaserPricingPage() {
 
       <section className="bg-slate-50 py-10 md:py-14 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header Section */}
-          <header className="mb-10 md:mb-12">
-            <span className="inline-flex items-center rounded-full bg-lv-red/10 text-lv-red text-[11px] font-semibold tracking-wide uppercase px-3 py-1">
-              Pricing
-            </span>
-
-            <h1 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold text-lv-blue">
-              CNC, Laser, Plasma & Stencil pricing
-            </h1>
-
-            <p className="mt-4 max-w-3xl text-sm md:text-base text-slate-600">
-              Pick a starting plan below. If your artwork needs cleanup, bridge planning, or extra detailing, request a quote and we will review first.
-            </p>
-
-            {/* Key Features Box - Right Aligned */}
-            <div className="mt-8 flex justify-end">
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 max-w-md">
-                <div className="space-y-5">
-                  <FeatureItem
-                    iconBadge="24"
-                    label="Typical turnaround"
-                    text="Most standard jobs delivered within 12 to 24 hours. Rush available on request."
-                  />
-                  <FeatureItem
-                    iconBadge="QC"
-                    label="Free Adjustments"
-                    text="Minor adjustments available for most cutting formats (SVG, DXF, AI, etc.)."
-                  />
-                  <FeatureItem
-                    iconBadge="QC"
-                    label="Quality checks"
-                    text="Clean paths, proper kerf, bridges, and safe cutting at final size."
-                  />
-                  <FeatureItem
-                    iconBadge="OK"
-                    label="Edits included"
-                    text="If something needs a tweak, we adjust and resend. Keep your order number for tracking."
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Service Tabs */}
-            <div className="mt-8 flex gap-2 border-b-2 border-slate-200">
-              <Link
-                href="/embroidery-pricing"
-                className="px-6 py-3 bg-slate-100 text-slate-700 rounded-t-xl font-semibold text-sm hover:bg-slate-200 transition-colors"
-              >
-                Embroidery Digitizing
-              </Link>
-              <Link
-                href="/vector-svg-pricing"
-                className="px-6 py-3 bg-slate-100 text-slate-700 rounded-t-xl font-semibold text-sm hover:bg-slate-200 transition-colors"
-              >
-                Vector and SVG
-              </Link>
-              <Link
-                href="/cnc-laser-pricing"
-                className="px-6 py-3 bg-lv-red text-white rounded-t-xl font-semibold text-sm shadow-md relative"
-              >
-                CNC and Laser Files
-              </Link>
-            </div>
-
-            {/* Tip Section */}
-            <div className="mt-6 flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-sm">
-              <span className="text-2xl flex-shrink-0">💡</span>
-              <p className="text-sm text-slate-700">
-                <strong className="text-amber-900">Tip:</strong> If you are not sure, pick the middle plan.
-                We can adjust after review.
-              </p>
-            </div>
-          </header>
+          <PricingHero
+            title="CNC, Laser, Plasma & Stencil pricing"
+            intro={`Pick a starting plan below. If your artwork needs cleanup, bridge planning, or extra detailing, request a quote and we will review first.`}
+            tabs={[
+              { href: "/embroidery-pricing", label: "Embroidery Digitizing" },
+              { href: "/vector-svg-pricing", label: "Vector and SVG" },
+              { href: "/cnc-laser-pricing", label: "CNC and Laser Files" },
+            ]}
+            activeIndex={2}
+            tip={`If you are not sure, pick the middle plan. We can adjust after review.`}
+            features={[
+              { badge: "24", label: "Typical turnaround", text: "Most standard jobs delivered within 12 to 24 hours. Rush available on request." },
+              { badge: "QC", label: "Free Adjustments", text: "Minor adjustments available for most cutting formats (SVG, DXF, AI, etc.)." },
+              { badge: "QC", label: "Quality checks", text: "Clean paths, proper kerf, bridges, and safe cutting at final size." },
+              { badge: "OK", label: "Edits included", text: "If something needs a tweak, we adjust and resend. Keep your order number for tracking." },
+            ]}
+          />
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
@@ -318,7 +263,7 @@ function InfoBox({ title, text, subBoxes }) {
         {subBoxes.map((box, index) => (
           <div
             key={index}
-            className={`p-4 rounded-xl ${
+            className={`p-3 rounded-xl ${
               box.type === "positive"
                 ? "bg-green-50 border-2 border-green-300 shadow-sm"
                 : box.type === "warning"
@@ -326,14 +271,20 @@ function InfoBox({ title, text, subBoxes }) {
                 : "bg-slate-50 border-2 border-slate-300 shadow-sm"
             }`}
           >
-            <p className="font-bold text-sm mb-2 text-slate-900">{box.title}</p>
-            <ul className="space-y-1.5">
-              {box.items.map((item, i) => (
-                <li key={i} className="text-xs text-slate-700 leading-relaxed">
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <p className="font-bold text-sm mb-1 text-slate-900">{box.title}</p>
+            {box.title === "Formats included" ? (
+              <p className="text-xs text-slate-700 leading-tight">
+                {box.items.join(" | ")}
+              </p>
+            ) : (
+              <ul className="space-y-1">
+                {box.items.map((item, i) => (
+                  <li key={i} className="text-xs text-slate-700 leading-tight">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
