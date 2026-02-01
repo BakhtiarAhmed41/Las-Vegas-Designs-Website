@@ -71,7 +71,7 @@ export default function EmbroideryPricingPage() {
               { badge: "OK", label: "Edits included", text: "If something needs a tweak, we adjust and resend. Keep your order number for tracking." },
             ]}
           />
-          
+
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
@@ -264,13 +264,12 @@ function InfoBox({ title, text, subBoxes }) {
         {subBoxes.map((box, index) => (
           <div
             key={index}
-            className={`p-3 rounded-xl ${
-              box.type === "positive"
+            className={`p-3 rounded-xl ${box.type === "positive"
                 ? "bg-green-50 border-2 border-green-300 shadow-sm"
                 : box.type === "warning"
-                ? "bg-red-50 border-2 border-red-300 shadow-sm"
-                : "bg-slate-50 border-2 border-slate-300 shadow-sm"
-            }`}
+                  ? "bg-red-50 border-2 border-red-300 shadow-sm"
+                  : "bg-slate-50 border-2 border-slate-300 shadow-sm"
+              }`}
           >
             <p className="font-bold text-sm mb-1 text-slate-900">{box.title}</p>
             {box.title === "Formats included" ? (
@@ -385,9 +384,8 @@ function FAQsSection({ id, title, intro, faqs, openIndex, setOpenIndex }) {
             >
               <span className="font-semibold text-lv-blue pr-4">{faq.question}</span>
               <FiChevronDown
-                className={`text-lv-red transition-transform flex-shrink-0 ${
-                  openIndex === index ? "rotate-180" : ""
-                }`}
+                className={`text-lv-red transition-transform flex-shrink-0 ${openIndex === index ? "rotate-180" : ""
+                  }`}
               />
             </button>
             {openIndex === index && (
