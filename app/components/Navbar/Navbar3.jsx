@@ -61,7 +61,16 @@ export default function Navbar3() {
                 { label: "Screen Printing", href: "#" },
             ],
         },
-        { label: "Pricing", hasDropdown: false, href: "#" },
+        {
+            label: "Pricing",
+            hasDropdown: true,
+            href: "/embroidery-pricing",
+            sub: [
+                { label: "Embroidery Digitizing", href: "/embroidery-pricing" },
+                { label: "Vector & SVG", href: "/vector-svg-pricing" },
+                { label: "CNC & Laser Files", href: "/cnc-laser-pricing" },
+            ],
+        },
         { label: "Free Designs", hasDropdown: false },
         { label: "Payment", hasDropdown: false, href: "/payment" },
         { label: "Blog", hasDropdown: false },
