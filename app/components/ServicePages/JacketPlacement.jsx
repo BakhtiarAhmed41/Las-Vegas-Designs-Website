@@ -66,7 +66,6 @@ export default function JacketPlacement() {
                     </div>
                 </ScrollAnimation>
 
-                {/* Creative Image Row */}
                 <ScrollAnimation animation="fadeInUp" delay={0.2}>
                     <div className="relative overflow-hidden h-[400px] flex items-center justify-center">
                         {/* Main Row Container - No Scroll, Responsive Grid */}
