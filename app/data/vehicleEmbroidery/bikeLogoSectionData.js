@@ -21,7 +21,7 @@ export const bikeLogoSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/cars and trcuk/Custom Bike Embroidery Logo Digitizing.jpg",
   imageAlt: "Bike Logo Embroidery Digitizing",
   swapLayout: false,
 };

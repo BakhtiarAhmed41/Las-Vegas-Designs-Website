@@ -21,7 +21,7 @@ export const carLogoSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/cars and trcuk/Car Logo Embroidery Digitizing.jpg",
   imageAlt: "Car Logo Embroidery Digitizing",
   swapLayout: true,
 };

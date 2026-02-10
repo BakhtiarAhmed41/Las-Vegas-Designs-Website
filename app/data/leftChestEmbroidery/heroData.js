@@ -35,6 +35,6 @@ export const leftChestHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/leftchest/pic/final/Left Chest Embroidery Logo Digitizing.jpg",
   imageAlt: "Left Chest Embroidery Digitizing Service",
 };

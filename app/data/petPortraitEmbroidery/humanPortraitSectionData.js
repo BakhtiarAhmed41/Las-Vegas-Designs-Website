@@ -21,7 +21,7 @@ export const humanPortraitSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/pets/pets emb/Human portrait embroidery logo digitizing service (4).png",
   imageAlt: "Human Portrait Embroidery Digitizing",
   swapLayout: false,
 };

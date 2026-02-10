@@ -16,7 +16,7 @@ export const serviceCardsData = {
         "Handcrafted appearance with durability",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/Double Stack Appliqué Embroidery Logo Digitizing.png",
       imageAlt: "Running Stitch Appliqué Digitizing",
       button: {
         text: "Get Quote",
@@ -35,7 +35,7 @@ export const serviceCardsData = {
         "Works well on jackets and uniforms",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/Zigzag stitch Appliqué Embroidery Logo Digitizing.png",
       imageAlt: "Satin Stitch Appliqué Digitizing",
       button: {
         text: "Get Quote",
@@ -54,7 +54,7 @@ export const serviceCardsData = {
         "Flexible finish that moves with garment",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/Blanket stitch Appliqué Embroidery Logo Digitizing.jpg",
       imageAlt: "Zigzag Appliqué Digitizing",
       button: {
         text: "Get Quote",
@@ -73,7 +73,7 @@ export const serviceCardsData = {
         "Creates distinctive border texture",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/diamond stitch Appliqué Embroidery Logo Digitizing.png",
       imageAlt: "Blanket Stitch Appliqué Digitizing",
       button: {
         text: "Get Quote",
@@ -92,7 +92,7 @@ export const serviceCardsData = {
         "Combines functionality with aesthetics",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/Scalloped stitch Appliqué Embroidery Logo Digitizing.jpg",
       imageAlt: "Decorative Edge Appliqué Digitizing",
       button: {
         text: "Get Quote",
@@ -111,7 +111,7 @@ export const serviceCardsData = {
         "Bold finish with added depth and dimension",
         "Machine-ready appliqué digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/applqiue/Bean stitch Appliqué Embroidery Logo Digitizing.png",
       imageAlt: "3D Puff Appliqué Digitizing",
       button: {
         text: "Get Quote",

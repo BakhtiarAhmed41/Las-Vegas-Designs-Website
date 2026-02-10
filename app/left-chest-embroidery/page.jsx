@@ -6,7 +6,6 @@ import GoUp from "../components/Buttons/GoUp";
 import ChatButton from "../components/Buttons/ChatButton";
 import ServiceHero from "../components/ServicePages/ServiceHero";
 import ServiceCards from "../components/ServicePages/ServiceCards";
-import VehicleEmbroideryGallery from "../components/Gallery/VehicleEmbroideryGallery";
 import { leftChestHeroData } from "../data/leftChestEmbroidery/heroData";
 import { teePoloSectionData } from "../data/leftChestEmbroidery/teePoloSectionData";
 import { pocketSectionData } from "../data/leftChestEmbroidery/pocketSectionData";
@@ -48,9 +47,6 @@ export default function LeftChestEmbroideryPage() {
 
             {/* Sleeve Section - Normal Layout - 20% wider and centered */}
             <ServiceHero {...sleeveSectionData} customMaxWidth="1680px" />
-
-            {/* Gallery Section - 360 Degree Carousel */}
-            <VehicleEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

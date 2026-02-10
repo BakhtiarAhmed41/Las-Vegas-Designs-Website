@@ -78,33 +78,22 @@ export default function ContactHero() {
           <ScrollAnimation animation="fadeInLeft" delay={0.3}>
             <div className="relative mt-8 lg:mt-0">
               <div
-                className="bg-white rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 min-h-[400px] sm:min-h-[450px] md:min-h-[500px] flex items-center justify-center"
+                className="rounded-xl md:rounded-2xl overflow-hidden min-h-[400px] sm:min-h-[450px] md:min-h-[500px]"
                 style={{
                   boxShadow:
                     "0 10px 30px rgba(156, 15, 23, 0.15), 0 4px 15px rgba(24, 53, 89, 0.2)",
                   border: "0.5px solid rgba(156, 15, 23, 0.08)",
                 }}
               >
-                <div className="text-center w-full">
-                  <div className="bg-gray-100 rounded-lg p-8 sm:p-10 md:p-12 mb-3 md:mb-4">
-                    <svg
-                      className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto text-gray-300"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={1.5}
-                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-gray-400 text-xs sm:text-sm">
-                    Contact workspace image placeholder
-                  </p>
-                </div>
+                <Image
+                  src="/assets/images/contact-register-feedback-support-help-concept.jpg"
+                  alt="Contact us - get in touch for vector and embroidery design services"
+                  width={800}
+                  height={500}
+                  className="w-full h-full object-cover min-h-[400px] sm:min-h-[450px] md:min-h-[500px]"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
               </div>
             </div>
           </ScrollAnimation>

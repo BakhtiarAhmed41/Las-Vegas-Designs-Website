@@ -16,7 +16,7 @@ export const serviceCardsData = {
         "Perfect for hoodies, hats, shirts, and blankets",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/pets/pets emb/Bird image and Portrait Embroidery Digitizing.jpg",
       imageAlt: "Dog Photo Embroidery Digitizing",
       button: {
         text: "Get Quote",
@@ -35,7 +35,7 @@ export const serviceCardsData = {
         "Great for clothing, blankets, and keepsakes",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/pets/pets emb/cat photo and image Embroidery logo Digitizing.png",
       imageAlt: "Cat Photo Embroidery Digitizing",
       button: {
         text: "Get Quote",
@@ -54,7 +54,7 @@ export const serviceCardsData = {
         "Painting and artwork embroidery conversion",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/pets/pets emb/custom portrait digitizing service (2).png",
       imageAlt: "Portrait and Scenery Embroidery Digitizing",
       button: {
         text: "Get Quote",
@@ -73,7 +73,7 @@ export const serviceCardsData = {
         "Personalized photo embroidery designs",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/pets/pets emb/horse Embroidery logo Digitizing.jpg",
       imageAlt: "Human Portrait Embroidery Digitizing",
       button: {
         text: "Get Quote",

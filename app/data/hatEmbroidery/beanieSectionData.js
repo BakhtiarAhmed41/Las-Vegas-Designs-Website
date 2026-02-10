@@ -21,7 +21,7 @@ export const beanieSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/hat/stitch/Circuit Lab logo  embroidery stitched on baseball caps.png",
   imageAlt: "Beanie Logo Digitizing",
   swapLayout: true,
 };

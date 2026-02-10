@@ -35,6 +35,6 @@ export const hatEmbroideryHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/hat/stitch/hat embroidery logo digitizing sewout (12).png",
   imageAlt: "Hat Embroidery Digitizing Service",
 };

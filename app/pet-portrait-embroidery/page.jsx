@@ -6,7 +6,6 @@ import GoUp from "../components/Buttons/GoUp";
 import ChatButton from "../components/Buttons/ChatButton";
 import ServiceHero from "../components/ServicePages/ServiceHero";
 import ServiceCards from "../components/ServicePages/ServiceCards";
-import VehicleEmbroideryGallery from "../components/Gallery/VehicleEmbroideryGallery";
 import { petPortraitHeroData } from "../data/petPortraitEmbroidery/heroData";
 import { dogSectionData } from "../data/petPortraitEmbroidery/dogSectionData";
 import { catSectionData } from "../data/petPortraitEmbroidery/catSectionData";
@@ -48,9 +47,6 @@ export default function PetPortraitEmbroideryPage() {
 
             {/* Human Portrait Section - Normal Layout */}
             <ServiceHero {...humanPortraitSectionData} />
-
-            {/* Gallery Section - 360 Degree Carousel */}
-            <VehicleEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

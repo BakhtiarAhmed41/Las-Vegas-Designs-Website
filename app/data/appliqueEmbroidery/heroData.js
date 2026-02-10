@@ -31,6 +31,6 @@ export const appliqueHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/applqiue/Custom Appliqué Embroidery Logo Digitizing.jpg",
   imageAlt: "Appliqué Embroidery Digitizing Service",
 };

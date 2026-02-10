@@ -21,7 +21,7 @@ export const boatsSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/cars and trcuk/Fishing Vessel and Boat Logo Embroidery Digitizing.jpg",
   imageAlt: "Boat Logo Embroidery Digitizing",
   swapLayout: false,
 };

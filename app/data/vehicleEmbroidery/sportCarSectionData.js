@@ -21,7 +21,7 @@ export const sportCarSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/cars and trcuk/Sport Car Embroidery logo Digitizing.jpg",
   imageAlt: "Sport Car Logo Embroidery Digitizing",
   swapLayout: true,
 };

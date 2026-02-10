@@ -21,7 +21,7 @@ export const upperLowerBackSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/jacket back/website/upper and lower-01.jpg",
   imageAlt: "Upper and Lower Back Logo Digitizing",
   swapLayout: false,
 };

@@ -21,7 +21,7 @@ export const sideHatSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/hat/stitch/O'Reilly Auto Parts logo embroidery stitched on baseball caps.png",
   imageAlt: "Side Hat Logo Digitizing",
   swapLayout: false,
 };

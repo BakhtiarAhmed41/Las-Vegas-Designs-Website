@@ -16,7 +16,7 @@ export const serviceCardsData = {
         "Works well on jackets, shirts, and caps",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/cars and trcuk/Truck Logo Embroidery Digitizing Services.png",
       imageAlt: "Truck Logo Embroidery Digitizing",
       button: {
         text: "Get Quote",
@@ -35,7 +35,7 @@ export const serviceCardsData = {
         "Commonly used for uniforms and jackets",
         "Clean embroidery digitizing files for machines",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/cars and trcuk/Tractor and Heavy Equipment Embroidery Digitizing.png",
       imageAlt: "Tractor and Heavy Equipment Embroidery Digitizing",
       button: {
         text: "Get Quote",
@@ -54,7 +54,7 @@ export const serviceCardsData = {
         "Works well on shirts, caps, and jackets",
         "Ready-to-use embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/cars and trcuk/Commercial Vehicle Logo Embroidery Digitizing.png",
       imageAlt: "Commercial Vehicle Logo Embroidery Digitizing",
       button: {
         text: "Get Quote",

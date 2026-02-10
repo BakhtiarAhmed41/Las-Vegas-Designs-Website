@@ -21,7 +21,7 @@ export const sleeveSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/jacket back/website/Sleeve Embroidery  Logo Digitizing.jpg",
   imageAlt: "Sleeve Logo Digitizing",
   swapLayout: true,
 };

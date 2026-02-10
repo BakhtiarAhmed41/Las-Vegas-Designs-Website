@@ -35,6 +35,6 @@ export const petPortraitHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/pets/pets emb/Pet and Portrait Embroidery logo Digitizing.png",
   imageAlt: "Pet and Portrait Embroidery Digitizing Service",
 };

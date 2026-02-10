@@ -21,7 +21,7 @@ export const fullBackSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/jacket back/website/full back Embroidery  Logo Digitizing.jpg",
   imageAlt: "Full Back Logo Digitizing",
   swapLayout: false,
 };

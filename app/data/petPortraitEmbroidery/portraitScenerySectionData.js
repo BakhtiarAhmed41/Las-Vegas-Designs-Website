@@ -21,7 +21,7 @@ export const portraitScenerySectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/pets/pets emb/Illustrative cartoon Pet and Portrait Embroidery logo Digitizing.png",
   imageAlt: "Portrait and Scenery Embroidery Digitizing",
   swapLayout: true,
 };

@@ -21,7 +21,7 @@ export const visorSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/hat/stitch/Ford Mustang 5.0 embroidery stitched on baseball caps.png",
   imageAlt: "Visor Logo Digitizing",
   swapLayout: false,
 };

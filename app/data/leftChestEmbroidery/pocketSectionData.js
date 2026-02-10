@@ -21,7 +21,7 @@ export const pocketSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/leftchest/pic/final/Pocket Embroidery logo digitizing.jpeg",
   imageAlt: "Pocket Logo Digitizing",
   swapLayout: false,
 };

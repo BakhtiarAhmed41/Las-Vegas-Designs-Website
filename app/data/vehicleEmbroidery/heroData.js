@@ -34,6 +34,6 @@ export const vehicleEmbroideryHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/cars and trcuk/Car and Truck Image Embroidery Digitizing.jpg",
   imageAlt: "Vehicle Embroidery Digitizing Service",
 };

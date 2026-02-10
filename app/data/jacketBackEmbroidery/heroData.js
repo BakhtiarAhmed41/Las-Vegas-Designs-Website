@@ -35,6 +35,6 @@ export const jacketBackHeroData = {
       description: "Free edits and adjustments",
     },
   ],
-  imageSrc: null,
+  imageSrc: "/assets/images/jacket back/website/Jacket back Embroidery  Logo Digitizing.jpeg",
   imageAlt: "Jacket Back Embroidery Digitizing Service",
 };

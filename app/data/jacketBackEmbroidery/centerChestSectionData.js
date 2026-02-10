@@ -21,7 +21,7 @@ export const centerChestSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/jacket back/website/Center chest Embroidery  Logo Digitizing.png",
   imageAlt: "Center Chest Logo Digitizing",
   swapLayout: true,
 };

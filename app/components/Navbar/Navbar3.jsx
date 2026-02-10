@@ -5,7 +5,10 @@ import Link from "next/link";
 import {
     FiChevronDown,
     FiMenu,
-    FiX,
+    FiMail,
+    FiPhone,
+    FiMessageCircle,
+    FiUser,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import logo from "@/public/assets/logos/lasLogo.png";
@@ -17,7 +20,7 @@ export default function Navbar3() {
 
     const navLinks = [
         {
-            label: "Digitizing",
+            label: "Embroidery",
             hasDropdown: true,
             sub: [
                 { label: "Applique Logo Digitizing", href: "/applique-embroidery" },
@@ -40,18 +43,7 @@ export default function Navbar3() {
             ],
         },
         {
-            label: "CNC & Laser Cut",
-            hasDropdown: true,
-            href: "/cnc-laser-cut",
-            sub: [
-                { label: "CNC Cut Files", href: "#" },
-                { label: "Laser Cut Files", href: "#" },
-                { label: "Engraving Files", href: "#" },
-                { label: "Stencil Designs", href: "#" },
-            ],
-        },
-        {
-            label: "Custom Vector",
+            label: "Custom vector",
             hasDropdown: true,
             href: "/custom-vector",
             sub: [
@@ -62,29 +54,55 @@ export default function Navbar3() {
             ],
         },
         {
-            label: "Pricing",
+            label: "CNC and Laser Cut",
             hasDropdown: true,
-            href: "/embroidery-pricing",
+            href: "/cnc-laser-cut",
             sub: [
-                { label: "Embroidery Digitizing", href: "/embroidery-pricing" },
-                { label: "Vector & SVG", href: "/vector-svg-pricing" },
-                { label: "CNC & Laser Files", href: "/cnc-laser-pricing" },
+                { label: "CNC Cut Files", href: "#" },
+                { label: "Laser Cut Files", href: "#" },
+                { label: "Engraving Files", href: "#" },
+                { label: "Stencil Designs", href: "#" },
             ],
         },
-        { label: "Free Designs", hasDropdown: false },
-        { label: "Payment", hasDropdown: false, href: "/payment" },
-        { label: "Blog", hasDropdown: false },
-        { label: "Contact", hasDropdown: false, href: "/contact" },
+        {
+            label: "Design Library",
+            hasDropdown: true,
+            href: "#",
+            sub: [
+                { label: "Free Designs", href: "#" },
+                { label: "Design Gallery", href: "#" },
+            ],
+        },
+        { label: "Pricing", hasDropdown: false, href: "/embroidery-pricing" },
+        { label: "Portfolio", hasDropdown: false, href: "#" },
+        { label: "Contact us", hasDropdown: false, href: "/contact" },
+        {
+            label: "Resources",
+            hasDropdown: true,
+            href: "#",
+            sub: [
+                { label: "About Us", href: "/about-us" },
+                { label: "Payment", href: "/payment" },
+                { label: "Blog", href: "#" },
+                { label: "FAQs", href: "#" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms & Conditions", href: "/terms-and-conditions" },
+            ],
+        },
+    ];
+
+    const contactBarItems = [
+        { icon: "phone", label: "(USA) (725) 300-3797", href: "tel:7253003797" },
+        { icon: "uk-phone", label: "(UK) +44 7706 709210", href: "tel:+447706709210" },
+        { icon: "text", label: "Text (725) 300-3797", href: "sms:7253003797" },
+        { icon: "email", label: "Email:", emailAddr: "Sales@LasVegasDesignsUSA.com", href: "mailto:Sales@LasVegasDesignsUSA.com" },
     ];
 
     const contactDetails = [
         { label: "(USA) (725) 300-3797", href: "tel:7253003797" },
         { label: "(UK) +44 7706 709210", href: "tel:+447706709210" },
         { label: "Text (725) 300-3797", href: "sms:7253003797" },
-        {
-            label: "Email: Sales@Lasvegasdesignsusa.com",
-            href: "mailto:Sales@Lasvegasdesignsusa.com",
-        },
+        { label: "Email: Sales@Lasvegasdesignsusa.com", href: "mailto:Sales@Lasvegasdesignsusa.com" },
         { label: "Contact us", href: "/contact" },
     ];
 
@@ -95,20 +113,52 @@ export default function Navbar3() {
     return (
         <header className="w-full bg-white overflow-visible">
             {/* ------------------------------------------------------ */}
-            {/* 🔹 CONTACT INFO BAR */}
+            {/* 🔹 CONTACT INFO BAR (header middle section) */}
             {/* ------------------------------------------------------ */}
-            <div className="hidden lg:block bg-[#EEF2FB] border-b border-border-light w-full overflow-hidden">
-                <div className="w-full px-6 py-2.5">
-                    <div className="flex items-center justify-center gap-8 flex-wrap max-w-[1400px] mx-auto">
-                        {contactDetails.map((item, index) => (
+            <div className="hidden lg:block bg-[#F5F7FA] border-b border-gray-200/80 w-full overflow-hidden">
+                <div className="w-full px-6 py-3">
+                    <div className="flex items-center justify-center gap-4 flex-wrap max-w-[1400px] mx-auto">
+                        {contactBarItems.map((item, index) => (
                             <a
                                 key={index}
                                 href={item.href}
-                                className="text-black hover:text-lv-blue font-bold text-[13px] transition-colors duration-200 whitespace-nowrap"
+                                className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-gray-700 hover:text-lv-blue font-medium text-[13px] transition-colors duration-200 whitespace-nowrap rounded-full pl-3 pr-4 py-2 shadow-sm border border-gray-200/60"
                             >
-                                {item.label}
+                                {item.icon === "phone" && <FiPhone className="text-lv-blue shrink-0" size={14} />}
+                                {item.icon === "uk-phone" && (
+                                    <>
+                                        <span className="text-[10px] font-semibold text-gray-500 uppercase">GB</span>
+                                        <FiPhone className="text-lv-blue shrink-0" size={14} />
+                                    </>
+                                )}
+                                {item.icon === "text" && <FiMessageCircle className="text-gray-500 shrink-0" size={14} />}
+                                {item.icon === "email" && (
+                                    <>
+                                        <FiMail className="text-lv-blue shrink-0" size={14} />
+                                        <span>{item.label}</span>
+                                        <span className="text-lv-red font-semibold">{item.emailAddr}</span>
+                                    </>
+                                )}
+                                {item.icon !== "email" && <span>{item.label}</span>}
                             </a>
                         ))}
+                        <span className="text-gray-600 text-[13px] font-medium whitespace-nowrap">
+                            <span className="text-lv-red font-semibold">Free</span> color changes available
+                        </span>
+                        <Link
+                            href="/contact#quote-form"
+                            className="inline-flex items-center justify-center bg-lv-red hover:bg-lv-red-dark text-white font-bold text-[13px] px-5 py-2.5 rounded-lg transition-colors duration-200 shadow-sm whitespace-nowrap"
+                        >
+                            Get a Quote
+                        </Link>
+                        <span
+                            role="img"
+                            aria-label="Account"
+                            className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white/90 text-gray-500 border border-gray-300 shadow-sm transition-colors duration-200 cursor-default"
+                            title="Account (coming soon)"
+                        >
+                            <FiUser size={18} strokeWidth={2} />
+                        </span>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,7 @@ import { satinStitchSectionData } from "../data/appliqueEmbroidery/satinStitchSe
 import { serviceCardsData } from "../data/appliqueEmbroidery/serviceCardsData";
 import { puffAppliqueSectionData } from "../data/appliqueEmbroidery/puffAppliqueSectionData";
 import { doubleLayerSectionData } from "../data/appliqueEmbroidery/doubleLayerSectionData";
+import AppliqueGallery from "../components/Gallery/AppliqueGallery";
 import WhyChooseUs from "../components/ServicePages/WhyChooseUs";
 import { whyChooseUsData } from "../data/appliqueEmbroidery/whyChooseUsData";
 import EtsyReviews from "../components/EtsyReviews/EtsyReviews";
@@ -47,6 +48,9 @@ export default function AppliqueEmbroideryPage() {
 
             {/* Double Layer Section - Normal Layout */}
             <ServiceHero {...doubleLayerSectionData} />
+
+            {/* Gallery Section - Appliqué stitch out carousel */}
+            <AppliqueGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

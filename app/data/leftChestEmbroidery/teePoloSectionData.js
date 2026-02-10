@@ -21,7 +21,7 @@ export const teePoloSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/leftchest/pic/final/Polo and Tee shirt Embroidery logo digitizing.jpg",
   imageAlt: "Tee and Polo Logo Digitizing",
   swapLayout: true,
 };

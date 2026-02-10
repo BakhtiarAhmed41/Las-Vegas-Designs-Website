@@ -17,7 +17,7 @@ export const runningStitchSectionData = {
     text: "Get Running Stitch Quote",
     href: "/contact",
   },
-  imageSrc: null,
+  imageSrc: "/assets/images/applqiue/Running stitch Appliqué Embroidery Logo Digitizing.jpg",
   imageAlt: "Running Stitch Appliqué Digitizing",
   swapLayout: true,
 };

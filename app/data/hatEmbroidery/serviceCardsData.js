@@ -16,7 +16,7 @@ export const serviceCardsData = {
         "Ideal for team hats and company branding",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/baseball cap Embroidery  Logo Digitizing.png",
       imageAlt: "Front Cap Logo Digitizing",
       button: {
         text: "Get Quote",
@@ -35,7 +35,7 @@ export const serviceCardsData = {
         "Ideal for winter wear and custom beanies",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/5 panel hat Embroidery  Logo Digitizing.png",
       imageAlt: "Beanie Logo Digitizing",
       button: {
         text: "Get Quote",
@@ -54,7 +54,7 @@ export const serviceCardsData = {
         "Ideal for sports visors and custom headwear",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/Bucket hat Embroidery  Logo Digitizing.png",
       imageAlt: "Visor Logo Digitizing",
       button: {
         text: "Get Quote",
@@ -73,7 +73,7 @@ export const serviceCardsData = {
         "Can be used on hoodies and jackets too",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/Dad hat Embroidery  Logo Digitizing.png",
       imageAlt: "3D Puff Hat Logo Digitizing",
       button: {
         text: "Get Quote",
@@ -92,7 +92,7 @@ export const serviceCardsData = {
         "Ideal for secondary branding and team hats",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/snap back hat Embroidery  Logo Digitizing.png",
       imageAlt: "Side Hat Logo Digitizing",
       button: {
         text: "Get Quote",
@@ -111,7 +111,7 @@ export const serviceCardsData = {
         "Ideal for personalization and taglines",
         "Machine-ready embroidery digitizing files",
       ],
-      imageSrc: null,
+      imageSrc: "/assets/images/hat/cards/trucker hat Embroidery  Logo Digitizing.png",
       imageAlt: "Back of Hat Logo Digitizing",
       button: {
         text: "Get Quote",

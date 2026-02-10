@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Header + Footer | Las Vegas Designs USA</title>
+
+  <style>
+    :root{
+      --navy:#1A3D65;
+      --maroon:#9C0F17;
+
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+
+      --line:#e5e7eb;
+      --soft:#f1f5f9;
+
+      --shadow:0 14px 35px rgba(15, 23, 42, .10);
+      --radius:18px;
+      --radius-sm:12px;
+
+      --max:1180px;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:var(--bg);
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{
+      width:min(var(--max), calc(100% - 36px));
+      margin:0 auto;
+    }
+
+    /* TOP BAR */
+    .topbar{
+      background:#eef3fb;
+      border-bottom:1px solid rgba(26,61,101,.12);
+      font-size:13px;
+      color:#2b3a55;
+    }
+    .topbar .wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:10px 0;
+      flex-wrap:wrap;
+    }
+    .topbar .left, .topbar .right{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .topbar .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(26,61,101,.10);
+      white-space:nowrap;
+    }
+    .topbar .accent{
+      color:var(--maroon);
+      font-weight:700;
+    }
+
+    /* HEADER */
+    .header{
+      background:linear-gradient(#ffffff, #ffffff);
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .header .main{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0;
+    }
+
+    /* Logo */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:220px;
+    }
+    .logo-box{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(26,61,101,.12), rgba(156,15,23,.10));
+      border:1px solid rgba(26,61,101,.12);
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      color:var(--navy);
+      letter-spacing:.5px;
+    }
+    .brand .name{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .brand .name strong{
+      font-size:14px;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      color:var(--navy);
+    }
+    .brand .name span{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* NAV WRAP */
+    .navwrap{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Main nav card */
+    .navcard{
+      background:var(--card);
+      border:1px solid rgba(15,23,42,.08);
+      box-shadow:0 12px 26px rgba(15,23,42,.07);
+      border-radius:999px;
+      padding:8px 10px;
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+
+    /* Links */
+    .navlink, .navbtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      color:#0f1f35;
+      transition:background .15s ease, color .15s ease;
+      white-space:nowrap;
+    }
+    .navlink:hover, .navbtn:hover{
+      background:rgba(26,61,101,.08);
+      color:var(--navy);
+    }
+    .navlink:focus-visible, .navbtn:focus-visible,
+    .cta:focus-visible, .iconbtn:focus-visible, .footer a:focus-visible{
+      outline:3px solid rgba(26,61,101,.25);
+      outline-offset:2px;
+    }
+
+    /* Dropdowns */
+    .drop{
+      position:relative;
+    }
+    .navbtn{
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      font-family:inherit;
+    }
+    .caret{
+      width:8px; height:8px;
+      border-right:2px solid currentColor;
+      border-bottom:2px solid currentColor;
+      transform:rotate(45deg);
+      margin-top:-2px;
+      opacity:.8;
+    }
+    .menu{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:0;
+      min-width:240px;
+      background:var(--card);
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:10px;
+      display:none;
+    }
+    .drop:hover .menu,
+    .drop:focus-within .menu{
+      display:block;
+    }
+    .menu a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 10px;
+      border-radius:12px;
+      color:#0f1f35;
+      font-weight:600;
+      font-size:14px;
+      transition:background .15s ease, color .15s ease;
+    }
+    .menu a:hover{
+      background:rgba(26,61,101,.08);
+      color:var(--navy);
+    }
+    .menu small{
+      color:var(--muted);
+      font-weight:600;
+      font-size:12px;
+    }
+    .menu .head{
+      padding:10px 10px 6px;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+    }
+    .menu .line{
+      height:1px;
+      background:var(--line);
+      margin:8px 0;
+    }
+
+    /* Right actions */
+    .actions{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:10px;
+      min-width:260px;
+    }
+
+    .iconbtn{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background:rgba(255,255,255,.85);
+      color:#0f1f35;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      transition:background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .iconbtn:hover{
+      background:rgba(26,61,101,.06);
+      border-color:rgba(26,61,101,.22);
+      color:var(--navy);
+    }
+    .userdot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background:rgba(156,15,23,.9);
+      box-shadow:0 0 0 3px rgba(156,15,23,.14);
+      display:none;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--maroon), #b31321);
+      color:#fff;
+      font-weight:800;
+      font-size:14px;
+      border:1px solid rgba(0,0,0,.06);
+      box-shadow:0 10px 22px rgba(156,15,23,.22);
+      transition:transform .12s ease, filter .12s ease;
+      white-space:nowrap;
+    }
+    .cta:hover{
+      transform:translateY(-1px);
+      filter:saturate(1.05);
+    }
+
+    /* Mobile toggle */
+    .mobile-toggle{
+      display:none;
+      align-items:center;
+      gap:10px;
+    }
+    #navToggle{
+      position:absolute;
+      left:-9999px;
+    }
+    .hamburger{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      border:1px solid rgba(15,23,42,.10);
+      background:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      box-shadow:0 10px 18px rgba(15,23,42,.06);
+    }
+    .hamburger span{
+      width:18px; height:2px;
+      background:#0f1f35;
+      display:block;
+      position:relative;
+      border-radius:2px;
+    }
+    .hamburger span::before,
+    .hamburger span::after{
+      content:"";
+      width:18px; height:2px;
+      background:#0f1f35;
+      position:absolute;
+      left:0;
+      border-radius:2px;
+    }
+    .hamburger span::before{ top:-6px; }
+    .hamburger span::after{ top:6px; }
+
+    /* Mobile panel */
+    .mobile-panel{
+      display:none;
+      padding:14px 0 18px;
+    }
+    .mobile-card{
+      background:#fff;
+      border:1px solid rgba(15,23,42,.10);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:12px;
+    }
+    .mobile-grid{
+      display:grid;
+      gap:8px;
+    }
+    .mobile-grid a, .mobile-grid .mrow{
+      border:1px solid rgba(15,23,42,.08);
+      background:rgba(246,247,251,.65);
+      border-radius:14px;
+      padding:12px 12px;
+      font-weight:800;
+      color:#0f1f35;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .mobile-grid a:hover{
+      background:rgba(26,61,101,.08);
+      color:var(--navy);
+    }
+    .mobile-sub{
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid var(--line);
+    }
+    .mobile-sub .label{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      padding:0 2px 8px;
+    }
+
+    /* Show mobile panel when checked */
+    #navToggle:checked ~ .mobile-panel{
+      display:block;
+    }
+
+    /* Demo page spacer */
+    main{
+      padding:34px 0 56px;
+    }
+    .demo{
+      background:#fff;
+      border:1px solid rgba(15,23,42,.08);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:26px;
+    }
+    .demo h1{
+      margin:0 0 8px;
+      font-size:22px;
+      color:var(--navy);
+      letter-spacing:.2px;
+    }
+    .demo p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      font-weight:600;
+    }
+
+    /* FOOTER */
+    .footer{
+      background:#0b1526;
+      color:#e7edf7;
+      padding:42px 0 22px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .footer .top{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap:22px;
+      padding-bottom:20px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .footer .brandfoot{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .footer .logo-box{
+      background:linear-gradient(135deg, rgba(255,255,255,.12), rgba(156,15,23,.10));
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+    }
+    .footer h3{
+      margin:0 0 10px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      color:#cfe0ff;
+    }
+    .footer p{
+      margin:0;
+      color:rgba(231,237,247,.78);
+      line-height:1.7;
+      font-weight:600;
+      font-size:14px;
+    }
+    .footer ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+    .footer a{
+      color:rgba(231,237,247,.86);
+      font-weight:700;
+      font-size:14px;
+      transition:color .15s ease;
+    }
+    .footer a:hover{
+      color:#ffffff;
+    }
+    .footer .note{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      color:rgba(231,237,247,.85);
+      font-weight:700;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .footer .bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding-top:16px;
+      flex-wrap:wrap;
+      color:rgba(231,237,247,.70);
+      font-weight:700;
+      font-size:13px;
+    }
+    .footer .bottom .mini{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .footer .tag{
+      color:#fff;
+      background:rgba(26,61,101,.22);
+      border:1px solid rgba(26,61,101,.35);
+      padding:6px 10px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.3px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px){
+      .brand{ min-width:200px; }
+      .actions{ min-width:240px; }
+      .navlink, .navbtn{ padding:10px 10px; }
+    }
+
+    @media (max-width: 980px){
+      .navwrap{ display:none; }
+      .actions{ display:none; }
+      .mobile-toggle{ display:flex; }
+      .header .main{
+        justify-content:space-between;
+      }
+    }
+
+    @media (max-width: 860px){
+      .footer .top{
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 520px){
+      .topbar .wrap{
+        justify-content:center;
+      }
+      .brand{ min-width:auto; }
+      .footer .top{
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="wrap">
+        <div class="left">
+          <span class="pill">(USA) (725) 300-3797</span>
+          <span class="pill">(UK) +44 7706 709210</span>
+          <span class="pill">Text (725) 300-3797</span>
+        </div>
+        <div class="right">
+          <span class="pill">Email: <span class="accent">Sales@LasVegasDesignsUSA.com</span>
+          </span>
+          <span class="pill"><span class="accent">Free</span> color changes available</span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+
+      <div class="main">
+        <!-- Brand -->
+        <a class="brand" href="/">
+          <div class="logo-box">LVD</div>
+          <div class="name">
+            <strong>Las Vegas Designs USA</strong>
+            
+          </div>
+        </a>
+
+        <!-- Desktop nav -->
+      <nav aria-label="Primary navigation">
+        <div class="navcard">
+
+          <!-- Embroidery (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              Embroidery <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">Embroidery Digitizing</div>
+              <a href="/embroidery/left-chest">Left Chest Digitizing </a>
+              <a href="/embroidery/hats">Hats & Caps Digitizing </span> </a>
+              <a href="/embroidery/jacket-back">Jacket Back Digitizing </a>
+              <a href="/embroidery/3d-puff">Pets and Portraits Digitizing </a>
+                <a href="/embroidery/3d-puff">Cars and Trucks Digitizing </a>
+              <a href="/embroidery/applique">Appliqué Digitizing</a>
+              <div class="line"></div>
+              <a href="/embroidery/formats">Request Free color change </a>
+            </div>
+          </div>
+
+          <!-- SVG (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              SVG <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">SVG Services</div>
+              <a href="/svg/one-color">One Color SVG </a>
+              <a href="/svg/full-color">Full Color SVG </a>
+              <a href="/svg/cricut">Cricut & Silhouette </a>
+              <a href="/svg/cleanup">line Art and Illustration </a>
+            </div>
+          </div>
+          <!-- Custom vector (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              Custom vector <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">Print - Ready Files</div>
+              <a href="/svg/one-color">Image to vector </a>
+              <a href="/svg/full-color">Color Seperation </a>
+              <a href="/svg/cricut">DTF Print Files </a>
+              <a href="/svg/cleanup">Screen Print files </a>
+            </div>
+          </div>
+
+
+          
+
+          <!-- CNC & Laser Cut (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              CNC and Laser Cut <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">CNC & Laser Files</div>
+              <a href="/cnc-laser/laser-cut">Laser Cut Files </a>
+              <a href="/cnc-laser/cnc-router">CNC Router </a>
+              <a href="/cnc-laser/engraving">Engraving Files </a>
+              <a href="/cnc-laser/stencils">Stencil Files </a>
+              <a href="/cnc-laser/plasma">Plasma Cut </a>
+            </div>
+          </div>
+
+          <!-- Design Library (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              Design Library <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">Browse Designs</div>
+              <a href="/design-library/free">Free Designs </a>
+              <a href="/design-library/premium">Premium Designs </a>
+              <div class="line"></div>
+              <a href="/design-library/new">New Arrivals </a>
+              <a href="/design-library/bundles">Bundles </a>
+            </div>
+          </div>
+
+          <!-- Pricing (no dropdown) -->
+          <a class="navlink" href="/pricing">Pricing</a>
+
+          <!-- Portfolio (no dropdown) -->
+          <a class="navlink" href="/portfolio">Portfolio</a>
+          <!-- Contact Us (no dropdown) -->
+          <a class="navlink" href="/contact us">Contact us</a>
+
+
+          <!-- Resources (dropdown) -->
+          <div class="drop">
+            <button class="navbtn" type="button" aria-haspopup="true">
+              Resources <span class="caret" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu">
+              <div class="head">LEARN & BROWSE</div>
+              <a href="/blog">Blog <small>tips</small></a>
+              <a href="/faqs">FAQs <small>answers</small></a>
+              <a href="/placement-guides">Placement Guides <small>sizes</small></a>
+              <a href="/file-formats">File Formats <small>what to choose</small></a>
+              <div class="line"></div>
+              
+                <div class="head">Policies</div>
+                <a href="/refund-policy">Refund Policy <small>rules</small></a>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+      
+
+        </div>
+      </nav>
+
+     
+
+      <!-- Mobile toggle -->
+      <div class="mobile-toggle">
+        <input id="navToggle" type="checkbox" />
+        <label class="hamburger" for="navToggle" aria-label="Open menu">
+          <span></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Mobile menu (simple links) -->
+    <div class="mobile-panel">
+      <div class="mobile-card">
+        <div class="mobile-label">Main</div>
+        <a href="/embroidery">Embroidery <span>›</span></a>
+        <a href="/svg">SVG <span>›</span></a>
+        <a href="/vector">Vector <span>›</span></a>
+        <a href="/cnc-laser">CNC and Laser Cut <span>›</span></a>
+        <a href="/design-library">Design Library <span>›</span></a>
+        <a href="/pricing">Pricing <span>›</span></a>
+        <a href="/portfolio">Portfolio <span>›</span></a>
+          <a href="/contact us">Contact Us <span>›</span></a>
+        <a href="/resources">Resources <span>›</span></a>
+     
+
+        <div class="mobile-label">Quick</div>
+        <a href="/design-library/free">Free Designs <span>›</span></a>
+        <a href="/design-library/premium">Premium Designs <span>›</span></a>
+    
+      </div>
+    </div>
+
+  </div>
+</header>
+
+
+        <!-- Desktop right actions -->
+        <div class="actions">
+          <!-- Account dropdown -->
+          <div class="drop">
+            <button class="iconbtn" type="button" aria-haspopup="true" aria-expanded="false">
+              <span aria-hidden="true">👤</span>
+              <span>Account</span>
+              <span class="caret" aria-hidden="true"></span>
+              <span class="userdot" aria-hidden="true"></span>
+            </button>
+            <div class="menu" role="menu" style="right:0; left:auto; min-width:220px;">
+              <div class="head">Welcome</div>
+              <a href="/login">Login <small>existing</small></a>
+              <a href="/register">Create Account <small>new</small></a>
+              <div class="line"></div>
+              <div class="head">After login</div>
+              <a href="/dashboard">My Dashboard <small>panel</small></a>
+              <a href="/orders">My Orders <small>history</small></a>
+            </div>
+          </div>
+
+          <a class="cta" href="/get-quote">Get a Quote</a>
+        </div>
+
+        <!-- Mobile toggle -->
+        <div class="mobile-toggle">
+          <input id="navToggle" type="checkbox" />
+          <label class="hamburger" for="navToggle" aria-label="Open menu">
+            <span></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- MOBILE PANEL -->
+      <div class="mobile-panel">
+        <div class="mobile-card">
+          <div class="mobile-grid">
+            <a href="/login">Account Login <span>›</span></a>
+            <a href="/register">Create Account <span>›</span></a>
+            <a href="/get-quote">Get a Quote <span>›</span></a>
+          </div>
+
+          <div class="mobile-sub">
+            <div class="label">Main Services</div>
+            <div class="mobile-grid">
+              <a href="/embroidery-digitizing">Embroidery <span>›</span></a>
+              <a href="/vector-svg">Vector &amp; SVG <span>›</span></a>
+              <a href="/cnc-laser">CNC &amp; Laser <span>›</span></a>
+              <a href="/custom-design">Custom Design <span>›</span></a>
+            </div>
+          </div>
+
+          <div class="mobile-sub">
+            <div class="label">Pages</div>
+            <div class="mobile-grid">
+              <a href="/pricing">Pricing <span>›</span></a>
+              <a href="/portfolio">Portfolio <span>›</span></a>
+              <a href="/contact">Contact <span>›</span></a>
+              <a href="/free-designs">Free Designs <span>›</span></a>
+              <a href="/blog">Blog <span>›</span></a>
+              <a href="/refund-policy">Refund Policy <span>›</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT DEMO -->
+  <main>
+    <div class="container">
+      <div class="demo">
+        <h1>Demo Content Area</h1>
+        <p>
+          This file shows the exact header and footer layout. Replace the links with your real URLs.
+          The 4 main services stay visible, blog and free designs live under Resources, legal pages stay in the footer.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+
+      <div class="top">
+        <div>
+          <div class="brandfoot">
+            <div class="logo-box">LVD</div>
+            <div>
+              <h3>Las Vegas Designs USA</h3>
+              <p>
+                Custom digital services for embroidery digitizing, vector and SVG, CNC and laser cut files, and complex custom artwork.
+              </p>
+              <div class="note">
+                Free color changes included. Most issues are solved via revisions and file updates.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3>Main Services</h3>
+          <ul>
+            <li><a href="/embroidery-digitizing">Embroidery</a></li>
+            <li><a href="/vector-svg">Vector &amp; SVG</a></li>
+            <li><a href="/cnc-laser">CNC &amp; Laser</a></li>
+            <li><a href="/custom-design">Custom Design</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/free-designs">Free Designs</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/faqs">FAQs</a></li>
+            <li><a href="/placement-guides">Placement Guides</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Legal &amp; Policies</h3>
+          <ul>
+            <li><a href="/terms">Terms &amp; Conditions</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/disclaimer">Disclaimer</a></li>
+            <li><a href="/refund-policy">Refund Policy</a></li>
+          </ul>
+
+          <div class="note" style="margin-top:14px;">
+            Contact: Sales@LasVegasDesignsUSA.com<br/>
+            USA: (725) 300-3797, UK: +44 7706 709210
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <div>© <span id="year"></span> Las Vegas Designs USA. All rights reserved.</div>
+        <div class="mini">
+          <span class="tag">Digital Services Only</span>
+          <span class="tag">Revisions First</span>
+          <span class="tag">Last updated: Jan 2026</span>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </footer>
+
+</body>
+</html>
