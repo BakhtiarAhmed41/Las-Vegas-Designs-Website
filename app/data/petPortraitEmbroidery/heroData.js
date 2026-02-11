@@ -5,7 +5,7 @@ export const petPortraitHeroData = {
   heading: "Custom Pet and Portrait Embroidery Digitizing",
   subheading: "Turn dog photos, cat photos, and human portraits into clean embroidery files",
   description:
-    "We don't just digitize photos. We turn them into embroidery files that feel realistic and perfect. Whether it's your dog's goofy expression, your cat's soft eyes, or someone special you want to remember, we take the time to get it right. Every design is manually digitized, with careful attention to detail. If anything needs fixing, we'll do it at no extra cost. We bet you will be happy with our digitizing service.",
+    "We don't just digitize photos. We turn them into embroidery files that feel realistic and perfect. Whether it's your dog's goofy expression, your cat's soft eyes, or someone special you want to remember, we take the time to get it right. Every design is manually digitized, with careful attention to detail.  If anything needs fixing, we'll do it at no extra cost. We bet you will be happy with our digitizing service.",
   features: [
     "Faces are digitized lightly so they look soft and natural",
     "Extra care is taken with eyes and small details",

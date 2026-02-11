@@ -13,6 +13,7 @@ import { fullBackSectionData } from "../data/jacketBackEmbroidery/fullBackSectio
 import { serviceCardsData } from "../data/jacketBackEmbroidery/serviceCardsData";
 import { sleeveSectionData } from "../data/jacketBackEmbroidery/sleeveSectionData";
 import { upperLowerBackSectionData } from "../data/jacketBackEmbroidery/upperLowerBackSectionData";
+import JacketBackEmbroideryGallery from "../components/Gallery/JacketBackEmbroideryGallery";
 import WhyChooseUs from "../components/ServicePages/WhyChooseUs";
 import { whyChooseUsData } from "../data/jacketBackEmbroidery/whyChooseUsData";
 import EtsyReviews from "../components/EtsyReviews/EtsyReviews";
@@ -51,6 +52,9 @@ export default function JacketBackEmbroideryPage() {
 
             {/* Upper & Lower Back Section - Normal Layout */}
             <ServiceHero {...upperLowerBackSectionData} />
+
+            {/* Gallery Section - Stitch Out Samples Carousel */}
+            <JacketBackEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

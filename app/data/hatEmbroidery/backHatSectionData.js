@@ -21,7 +21,7 @@ export const backHatSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: "/assets/images/hat/stitch/Pennsylvania Fish & Boat Commission logo embroidery stitched on caps.png",
+  imageSrc: "/assets/images/hat/cards/Hat back  Embroidery  Logo Digitizing.png",
   imageAlt: "Back of Hat Logo Digitizing",
   swapLayout: true,
 };

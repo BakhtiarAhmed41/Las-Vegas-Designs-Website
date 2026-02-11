@@ -13,6 +13,7 @@ import { serviceCardsData } from "../data/hatEmbroidery/serviceCardsData";
 import { puffSectionData } from "../data/hatEmbroidery/puffSectionData";
 import { sideHatSectionData } from "../data/hatEmbroidery/sideHatSectionData";
 import { backHatSectionData } from "../data/hatEmbroidery/backHatSectionData";
+import HatEmbroideryGallery from "../components/Gallery/HatEmbroideryGallery";
 import WhyChooseUs from "../components/ServicePages/WhyChooseUs";
 import { whyChooseUsData } from "../data/hatEmbroidery/whyChooseUsData";
 import EtsyReviews from "../components/EtsyReviews/EtsyReviews";
@@ -51,6 +52,9 @@ export default function HatEmbroideryPage() {
 
             {/* Back of Hat Section - Swapped Layout */}
             <ServiceHero {...backHatSectionData} />
+
+            {/* Gallery Section - Stitch Out Samples Carousel */}
+            <HatEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

@@ -12,6 +12,7 @@ import { pocketSectionData } from "../data/leftChestEmbroidery/pocketSectionData
 import { serviceCardsData } from "../data/leftChestEmbroidery/serviceCardsData";
 import { abovePocketSectionData } from "../data/leftChestEmbroidery/abovePocketSectionData";
 import { sleeveSectionData } from "../data/leftChestEmbroidery/sleeveSectionData";
+import LeftChestEmbroideryGallery from "../components/Gallery/LeftChestEmbroideryGallery";
 import WhyChooseUs from "../components/ServicePages/WhyChooseUs";
 import { whyChooseUsData } from "../data/leftChestEmbroidery/whyChooseUsData";
 import EtsyReviews from "../components/EtsyReviews/EtsyReviews";
@@ -47,6 +48,9 @@ export default function LeftChestEmbroideryPage() {
 
             {/* Sleeve Section - Normal Layout - 20% wider and centered */}
             <ServiceHero {...sleeveSectionData} customMaxWidth="1680px" />
+
+            {/* Gallery Section - Stitch Out Samples Carousel */}
+            <LeftChestEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

@@ -22,6 +22,7 @@ export default function Navbar3() {
         {
             label: "Embroidery",
             hasDropdown: true,
+            dropdownHeading: "EMBROIDERY DIGITIZING",
             sub: [
                 { label: "Applique Logo Digitizing", href: "/applique-embroidery" },
                 { label: "Hat Logo Digitizing", href: "/hat-embroidery" },
@@ -30,10 +31,12 @@ export default function Navbar3() {
                 { label: "Custom Pet Embroidery Digitizing", href: "/pet-portrait-embroidery" },
                 { label: "Car & Truck Embroidery Digitizing", href: "/vehicle-embroidery" },
             ],
+            subFooter: { label: "Request Free color change", href: "/contact#quote-form" },
         },
         {
             label: "SVG",
             hasDropdown: true,
+            dropdownHeading: "SVG & CUT FILES",
             href: "/svg",
             sub: [
                 { label: "Single-Color SVG", href: "#" },
@@ -45,6 +48,7 @@ export default function Navbar3() {
         {
             label: "Custom vector",
             hasDropdown: true,
+            dropdownHeading: "CUSTOM VECTOR",
             href: "/custom-vector",
             sub: [
                 { label: "Image to Vector", href: "#" },
@@ -56,6 +60,7 @@ export default function Navbar3() {
         {
             label: "CNC and Laser Cut",
             hasDropdown: true,
+            dropdownHeading: "CNC & LASER FILES",
             href: "/cnc-laser-cut",
             sub: [
                 { label: "CNC Cut Files", href: "#" },
@@ -67,6 +72,7 @@ export default function Navbar3() {
         {
             label: "Design Library",
             hasDropdown: true,
+            dropdownHeading: "DESIGN LIBRARY",
             href: "#",
             sub: [
                 { label: "Free Designs", href: "#" },
@@ -79,6 +85,7 @@ export default function Navbar3() {
         {
             label: "Resources",
             hasDropdown: true,
+            dropdownHeading: "RESOURCES",
             href: "#",
             sub: [
                 { label: "About Us", href: "/about-us" },
@@ -198,19 +205,39 @@ export default function Navbar3() {
                                                 />
                                             </Link>
 
-                                            {/* Dropdown Menu */}
+                                            {/* Dropdown Menu - compact width, small category heading */}
                                             {item.sub && (
                                                 <div className="absolute left-0 top-full mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                                    <div className="bg-white border border-border-light rounded shadow-lg py-2 w-64 overflow-hidden">
-                                                        {item.sub.map((subItem) => (
-                                                            <Link
-                                                                key={subItem.label}
-                                                                href={subItem.href || '#'}
-                                                                className="block px-4 py-2.5 text-gray-700 hover:bg-gray-50 hover:text-lv-red text-[14px] font-medium transition-colors duration-150"
-                                                            >
-                                                                {subItem.label}
-                                                            </Link>
-                                                        ))}
+                                                    <div className="bg-white rounded-xl shadow-lg overflow-hidden w-max min-w-[180px] max-w-[320px] py-1 border border-gray-100">
+                                                        {item.dropdownHeading && (
+                                                            <div className="px-4 pt-3 pb-1.5">
+                                                                <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500">
+                                                                    {item.dropdownHeading}
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                        <div className="pb-1">
+                                                            {item.sub.map((subItem) => (
+                                                                <Link
+                                                                    key={subItem.label}
+                                                                    href={subItem.href || "#"}
+                                                                    className="block px-4 py-2.5 text-gray-800 hover:bg-gray-50 hover:text-lv-red text-[14px] font-normal transition-colors duration-150 whitespace-nowrap"
+                                                                >
+                                                                    {subItem.label}
+                                                                </Link>
+                                                            ))}
+                                                        </div>
+                                                        {item.subFooter && (
+                                                            <>
+                                                                <div className="border-t border-gray-200 my-1" />
+                                                                <Link
+                                                                    href={item.subFooter.href || "#"}
+                                                                    className="block px-4 py-2.5 text-gray-800 hover:bg-gray-50 hover:text-lv-red text-[14px] font-normal transition-colors duration-150 whitespace-nowrap"
+                                                                >
+                                                                    {item.subFooter.label}
+                                                                </Link>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </div>
                                             )}
@@ -311,16 +338,35 @@ export default function Navbar3() {
                                             className={`overflow-hidden transition-all duration-300 bg-gray-50 ${openDropdown === item.label ? "max-h-96" : "max-h-0"
                                                 }`}
                                         >
+                                            {item.dropdownHeading && (
+                                                <div className="px-6 pt-3 pb-1">
+                                                    <span className="text-[11px] font-bold uppercase tracking-wide text-gray-500">
+                                                        {item.dropdownHeading}
+                                                    </span>
+                                                </div>
+                                            )}
                                             {item.sub.map((subItem) => (
                                                 <Link
                                                     key={subItem.label}
-                                                    href={subItem.href || '#'}
+                                                    href={subItem.href || "#"}
                                                     className="block px-6 py-2.5 text-[14px] text-gray-700 hover:text-lv-red hover:bg-gray-100 font-medium transition-colors"
                                                     onClick={() => setMobileOpen(false)}
                                                 >
                                                     {subItem.label}
                                                 </Link>
                                             ))}
+                                            {item.subFooter && (
+                                                <>
+                                                    <div className="border-t border-gray-200 mx-4 my-1" />
+                                                    <Link
+                                                        href={item.subFooter.href || "#"}
+                                                        className="block px-6 py-2.5 text-[14px] text-gray-700 hover:text-lv-red hover:bg-gray-100 font-medium transition-colors"
+                                                        onClick={() => setMobileOpen(false)}
+                                                    >
+                                                        {item.subFooter.label}
+                                                    </Link>
+                                                </>
+                                            )}
                                         </div>
                                     )}
                                 </>

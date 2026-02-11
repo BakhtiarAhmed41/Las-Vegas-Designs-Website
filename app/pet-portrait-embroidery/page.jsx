@@ -12,6 +12,7 @@ import { catSectionData } from "../data/petPortraitEmbroidery/catSectionData";
 import { serviceCardsData } from "../data/petPortraitEmbroidery/serviceCardsData";
 import { portraitScenerySectionData } from "../data/petPortraitEmbroidery/portraitScenerySectionData";
 import { humanPortraitSectionData } from "../data/petPortraitEmbroidery/humanPortraitSectionData";
+import PetPortraitEmbroideryGallery from "../components/Gallery/PetPortraitEmbroideryGallery";
 import WhyChooseUs from "../components/ServicePages/WhyChooseUs";
 import { whyChooseUsData } from "../data/petPortraitEmbroidery/whyChooseUsData";
 import EtsyReviews from "../components/EtsyReviews/EtsyReviews";
@@ -47,6 +48,9 @@ export default function PetPortraitEmbroideryPage() {
 
             {/* Human Portrait Section - Normal Layout */}
             <ServiceHero {...humanPortraitSectionData} />
+
+            {/* Gallery Section - Stitch Out Samples Carousel */}
+            <PetPortraitEmbroideryGallery />
 
             {/* Why Choose Us & FAQ Section */}
             <WhyChooseUs data={whyChooseUsData} />

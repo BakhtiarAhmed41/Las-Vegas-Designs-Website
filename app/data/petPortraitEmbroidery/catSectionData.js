@@ -21,7 +21,7 @@ export const catSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: "/assets/images/pets/pets emb/Pet and Portrait Embroidery logo Digitizing.png",
+  imageSrc: "/assets/images/pets/pets emb/cat photo and image Embroidery logo Digitizing.png",
   imageAlt: "Cat Photo Embroidery Digitizing",
   swapLayout: false,
 };

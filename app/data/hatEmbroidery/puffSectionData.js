@@ -21,7 +21,7 @@ export const puffSectionData = {
     text: "View Example Stitch Outs",
     href: "#gallery",
   },
-  imageSrc: "/assets/images/hat/stitch/Matoski Trucking logo patch embroidery stitched on baseball caps.png",
+  imageSrc: "/assets/images/hat/cards/3d puff hat EMBROIDERY DIGITIZING.png",
   imageAlt: "3D Puff Logo Digitizing",
   swapLayout: true,
 };
