@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1771715643739",
+    "slug": "test-blog",
+    "title": "Test Blog",
+    "excerpt": "This blog is just for testing purpose",
+    "content": "This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not. This blog is just for testing purpose to analyze if the bog funtion is working fine or not.",
+    "category": "Test Category",
+    "featuredImage": "/assets/blogs/test-blog-1771715643727.png",
+    "readTime": "5 min read",
+    "date": "Feb 2026",
+    "createdAt": "2026-02-21T23:14:03.739Z"
+  },
+  {
+    "id": "1",
+    "slug": "left-chest-sizing-guide-for-logos",
+    "title": "Left chest sizing guide for logos, clean and simple",
+    "excerpt": "A quick sizing method that prevents tiny details from breaking and keeps stitch coverage clean.",
+    "content": "When digitizing left chest logos, size matters. Too small and details get lost or break in the stitch. Too large and the design can feel heavy on the garment.\n\nWe use a simple rule: for most polos and tees, keep the logo height between 2.5 and 3.5 inches. That range gives you clear readability and stitch stability. Always consider the fabric—thicker materials can handle slightly denser fills.\n\nWhy this range works: At 2.5 inches you have enough space for a small logo or text without stitches crowding. At 3.5 inches you can comfortably fit a detailed logo or company name. Going smaller often means simplifying the design or losing fine lines; going larger can make the embroidery feel bulky on the chest.\n\nFabric matters. On lightweight polos and knits, keep density moderate so the fabric doesn't pucker. On twill or heavier workwear, you can push the size a bit and use slightly heavier stitch coverage. Always request the intended garment type from your customer so you can adjust the file accordingly.\n\nTest your file at the intended size before sending to production. A quick sewout or preview at 100% will save revisions later. If you're unsure, send a test at 3 inches—it's a safe default that works for most left chest applications.",
+    "category": "Embroidery",
+    "featuredImage": "/assets/images/leftchest/stitch/PCA monogram logo embroidery stitched on polo knit fabric.png",
+    "readTime": "6 min read",
+    "date": "Feb 2026",
+    "createdAt": "2026-02-01T00:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "slug": "underlay-explained-simple-way",
+    "title": "Underlay explained in a simple way, why it matters",
+    "excerpt": "Why underlay stitches matter for embroidery and how to plan them so top stitches stay clean.",
+    "content": "Underlay is the foundation of a good embroidery design. It stabilizes the fabric and gives the top stitches something to sit on.\n\nWithout underlay, satin stitches can sink into stretchy or soft fabrics. With the right underlay—usually a running stitch or light fill—your design stays flat and readable. Think of it like a base coat before the main color: you don't always see it, but the result is much better with it.\n\nWe use different underlay types for different areas: running stitch for outlines, light fill for large satin areas. The goal is always to support the top layer without adding bulk. For fine lettering, a single run of underlay along the path can be enough. For big filled areas, a light tatami or weaved fill keeps the surface even so the satin doesn't dip or pull.\n\nDirection matters. Underlay should run perpendicular or at an angle to the top stitch so the two layers lock together. Same direction often leads to ridges or a mushy feel. Many digitizers use 90 degrees or 45 degrees relative to the satin for a clean, stable result.\n\nDon't skip underlay to save time or stitch count. The small extra cost in stitches pays off in quality and fewer customer callbacks. On caps and stretchy fabrics, underlay is even more important—it prevents the design from distorting when the garment is worn.",
+    "category": "Embroidery",
+    "featuredImage": "/assets/images/hat/stitch/hat embroidery logo digitizing sewout (12).png",
+    "readTime": "7 min read",
+    "date": "Feb 2026",
+    "createdAt": "2026-02-02T00:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "slug": "vector-line-cleanup-fast-method",
+    "title": "Vector line cleanup, the fast method that stays smooth",
+    "excerpt": "Clean curves and fewer nodes without losing shape. A practical workflow for print and cut files.",
+    "content": "Rough vectors cause rough cuts and prints. Too many nodes make files heavy and slow to process. Cleaning your vectors before sending to print or cut is one of the fastest ways to improve quality and machine performance.\n\nWe clean lines by reducing nodes while keeping the shape. The goal is smooth Bézier curves that cut or print clean. For Cricut, Silhouette, or laser, that usually means simplifying paths and removing duplicate points. Most design software has a \"Simplify\" or \"Smooth\" command—use it with a low tolerance first, then increase until you see the shape start to change, and back off one step.\n\nManual cleanup still wins for critical curves. On logos and type, a few extra minutes spent removing redundant nodes and aligning handles can make a big difference. Focus on areas that will be cut at small sizes: fine text, thin lines, and detailed outlines. Those are where messy vectors show up as jagged or broken cuts.\n\nCheck your export. SVG and PDF are common formats for cut files. Make sure you're exporting paths, not rasterized artwork, and that strokes are expanded if the machine expects closed shapes. Some cutters prefer single-path outlines; others handle compound paths. Know your machine's requirements and export accordingly.\n\nUse your software's simplify or smooth tool with care—too aggressive and you lose detail. A little manual cleanup on critical curves goes a long way. When in doubt, keep a copy of the original and compare the cleaned version at actual output size before sending to the client.",
+    "category": "Vector",
+    "featuredImage": "/assets/images/hat/cards/baseball cap Embroidery  Logo Digitizing.png",
+    "readTime": "5 min read",
+    "date": "Feb 2026",
+    "createdAt": "2026-02-03T00:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "slug": "cricut-cut-rough-how-to-fix",
+    "title": "Why your Cricut cut looks rough, and how to fix it",
+    "excerpt": "Common causes of rough cuts and simple fixes for cleaner results on vinyl and cardstock.",
+    "content": "Rough cuts on a Cricut or similar machine usually come from a few places: dull blade, wrong pressure, or a design that's too detailed for the size you're cutting.\n\nCheck your blade first. A worn blade will tear instead of cut cleanly. If you're getting fuzzy edges or the mat is sticking to the material, try a new blade. For intricate designs, use a fine-point blade and consider the \"less pressure, more passes\" approach—two light passes often give a cleaner result than one heavy pass.\n\nNext, match pressure and passes to your material. Too much pressure can cause drag and rough edges; too little can mean multiple passes and fuzzy lines. Use the material settings in your machine's app as a starting point, then do a test cut. Adjust pressure in small steps until the cut is clean and the backing isn't cut through (for vinyl) or the mat isn't gouged.\n\nFor the design itself, simplify small text and thin lines. At small sizes, fine details often cut poorly. If your text is under about half an inch tall, consider bolder fonts or increasing the size. Thin strokes (under 1/16 inch) can tear or lift; thicken them or use a single cut path instead of an outline.\n\nWeed carefully. Sometimes what looks like a rough cut is actually rough weeding—tugging or lifting at the wrong angle can stretch or tear the edges. Use a sharp weeding tool and take your time on delicate areas. Clean cuts plus careful weeding give you professional results every time.",
+    "category": "SVG and PNG",
+    "featuredImage": "/assets/images/pets/pets emb/stich/Dog portrait embroidery stitched on fleece sweatshirt.png",
+    "readTime": "4 min read",
+    "date": "Feb 2026",
+    "createdAt": "2026-02-04T00:00:00.000Z"
+  }
+]

@@ -80,7 +80,7 @@ export default function Navbar3() {
             ],
         },
         { label: "Pricing", hasDropdown: false, href: "/embroidery-pricing" },
-        { label: "Portfolio", hasDropdown: false, href: "#" },
+        { label: "Portfolio", hasDropdown: false, href: "/portfolio" },
         { label: "Contact us", hasDropdown: false, href: "/contact" },
         {
             label: "Resources",
@@ -90,7 +90,7 @@ export default function Navbar3() {
             sub: [
                 { label: "About Us", href: "/about-us" },
                 { label: "Payment", href: "/payment" },
-                { label: "Blog", href: "#" },
+                { label: "Blog", href: "/blog" },
                 { label: "FAQs", href: "#" },
                 { label: "Privacy Policy", href: "/privacy-policy" },
                 { label: "Terms & Conditions", href: "/terms-and-conditions" },
