@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import TopTicker from "@/app/components/TopPicker/TopPicker";
@@ -10,7 +10,7 @@ import GoUp from "@/app/components/Buttons/GoUp";
 import ChatButton from "@/app/components/Buttons/ChatButton";
 import { useCart } from "@/app/context/CartContext";
 
-export default function OrderPage() {
+function OrderPageContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
@@ -120,5 +120,22 @@ export default function OrderPage() {
       <GoUp />
       <ChatButton />
     </main>
+  );
+}
+
+export default function OrderPage() {
+  return (
+    <Suspense fallback={
+      <main className="bg-white min-h-screen">
+        <TopTicker />
+        <Navbar />
+        <div className="max-w-xl mx-auto px-4 py-16 text-center text-gray-500">Loading…</div>
+        <Footer />
+        <GoUp />
+        <ChatButton />
+      </main>
+    }>
+      <OrderPageContent />
+    </Suspense>
   );
 }

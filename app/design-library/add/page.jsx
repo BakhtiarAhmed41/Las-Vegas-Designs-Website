@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { Suspense, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import TopTicker from "@/app/components/TopPicker/TopPicker";
@@ -69,7 +69,7 @@ function designToForm(d) {
   };
 }
 
-export default function AddDesignPage() {
+function AddDesignForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get("edit");
@@ -621,5 +621,34 @@ export default function AddDesignPage() {
       <GoUp />
       <ChatButton />
     </main>
+  );
+}
+
+function AddDesignPageFallback() {
+  return (
+    <main className="bg-white">
+      <TopTicker />
+      <Navbar />
+      <section className="py-10 md:py-14">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Upload New Design</h1>
+            <Link href="/design-library" className="text-lv-red font-semibold hover:underline">← Back to Design Library</Link>
+          </div>
+          <p className="text-gray-500">Loading…</p>
+        </div>
+      </section>
+      <Footer />
+      <GoUp />
+      <ChatButton />
+    </main>
+  );
+}
+
+export default function AddDesignPage() {
+  return (
+    <Suspense fallback={<AddDesignPageFallback />}>
+      <AddDesignForm />
+    </Suspense>
   );
 }

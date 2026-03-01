@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { Suspense, useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import TopTicker from "@/app/components/TopPicker/TopPicker";
 import Navbar from "@/app/components/Navbar/Navbar3";
@@ -40,7 +40,7 @@ function buildDesignsParams(searchParams) {
   return params;
 }
 
-export default function DesignLibraryPage() {
+function DesignLibraryContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [filtersData, setFiltersData] = useState(null);
@@ -268,5 +268,22 @@ export default function DesignLibraryPage() {
       <GoUp />
       <ChatButton />
     </main>
+  );
+}
+
+export default function DesignLibraryPage() {
+  return (
+    <Suspense fallback={
+      <main className="bg-white min-h-screen">
+        <TopTicker />
+        <Navbar />
+        <div className="max-w-[1400px] mx-auto px-4 py-16 text-center text-gray-500">Loading…</div>
+        <Footer />
+        <GoUp />
+        <ChatButton />
+      </main>
+    }>
+      <DesignLibraryContent />
+    </Suspense>
   );
 }
