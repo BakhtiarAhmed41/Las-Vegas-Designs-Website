@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  return new Stripe(key);
+}
 
 export async function POST(request) {
   try {
@@ -93,6 +97,10 @@ export async function POST(request) {
     }
 
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || request.headers.get("origin") || "http://localhost:3000";
+    const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
+    }
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [

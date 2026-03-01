@@ -3,12 +3,20 @@ import Stripe from "stripe";
 import { query } from "@/lib/db";
 import { v4 as uuidv4 } from "uuid";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  return new Stripe(key);
+}
 
 export async function POST(request) {
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
     return NextResponse.json({ error: "Webhook secret not configured" }, { status: 500 });
+  }
+  const stripe = getStripe();
+  if (!stripe) {
+    return NextResponse.json({ error: "Stripe is not configured" }, { status: 500 });
   }
   const body = await request.text();
   const sig = request.headers.get("stripe-signature");
