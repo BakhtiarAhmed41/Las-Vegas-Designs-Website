@@ -10,8 +10,9 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import logo from "@/public/assets/logos/lasLogo.png";
 import Image from "next/image";
+
+const siteLogo = "/assets/images/Las Vegas New logo.png";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -92,7 +93,7 @@ export default function Navbar() {
       <div className="w-screen mx-auto px-10 py-4 flex items-center justify-between lg:justify-normal lg:gap-10">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <Image src={logo} width={200} height={68} alt="Las Vegas Designs" />
+          <Image src={siteLogo} width={200} height={68} alt="Las Vegas Designs" />
         </Link>
 
         {/* Desktop Navigation */}

@@ -11,8 +11,9 @@ import {
     FiUser,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import logo from "@/public/assets/logos/lasLogo.png";
 import Image from "next/image";
+
+const siteLogo = "/assets/images/Las Vegas New logo.png";
 
 export default function Navbar3() {
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,10 +74,10 @@ export default function Navbar3() {
             label: "Design Library",
             hasDropdown: true,
             dropdownHeading: "DESIGN LIBRARY",
-            href: "#",
+            href: "/design-library",
             sub: [
-                { label: "Free Designs", href: "#" },
-                { label: "Design Gallery", href: "#" },
+                { label: "Free Designs", href: "/design-library?access=free" },
+                { label: "Design Gallery", href: "/design-library" },
             ],
         },
         { label: "Pricing", hasDropdown: false, href: "/embroidery-pricing" },
@@ -178,7 +179,7 @@ export default function Navbar3() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center shrink-0">
                         <Image
-                            src={logo}
+                            src={siteLogo}
                             width={200}
                             height={68}
                             alt="Las Vegas Designs USA"

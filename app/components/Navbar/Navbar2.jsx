@@ -9,8 +9,9 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import logo from "@/public/assets/logos/lasLogo.png";
 import Image from "next/image";
+
+const siteLogo = "/assets/images/Las Vegas New logo.png";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,7 +97,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-5 py-6 flex items-center justify-between">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3">
-          <Image src={logo} width={190} alt="Las Vegas Designs" />
+          <Image src={siteLogo} width={190} alt="Las Vegas Designs" />
         </Link>
 
         {/* DESKTOP MENU */}
