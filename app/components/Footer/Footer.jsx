@@ -242,10 +242,10 @@ export default function Footer() {
               <div className="mt-6 flex flex-wrap items-center gap-2">
                 <Image
                   src={paymentLogos}
-                  width={280}
-                  height={50}
+                  width={340}
+                  height={60}
                   alt="Payment Methods: PayPal, Discover, Mastercard, Visa"
-                  className="max-w-full h-auto object-contain"
+                  className="max-w-full h-auto object-contain min-h-[44px]"
                 />
               </div>
             </div>
