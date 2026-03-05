@@ -2,7 +2,7 @@
 
 Create a file named **`.env.local`** in the **project root** (the folder that contains `package.json`), **not** inside `app/`.
 
-**Important:** Next.js only loads `.env.local` from the project root. If the file is in `app/.env.local`, your credentials will not be loaded and you will see errors like "Cloudinary credentials not configured".
+**Important:** Next.js only loads `.env.local` from the project root. If the file is in `app/.env.local`, your credentials will not be loaded.
 
 **How to create or fix:**
 1. Open your project root folder (e.g. `LasVegasDesignsUSA-main` — same level as `package.json`, `app/`, `docs/`).
@@ -17,17 +17,15 @@ Create a file named **`.env.local`** in the **project root** (the folder that co
 
 ## Content for .env.local
 
-Copy everything between the lines (replace if you already have .env.local):
+Copy everything between the lines and fill in your values:
 
 ```
-# Database
-DATABASE_URL=mysql://root:@localhost:3306/lasvegasdesigns
+# Supabase – Database (PostgreSQL direct connection)
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@db.bmbmkamzzxxougtnfpwj.supabase.co:5432/postgres
 
-# Upload: Cloudinary
-UPLOAD_PROVIDER=cloudinary
-CLOUDINARY_CLOUD_NAME=dix5qxlah
-CLOUDINARY_API_KEY=447576963832976
-CLOUDINARY_API_SECRET=7IUcU7azT0RmF62HeaZwtZrCQUU
+# Supabase – Storage & Client
+NEXT_PUBLIC_SUPABASE_URL=https://bmbmkamzzxxougtnfpwj.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 
 # Stripe (add when ready for payments)
 # STRIPE_SECRET_KEY=
@@ -38,16 +36,41 @@ CLOUDINARY_API_SECRET=7IUcU7azT0RmF62HeaZwtZrCQUU
 # PAYPAL_CLIENT_ID=
 # PAYPAL_CLIENT_SECRET=
 # PAYPAL_API_BASE=https://api-m.sandbox.paypal.com
+
+# Cron keep-alive secret (optional, for Vercel cron)
+# CRON_SECRET=any-random-secret-string
 ```
 
 ---
 
-## If MySQL password is not empty
+## Where to find your Supabase credentials
 
-If your MySQL `root` user has a password, use:
+1. **DATABASE_URL** — Supabase Dashboard → Project Settings → Database → Connection string (URI).
+   Replace `YOUR_PASSWORD` with the password you set when creating the project.
 
-```
-DATABASE_URL=mysql://root:YOUR_PASSWORD@localhost:3306/lasvegasdesigns
-```
+2. **NEXT_PUBLIC_SUPABASE_URL** — Supabase Dashboard → Project Settings → API → Project URL.
 
-Replace `YOUR_PASSWORD` with your actual password. If the password contains special characters, URL-encode them (e.g. `@` → `%40`, `#` → `%23`).
+3. **SUPABASE_SERVICE_ROLE_KEY** — Supabase Dashboard → Project Settings → API → `service_role` key (secret).
+   This key is needed for server-side operations like file uploads.
+
+---
+
+## Supabase Storage setup
+
+Before uploading images, create a storage bucket:
+
+1. Go to Supabase Dashboard → Storage.
+2. Click **New bucket**.
+3. Name it `designs`.
+4. Check **Public bucket** (so images can be viewed without auth).
+5. Click **Create bucket**.
+
+---
+
+## Running the database schema
+
+After setting up `.env.local`, run the schema and seed SQL in the Supabase SQL Editor:
+
+1. Go to Supabase Dashboard → SQL Editor.
+2. Paste the contents of `scripts/schema.sql` and run it.
+3. Paste the contents of `scripts/seed.sql` and run it.

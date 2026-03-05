@@ -5,18 +5,8 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.r2.dev",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.r2.cloudflarestorage.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-        pathname: "/**",
+        hostname: "*.supabase.co",
+        pathname: "/storage/**",
       },
     ],
   },

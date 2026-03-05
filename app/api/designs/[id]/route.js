@@ -35,18 +35,8 @@ export async function GET(request, { params }) {
       "SELECT id, hoop, width_in, height_in, stitches FROM design_sizes WHERE design_id = ? ORDER BY id",
       [designId]
     );
-    design.technical_attributes =
-      design.technical_attributes != null
-        ? typeof design.technical_attributes === "string"
-          ? JSON.parse(design.technical_attributes)
-          : design.technical_attributes
-        : {};
-    design.formats =
-      design.formats != null
-        ? typeof design.formats === "string"
-          ? JSON.parse(design.formats)
-          : design.formats
-        : [];
+    design.technical_attributes = design.technical_attributes || {};
+    design.formats = design.formats || [];
     design.design_sizes = sizeRows || [];
 
     return NextResponse.json(design);
@@ -120,6 +110,10 @@ export async function PUT(request, { params }) {
       attempts += 1;
     }
 
+    const tagsJson = JSON.stringify(Array.isArray(tags) ? tags : tags ? String(tags).split(",").map((t) => t.trim()) : []);
+    const techJson = JSON.stringify(technical_attributes);
+    const formatsJson = JSON.stringify(Array.isArray(formats) ? formats : []);
+
     await query(
       `UPDATE designs SET
         title = ?, slug = ?, description = ?, price = ?, is_free = ?, main_category_id = ?, theme_id = ?, sub_theme_id = ?,
@@ -142,15 +136,15 @@ export async function PUT(request, { params }) {
         seo_title?.trim() || null,
         meta_description?.trim() || null,
         url_slug?.trim() || null,
-        JSON.stringify(Array.isArray(tags) ? tags : tags ? String(tags).split(",").map((t) => t.trim()) : []),
+        tagsJson,
         alt_text?.trim() || null,
         internal_notes?.trim() || null,
         status === "published" ? "published" : "draft",
         Boolean(is_featured),
         Boolean(is_new_arrival),
         Boolean(is_bundle),
-        JSON.stringify(technical_attributes),
-        JSON.stringify(Array.isArray(formats) ? formats : []),
+        techJson,
+        formatsJson,
         designId,
       ]
     );
@@ -183,18 +177,8 @@ export async function PUT(request, { params }) {
     );
     const design = rows?.[0];
     if (design) {
-      design.technical_attributes =
-        design.technical_attributes != null
-          ? typeof design.technical_attributes === "string"
-            ? JSON.parse(design.technical_attributes)
-            : design.technical_attributes
-          : {};
-      design.formats =
-        design.formats != null
-          ? typeof design.formats === "string"
-            ? JSON.parse(design.formats)
-            : design.formats
-          : [];
+      design.technical_attributes = design.technical_attributes || {};
+      design.formats = design.formats || [];
       const sizeRows = await query(
         "SELECT id, hoop, width_in, height_in, stitches FROM design_sizes WHERE design_id = ?",
         [designId]
@@ -207,6 +191,48 @@ export async function PUT(request, { params }) {
     console.error("PUT /api/designs/[id] error:", err);
     return NextResponse.json(
       { error: err.message || "Failed to update design" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request, { params }) {
+  try {
+    const { id } = await params;
+    const designId = parseInt(id, 10);
+    if (!id || Number.isNaN(designId)) {
+      return NextResponse.json({ error: "Invalid design ID" }, { status: 400 });
+    }
+
+    const existing = await query("SELECT id FROM designs WHERE id = ?", [designId]);
+    if (!existing?.length) {
+      return NextResponse.json({ error: "Design not found" }, { status: 404 });
+    }
+
+    const body = await request.json();
+    const allowed = ["is_featured", "is_new_arrival", "is_bundle", "status"];
+    const sets = [];
+    const values = [];
+    for (const key of allowed) {
+      if (key in body) {
+        sets.push(`${key} = ?`);
+        values.push(key === "status" ? body[key] : Boolean(body[key]));
+      }
+    }
+
+    if (sets.length === 0) {
+      return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
+    }
+
+    values.push(designId);
+    await query(`UPDATE designs SET ${sets.join(", ")} WHERE id = ?`, values);
+
+    const rows = await query("SELECT id, title, slug, is_featured, is_new_arrival, is_bundle, status FROM designs WHERE id = ?", [designId]);
+    return NextResponse.json({ success: true, design: rows?.[0] });
+  } catch (err) {
+    console.error("PATCH /api/designs/[id] error:", err);
+    return NextResponse.json(
+      { error: err.message || "Failed to patch design" },
       { status: 500 }
     );
   }

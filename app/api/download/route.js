@@ -9,7 +9,7 @@ export async function GET(request) {
 
     if (designId && !token) {
       const rows = await query(
-        "SELECT id, main_preview_url, title FROM designs WHERE id = ? AND status = 'published' AND is_free = 1",
+        "SELECT id, main_preview_url, title FROM designs WHERE id = ? AND status = 'published' AND is_free = true",
         [designId]
       );
       const design = rows?.[0];

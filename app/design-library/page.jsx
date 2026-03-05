@@ -174,9 +174,9 @@ function DesignLibraryContent() {
   }, [searchParams.toString()]);
 
   useEffect(() => {
-    fetch("/api/designs?limit=8&sort=newest")
+    fetch("/api/designs?featured=1&limit=8&sort=newest")
       .then((res) => res.json())
-      .then((data) => setFeatured((data.designs || []).filter((d) => d.is_featured).slice(0, 8)))
+      .then((data) => setFeatured(data.designs || []))
       .catch(() => setFeatured([]));
   }, []);
 
@@ -190,28 +190,30 @@ function DesignLibraryContent() {
       <DesignLibraryHero activeAccess={access} onAccessChange={onAccessChange} />
       <CategoryCards onSelectCategory={onSelectCategory} />
 
-      <section className="py-8 md:py-12 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">Featured designs</h2>
-            <Link
-              href="#browse-all-designs"
-              className="text-lv-red font-semibold hover:underline"
-            >
-              View all designs
-            </Link>
-          </div>
-          <div className="overflow-x-auto pb-4 -mx-2">
-            <div className="flex gap-4 min-w-max md:min-w-0 md:grid md:grid-cols-2 lg:grid-cols-4">
-              {(featured.length ? featured : designs.slice(0, 4)).map((d) => (
-                <div key={d.id} className="w-[280px] md:w-auto shrink-0">
-                  <DesignCard design={d} />
-                </div>
-              ))}
+      {featured.length > 0 && (
+        <section className="py-8 md:py-12 bg-gray-50">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">Featured designs</h2>
+              <Link
+                href="#browse-all-designs"
+                className="text-lv-red font-semibold hover:underline"
+              >
+                View all designs
+              </Link>
+            </div>
+            <div className="overflow-x-auto pb-4 -mx-2">
+              <div className="flex gap-4 min-w-max md:min-w-0 md:grid md:grid-cols-2 lg:grid-cols-4">
+                {featured.map((d) => (
+                  <div key={d.id} className="w-[280px] md:w-auto shrink-0">
+                    <DesignCard design={d} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section id="browse-all-designs" className="py-8 md:py-12 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">

@@ -9,15 +9,18 @@ import {
     FiPhone,
     FiMessageCircle,
     FiUser,
+    FiShoppingCart,
 } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
+import { useCart } from "@/app/context/CartContext";
 
 const siteLogo = "/assets/images/Las Vegas New logo.png";
 
 export default function Navbar3() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const { count: cartCount } = useCart();
 
     const navLinks = [
         {
@@ -158,6 +161,18 @@ export default function Navbar3() {
                             className="inline-flex items-center justify-center bg-lv-red hover:bg-lv-red-dark text-white font-bold text-[13px] px-5 py-2.5 rounded-lg transition-colors duration-200 shadow-sm whitespace-nowrap"
                         >
                             Get a Quote
+                        </Link>
+                        <Link
+                            href="/design-library/cart"
+                            className="relative inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white/90 text-gray-500 hover:text-lv-red border border-gray-300 shadow-sm transition-colors duration-200"
+                            title="Cart"
+                        >
+                            <FiShoppingCart size={18} strokeWidth={2} />
+                            {cartCount > 0 && (
+                                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-lv-red text-white text-[10px] font-bold rounded-full px-1">
+                                    {cartCount}
+                                </span>
+                            )}
                         </Link>
                         <span
                             role="img"

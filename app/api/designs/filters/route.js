@@ -8,46 +8,28 @@ export async function GET(request) {
     const theme_id = searchParams.get("theme_id");
     const access = searchParams.get("access") || "all";
 
-    const baseConditions = ["d.status = 'published'"];
-    const baseParams = [];
-    if (access === "free") {
-      baseConditions.push("d.is_free = 1");
-    } else if (access === "premium") {
-      baseConditions.push("d.is_free = 0");
-    }
-    if (main_category) {
-      baseConditions.push("mc.slug = ?");
-      baseParams.push(main_category);
-    }
-    if (theme_id) {
-      baseConditions.push("d.theme_id = ?");
-      baseParams.push(theme_id);
-    }
-    const joinClause = main_category
-      ? "INNER JOIN main_categories mc ON mc.id = d.main_category_id"
-      : "LEFT JOIN main_categories mc ON mc.id = d.main_category_id";
-    const whereClause =
-      baseConditions.length > 0 ? `WHERE ${baseConditions.join(" AND ")}` : "";
-    const accessJoin =
-      access === "free" ? "AND d.is_free = 1" : access === "premium" ? "AND d.is_free = 0" : "";
+    const accessFilter =
+      access === "free"
+        ? "AND d.is_free = true"
+        : access === "premium"
+          ? "AND d.is_free = false"
+          : "";
 
     const mainCategories = await query(
       `SELECT mc.id, mc.name, mc.slug, COUNT(d.id) AS count
        FROM main_categories mc
-       LEFT JOIN designs d ON d.main_category_id = mc.id AND d.status = 'published' ${accessJoin}
+       LEFT JOIN designs d ON d.main_category_id = mc.id AND d.status = 'published' ${accessFilter}
        GROUP BY mc.id, mc.name, mc.slug
        ORDER BY mc.sort_order ASC`
     );
 
-    const themeAccessJoin =
-      access === "free" ? "AND d.is_free = 1" : access === "premium" ? "AND d.is_free = 0" : "";
     let themes;
     if (main_category) {
       themes = await query(
         `SELECT t.id, t.name, t.slug,
           (SELECT COUNT(d.id) FROM designs d
            INNER JOIN main_categories mc ON mc.id = d.main_category_id AND mc.slug = ?
-           WHERE d.theme_id = t.id AND d.status = 'published' ${themeAccessJoin}) AS count
+           WHERE d.theme_id = t.id AND d.status = 'published' ${accessFilter}) AS count
          FROM themes t
          ORDER BY t.sort_order ASC`,
         [main_category]
@@ -56,7 +38,7 @@ export async function GET(request) {
       themes = await query(
         `SELECT t.id, t.name, t.slug, COUNT(d.id) AS count
          FROM themes t
-         LEFT JOIN designs d ON d.theme_id = t.id AND d.status = 'published' ${themeAccessJoin}
+         LEFT JOIN designs d ON d.theme_id = t.id AND d.status = 'published' ${accessFilter}
          GROUP BY t.id, t.name, t.slug
          ORDER BY t.sort_order ASC`
       );
@@ -93,8 +75,8 @@ export async function GET(request) {
             const countRows = await query(
               `SELECT COUNT(d.id) AS count FROM designs d
                INNER JOIN main_categories mc ON mc.id = d.main_category_id AND mc.slug = ?
-               WHERE d.status = 'published' AND JSON_UNQUOTE(JSON_EXTRACT(d.technical_attributes, ?)) = ?`,
-              [main_category, `$.${key}`, opt.value]
+               WHERE d.status = 'published' AND d.technical_attributes->>? = ?`,
+              [main_category, key, opt.value]
             );
             return {
               ...opt,

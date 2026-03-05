@@ -43,15 +43,19 @@ export async function GET(request) {
       params.push(sub_theme_id);
     }
     if (access === "free") {
-      conditions.push("d.is_free = 1");
+      conditions.push("d.is_free = true");
     } else if (access === "premium") {
-      conditions.push("d.is_free = 0");
+      conditions.push("d.is_free = false");
     }
     if (new_arrival === "1" || new_arrival === "true") {
-      conditions.push("d.is_new_arrival = 1");
+      conditions.push("d.is_new_arrival = true");
     }
     if (bundle === "1" || bundle === "true") {
-      conditions.push("d.is_bundle = 1");
+      conditions.push("d.is_bundle = true");
+    }
+    const featured = searchParams.get("featured");
+    if (featured === "1" || featured === "true") {
+      conditions.push("d.is_featured = true");
     }
 
     const categorySpecificKeys = [
@@ -70,13 +74,13 @@ export async function GET(request) {
     for (const key of categorySpecificKeys) {
       const value = searchParams.get(key);
       if (value) {
-        conditions.push("JSON_UNQUOTE(JSON_EXTRACT(d.technical_attributes, ?)) = ?");
-        params.push(`$.${key}`, value);
+        conditions.push(`d.technical_attributes->>'${key}' = ?`);
+        params.push(value);
       }
     }
 
     if (search.trim()) {
-      conditions.push("(d.title LIKE ? OR d.description LIKE ? OR d.tags LIKE ?)");
+      conditions.push("(d.title ILIKE ? OR d.description ILIKE ? OR d.tags::text ILIKE ?)");
       const like = `%${search.trim()}%`;
       params.push(like, like, like);
     }
@@ -131,16 +135,8 @@ export async function GET(request) {
         );
         return {
           ...d,
-          technical_attributes: d.technical_attributes
-            ? typeof d.technical_attributes === "string"
-              ? JSON.parse(d.technical_attributes)
-              : d.technical_attributes
-            : null,
-          formats: d.formats
-            ? typeof d.formats === "string"
-              ? JSON.parse(d.formats)
-              : d.formats
-            : null,
+          technical_attributes: d.technical_attributes || null,
+          formats: d.formats || null,
           design_sizes: sizes || [],
         };
       })
@@ -213,13 +209,18 @@ export async function POST(request) {
       attempts += 1;
     }
 
+    const tagsJson = JSON.stringify(Array.isArray(tags) ? tags : tags ? String(tags).split(",").map((t) => t.trim()) : []);
+    const techJson = JSON.stringify(technical_attributes);
+    const formatsJson = JSON.stringify(Array.isArray(formats) ? formats : []);
+
     const result = await query(
       `INSERT INTO designs (
         title, slug, description, price, is_free, main_category_id, theme_id, sub_theme_id,
         main_preview_url, stitchout_url, mockup_url, seo_title, meta_description, url_slug,
         tags, alt_text, internal_notes, status, is_featured, is_new_arrival, is_bundle,
         technical_attributes, formats
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      RETURNING id`,
       [
         title.trim(),
         slug,
@@ -235,19 +236,19 @@ export async function POST(request) {
         seo_title?.trim() || null,
         meta_description?.trim() || null,
         url_slug?.trim() || null,
-        JSON.stringify(Array.isArray(tags) ? tags : tags ? String(tags).split(",").map((t) => t.trim()) : []),
+        tagsJson,
         alt_text?.trim() || null,
         internal_notes?.trim() || null,
         status === "published" ? "published" : "draft",
         Boolean(is_featured),
         Boolean(is_new_arrival),
         Boolean(is_bundle),
-        JSON.stringify(technical_attributes),
-        JSON.stringify(Array.isArray(formats) ? formats : []),
+        techJson,
+        formatsJson,
       ]
     );
 
-    const designId = result?.insertId ?? result?.[0]?.insertId;
+    const designId = result?.[0]?.id;
     if (Array.isArray(sizes) && sizes.length > 0) {
       for (const s of sizes) {
         await query(
@@ -275,18 +276,8 @@ export async function POST(request) {
     );
     const design = rows?.[0];
     if (design) {
-      design.technical_attributes =
-        design.technical_attributes != null
-          ? typeof design.technical_attributes === "string"
-            ? JSON.parse(design.technical_attributes)
-            : design.technical_attributes
-          : {};
-      design.formats =
-        design.formats != null
-          ? typeof design.formats === "string"
-            ? JSON.parse(design.formats)
-            : design.formats
-          : [];
+      design.technical_attributes = design.technical_attributes || {};
+      design.formats = design.formats || [];
       const sizeRows = await query(
         "SELECT id, hoop, width_in, height_in, stitches FROM design_sizes WHERE design_id = ?",
         [designId]

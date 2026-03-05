@@ -26,10 +26,10 @@ export async function POST(request) {
     }
 
     const orderResult = await query(
-      `INSERT INTO orders (email, total, status, payment_provider) VALUES (?, ?, 'pending', ?)`,
+      `INSERT INTO orders (email, total, status, payment_provider) VALUES (?, ?, 'pending', ?) RETURNING id`,
       [email, total, paymentMethod === "paypal" ? "paypal" : "stripe"]
     );
-    const orderId = orderResult?.insertId;
+    const orderId = orderResult?.[0]?.id;
 
     for (const item of items) {
       await query(

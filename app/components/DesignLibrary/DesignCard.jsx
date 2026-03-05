@@ -5,17 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/app/context/CartContext";
 
-/** Request a square thumbnail from Cloudinary so the card doesn't scale up a small image (avoids pixelation). */
-function thumbnailUrl(url, size = 600) {
-  if (!url || typeof url !== "string") return url;
-  if (!url.includes("res.cloudinary.com") || !url.includes("/upload/")) return url;
-  const transform = `w_${size},h_${size},c_fill,f_auto`;
-  return url.replace("/upload/", `/upload/${transform}/`);
-}
-
 export default function DesignCard({ design }) {
   const { addItem } = useCart();
-  const imageUrl = design.main_preview_url ? thumbnailUrl(design.main_preview_url) : null;
+  const imageUrl = design.main_preview_url || null;
 
   const handleAddToCart = (e) => {
     e.preventDefault();
