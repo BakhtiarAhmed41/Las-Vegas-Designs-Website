@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DesignCard from "./DesignCard";
 
 export default function DesignGrid({
@@ -19,14 +19,33 @@ export default function DesignGrid({
   const start = (page - 1) * limit + 1;
   const end = Math.min(page * limit, total);
 
+  const [localSearch, setLocalSearch] = useState(search);
+  const debounceRef = useRef(null);
+
+  useEffect(() => {
+    setLocalSearch(search);
+  }, [search]);
+
+  const handleSearchChange = (value) => {
+    setLocalSearch(value);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      onSearchChange(value);
+    }, 500);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(debounceRef.current);
+  }, []);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
         <input
           type="search"
           placeholder="Search designs, themes, formats..."
-          value={search}
-          onChange={(e) => onSearchChange(e.target.value)}
+          value={localSearch}
+          onChange={(e) => handleSearchChange(e.target.value)}
           className="flex-1 min-w-0 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lv-red focus:border-transparent"
         />
         <select

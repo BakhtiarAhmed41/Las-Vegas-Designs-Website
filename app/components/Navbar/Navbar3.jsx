@@ -128,12 +128,12 @@ export default function Navbar3() {
             {/* ------------------------------------------------------ */}
             <div className="hidden lg:block bg-[#F5F7FA] border-b border-gray-200/80 w-full overflow-hidden">
                 <div className="w-full px-6 py-3">
-                    <div className="flex items-center justify-center gap-4 flex-wrap max-w-[1400px] mx-auto">
+                    <div className="flex items-center justify-center gap-3 flex-nowrap max-w-[1400px] mx-auto">
                         {contactBarItems.map((item, index) => (
                             <a
                                 key={index}
                                 href={item.href}
-                                className="inline-flex items-center gap-2 bg-white/90 hover:bg-white text-gray-700 hover:text-lv-blue font-medium text-[13px] transition-colors duration-200 whitespace-nowrap rounded-full pl-3 pr-4 py-2 shadow-sm border border-gray-200/60"
+                                className="inline-flex items-center gap-1.5 bg-white/90 hover:bg-white text-gray-700 hover:text-lv-blue font-medium text-[12px] transition-colors duration-200 whitespace-nowrap rounded-full pl-2.5 pr-3 py-1.5 shadow-sm border border-gray-200/60"
                             >
                                 {item.icon === "phone" && <FiPhone className="text-lv-blue shrink-0" size={14} />}
                                 {item.icon === "uk-phone" && (
@@ -153,23 +153,23 @@ export default function Navbar3() {
                                 {item.icon !== "email" && <span>{item.label}</span>}
                             </a>
                         ))}
-                        <span className="text-gray-600 text-[13px] font-medium whitespace-nowrap">
+                        <span className="text-gray-600 text-[12px] font-medium whitespace-nowrap">
                             <span className="text-lv-red font-semibold">Free</span> color changes available
                         </span>
                         <Link
                             href="/contact#quote-form"
-                            className="inline-flex items-center justify-center bg-lv-red hover:bg-lv-red-dark text-white font-bold text-[13px] px-5 py-2.5 rounded-lg transition-colors duration-200 shadow-sm whitespace-nowrap"
+                            className="inline-flex items-center justify-center bg-lv-red hover:bg-lv-red-dark text-white font-bold text-[12px] px-4 py-2 rounded-lg transition-colors duration-200 shadow-sm whitespace-nowrap"
                         >
                             Get a Quote
                         </Link>
                         <Link
                             href="/design-library/cart"
-                            className="relative inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white/90 text-gray-500 hover:text-lv-red border border-gray-300 shadow-sm transition-colors duration-200"
+                            className="relative inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-white/90 text-gray-500 hover:text-lv-red border border-gray-300 shadow-sm transition-colors duration-200"
                             title="Cart"
                         >
-                            <FiShoppingCart size={18} strokeWidth={2} />
+                            <FiShoppingCart size={16} strokeWidth={2} />
                             {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] flex items-center justify-center bg-lv-red text-white text-[10px] font-bold rounded-full px-1">
+                                <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] flex items-center justify-center bg-lv-red text-white text-[9px] font-bold rounded-full px-0.5">
                                     {cartCount}
                                 </span>
                             )}
@@ -177,10 +177,10 @@ export default function Navbar3() {
                         <span
                             role="img"
                             aria-label="Account"
-                            className="inline-flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white/90 text-gray-500 border border-gray-300 shadow-sm transition-colors duration-200 cursor-default"
+                            className="inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-white/90 text-gray-500 border border-gray-300 shadow-sm transition-colors duration-200 cursor-default"
                             title="Account (coming soon)"
                         >
-                            <FiUser size={18} strokeWidth={2} />
+                            <FiUser size={16} strokeWidth={2} />
                         </span>
                     </div>
                 </div>
