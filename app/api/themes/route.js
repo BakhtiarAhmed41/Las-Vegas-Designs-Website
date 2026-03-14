@@ -1,6 +1,13 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
+function slugify(text) {
+  return String(text)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "") || "theme";
+}
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -25,6 +32,35 @@ export async function GET(request) {
     console.error("GET /api/themes error:", err);
     return NextResponse.json(
       { error: err.message || "Failed to fetch themes" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const { name } = body;
+    if (!name || !String(name).trim()) {
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    }
+    const slug = slugify(name.trim()) || "theme";
+    const existing = await query("SELECT id FROM themes WHERE slug = ? LIMIT 1", [slug]);
+    if (existing?.length) {
+      return NextResponse.json({ error: "A theme with this name/slug already exists" }, { status: 400 });
+    }
+    const sortOrder = Number(body.sort_order) || 0;
+    const result = await query(
+      "INSERT INTO themes (name, slug, sort_order) VALUES (?, ?, ?) RETURNING id, name, slug, sort_order",
+      [name.trim(), slug, sortOrder]
+    );
+    const row = result?.[0];
+    if (!row) throw new Error("Insert failed");
+    return NextResponse.json({ success: true, theme: row });
+  } catch (err) {
+    console.error("POST /api/themes error:", err);
+    return NextResponse.json(
+      { error: err.message || "Failed to create theme" },
       { status: 500 }
     );
   }

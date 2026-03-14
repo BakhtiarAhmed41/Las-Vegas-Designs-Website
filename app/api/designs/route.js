@@ -34,13 +34,19 @@ export async function GET(request) {
       conditions.push(`mc.slug IN (${main_categories.map(() => "?").join(",")})`);
       params.push(...main_categories);
     }
-    if (theme_id) {
-      conditions.push("d.theme_id = ?");
-      params.push(theme_id);
+    const theme_ids = theme_id
+      ? theme_id.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+    if (theme_ids.length > 0) {
+      conditions.push(`d.theme_id IN (${theme_ids.map(() => "?").join(",")})`);
+      params.push(...theme_ids);
     }
-    if (sub_theme_id) {
-      conditions.push("d.sub_theme_id = ?");
-      params.push(sub_theme_id);
+    const sub_theme_ids = sub_theme_id
+      ? sub_theme_id.split(",").map((s) => s.trim()).filter(Boolean)
+      : [];
+    if (sub_theme_ids.length > 0) {
+      conditions.push(`d.sub_theme_id IN (${sub_theme_ids.map(() => "?").join(",")})`);
+      params.push(...sub_theme_ids);
     }
     if (access === "free") {
       conditions.push("d.is_free = true");
@@ -71,11 +77,17 @@ export async function GET(request) {
       "svg_type",
       "layer_type",
     ];
+    const multiValueKeys = ["placement", "hoop_size"];
     for (const key of categorySpecificKeys) {
       const value = searchParams.get(key);
-      if (value) {
+      if (!value) continue;
+      const values = value.split(",").map((s) => s.trim()).filter(Boolean);
+      if (multiValueKeys.includes(key) && values.length > 0) {
+        conditions.push(`(d.technical_attributes->'${key}' ?| ?::text[] OR d.technical_attributes->>'${key}' = ANY(?::text[]))`);
+        params.push(values, values);
+      } else if (values.length > 0) {
         conditions.push(`d.technical_attributes->>'${key}' = ?`);
-        params.push(value);
+        params.push(values[0]);
       }
     }
 

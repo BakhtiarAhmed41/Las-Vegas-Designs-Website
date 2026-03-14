@@ -143,39 +143,95 @@ export default function DesignDetailPage() {
                 {design.is_free ? "$0.00" : `$${Number(design.price).toFixed(2)}`}
               </p>
 
-              {design.design_sizes?.length > 0 && (
-                <div className="mb-6">
-                  <h3 className="font-semibold text-gray-800 mb-2">Sizes included</h3>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-                      <thead>
-                        <tr className="bg-gray-50">
-                          <th className="text-left p-2">Hoop</th>
-                          <th className="text-left p-2">Width (in)</th>
-                          <th className="text-left p-2">Height (in)</th>
-                          <th className="text-left p-2">Stitches</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {design.design_sizes.map((s) => (
-                          <tr key={s.id} className="border-t border-gray-200">
-                            <td className="p-2">{s.hoop || "—"}</td>
-                            <td className="p-2">{s.width_in != null ? s.width_in : "—"}</td>
-                            <td className="p-2">{s.height_in != null ? s.height_in : "—"}</td>
-                            <td className="p-2">{s.stitches != null ? s.stitches : "—"}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-              {design.formats?.length > 0 && (
-                <p className="text-sm text-gray-600 mb-6">
-                  <span className="font-medium">Formats:</span> {design.formats.join(", ")}
-                </p>
-              )}
+              <div className="mb-6 p-5 rounded-xl border border-gray-200 bg-gray-50">
+                <h3 className="font-bold text-lv-blue text-base mb-4">Quick Details</h3>
+                <dl className="text-sm">
+                  {design.formats?.length > 0 && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Formats</dt>
+                      <dd className="text-gray-800 text-left">{design.formats.join(", ")}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "embroidery" && design.design_sizes?.length > 0 && (
+                    <div className="py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700 mb-1">Sizes included</dt>
+                      <dd>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+                            <thead>
+                              <tr className="bg-gray-50">
+                                <th className="text-left p-2">Hoop</th>
+                                <th className="text-left p-2">Width (in)</th>
+                                <th className="text-left p-2">Height (in)</th>
+                                <th className="text-left p-2">Stitches</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {design.design_sizes.map((s) => (
+                                <tr key={s.id} className="border-t border-gray-200">
+                                  <td className="p-2">{s.hoop || "—"}</td>
+                                  <td className="p-2">{s.width_in != null ? s.width_in : "—"}</td>
+                                  <td className="p-2">{s.height_in != null ? s.height_in : "—"}</td>
+                                  <td className="p-2">{s.stitches != null ? s.stitches : "—"}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "svg-cricut" && design.technical_attributes?.svg_type && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Cut Type</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.svg_type}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "svg-cricut" && (() => {
+                    const worksWith = design.technical_attributes?.works_with;
+                    const arr = Array.isArray(worksWith) ? worksWith : worksWith ? [worksWith] : [];
+                    const list = arr.length > 0 ? arr : (design.technical_attributes?.svg_type === "Basic Cut" ? ["Cricut", "Silhouette", "Glowforge", "Brother ScanNCut"] : []);
+                    if (list.length === 0) return null;
+                    return (
+                      <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                        <dt className="font-medium text-gray-700">Works With</dt>
+                        <dd className="text-gray-800 text-left">{list.join(", ")}</dd>
+                      </div>
+                    );
+                  })()}
+                  {design.main_category_slug === "svg-cricut" && design.technical_attributes?.license && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">License</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.license}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "laser-cnc" && design.technical_attributes?.build_style && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Build Style</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.build_style}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "laser-cnc" && design.technical_attributes?.cut_type && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Cut Type</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.cut_type}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "laser-cnc" && design.technical_attributes?.best_use && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Best Use</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.best_use}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "laser-cnc" && design.technical_attributes?.license && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">License</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.license}</dd>
+                    </div>
+                  )}
+                </dl>
+                <p className="text-sm text-gray-500 mt-4">Instant digital download. No physical product will be shipped.</p>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 {design.is_free ? (
@@ -204,7 +260,7 @@ export default function DesignDetailPage() {
 
               <p className="text-sm text-gray-500">
                 <Link href="/contact" className="text-lv-red hover:underline">
-                  Need custom embroidery digitizing? Contact us.
+                  {design.main_category_slug === "svg-cricut" ? "Need a custom SVG? Contact us." : "Need custom embroidery digitizing? Contact us."}
                 </Link>
               </p>
             </div>

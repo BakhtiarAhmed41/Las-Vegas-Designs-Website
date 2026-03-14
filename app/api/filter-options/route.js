@@ -4,16 +4,19 @@ import { query } from "@/lib/db";
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const main_category = searchParams.get("main_category");
-    if (!main_category) {
+    const main_category_param = searchParams.get("main_category");
+    if (!main_category_param) {
       return NextResponse.json({});
     }
+    const slugs = main_category_param.split(",").map((s) => s.trim()).filter(Boolean);
+    const first_slug = slugs[0];
+    if (!first_slug) return NextResponse.json({});
     const rows = await query(
       `SELECT fo.filter_key, fo.value, fo.sort_order
        FROM filter_options fo
        INNER JOIN main_categories mc ON mc.id = fo.main_category_id AND mc.slug = ?
        ORDER BY fo.filter_key, fo.sort_order ASC`,
-      [main_category]
+      [first_slug]
     );
     const grouped = {};
     for (const row of rows) {

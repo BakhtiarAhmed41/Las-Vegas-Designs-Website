@@ -53,7 +53,12 @@ function designToForm(d) {
     theme_id: d.theme_id != null ? String(d.theme_id) : "",
     sub_theme_id: d.sub_theme_id != null ? String(d.sub_theme_id) : "",
     description: d.description || "",
-    formats: Array.isArray(d.formats) ? d.formats : [],
+    formats: (() => {
+      const fromFormats = Array.isArray(d.formats) ? d.formats : [];
+      if (fromFormats.length > 0) return fromFormats;
+      const fromAttr = d.technical_attributes?.file_format;
+      return fromAttr ? (Array.isArray(fromAttr) ? fromAttr : [fromAttr]) : [];
+    })(),
     sizes,
     seo_title: d.seo_title || "",
     url_slug: d.url_slug || "",
@@ -65,7 +70,15 @@ function designToForm(d) {
     mockup_url: d.mockup_url || "",
     internal_notes: d.internal_notes || "",
     status: d.status === "published" ? "published" : "draft",
-    technical_attributes: d.technical_attributes && typeof d.technical_attributes === "object" ? d.technical_attributes : {},
+    technical_attributes: (() => {
+      const raw = d.technical_attributes && typeof d.technical_attributes === "object" ? d.technical_attributes : {};
+      const out = { ...raw };
+      for (const key of ["placement", "hoop_size"]) {
+        if (out[key] !== undefined && !Array.isArray(out[key])) out[key] = out[key] ? [out[key]] : [];
+      }
+      if (out.works_with !== undefined && !Array.isArray(out.works_with)) out.works_with = out.works_with ? [out.works_with] : [];
+      return out;
+    })(),
   };
 }
 
@@ -84,6 +97,30 @@ function AddDesignForm() {
   const [subThemes, setSubThemes] = useState([]);
   const [filterOptions, setFilterOptions] = useState({});
   const [form, setForm] = useState(emptyForm);
+  const [themeModalOpen, setThemeModalOpen] = useState(false);
+  const [themeModalType, setThemeModalType] = useState("theme");
+  const [themeModalName, setThemeModalName] = useState("");
+  const [themeModalParentId, setThemeModalParentId] = useState("");
+  const [themeModalSaving, setThemeModalSaving] = useState(false);
+  const [themeModalError, setThemeModalError] = useState("");
+
+  const refetchThemes = () => {
+    fetch("/api/themes")
+      .then((r) => r.json())
+      .then((data) => setThemes(Array.isArray(data) ? data : []))
+      .catch(() => setThemes([]));
+  };
+
+  const refetchSubThemes = () => {
+    if (!form.theme_id) {
+      setSubThemes([]);
+      return;
+    }
+    fetch(`/api/sub-themes?theme_id=${form.theme_id}`)
+      .then((r) => r.json())
+      .then((data) => setSubThemes(Array.isArray(data) ? data : []))
+      .catch(() => setSubThemes([]));
+  };
 
   useEffect(() => {
     if (!editId) return;
@@ -136,6 +173,19 @@ function AddDesignForm() {
       .then(setFilterOptions)
       .catch(() => setFilterOptions({}));
   }, [form.main_category_id, categories]);
+
+  useEffect(() => {
+    if (!isSvgCricut) return;
+    const cutType = form.technical_attributes?.svg_type;
+    const worksWith = form.technical_attributes?.works_with;
+    const arr = Array.isArray(worksWith) ? worksWith : worksWith ? [worksWith] : [];
+    if (cutType === "Basic Cut" && arr.length === 0) {
+      setForm((prev) => ({
+        ...prev,
+        technical_attributes: { ...prev.technical_attributes, works_with: ["Cricut", "Silhouette", "Glowforge", "Brother ScanNCut"] },
+      }));
+    }
+  }, [isSvgCricut, form.technical_attributes?.svg_type]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -200,6 +250,74 @@ function AddDesignForm() {
       ...prev,
       technical_attributes: { ...prev.technical_attributes, [key]: value },
     }));
+  };
+
+  const setTechnicalMulti = (key, value) => {
+    setForm((prev) => {
+      const current = prev.technical_attributes[key];
+      const arr = Array.isArray(current) ? [...current] : current ? [current] : [];
+      const next = arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
+      return {
+        ...prev,
+        technical_attributes: { ...prev.technical_attributes, [key]: next },
+      };
+    });
+  };
+
+  const getTechnicalMultiValues = (key) => {
+    const current = form.technical_attributes[key];
+    return Array.isArray(current) ? current : current ? [current] : [];
+  };
+
+  const handleThemeModalSubmit = async (e) => {
+    e.preventDefault();
+    const name = themeModalName.trim();
+    if (!name) {
+      setThemeModalError("Name is required");
+      return;
+    }
+    if (themeModalType === "subtheme" && !themeModalParentId) {
+      setThemeModalError("Please select a parent theme");
+      return;
+    }
+    setThemeModalSaving(true);
+    setThemeModalError("");
+    try {
+      if (themeModalType === "theme") {
+        const res = await fetch("/api/themes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to create theme");
+        refetchThemes();
+        setForm((prev) => ({ ...prev, theme_id: String(data.theme.id), sub_theme_id: "" }));
+        setSubThemes([]);
+        setThemeModalOpen(false);
+        setThemeModalName("");
+      } else {
+        const res = await fetch("/api/sub-themes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ theme_id: themeModalParentId, name }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Failed to create sub-theme");
+        setForm((prev) => ({ ...prev, theme_id: themeModalParentId, sub_theme_id: String(data.sub_theme.id) }));
+        refetchThemes();
+        const subRes = await fetch(`/api/sub-themes?theme_id=${themeModalParentId}`);
+        const subData = await subRes.json();
+        setSubThemes(Array.isArray(subData) ? subData : []);
+        setThemeModalOpen(false);
+        setThemeModalName("");
+        setThemeModalParentId("");
+      }
+    } catch (err) {
+      setThemeModalError(err.message || "Something went wrong");
+    } finally {
+      setThemeModalSaving(false);
+    }
   };
 
   const submitWithStatus = async (status) => {
@@ -278,6 +396,22 @@ function AddDesignForm() {
   };
 
   const isEmbroidery = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "embroidery";
+  const isSvgCricut = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "svg-cricut";
+  const isLaserCnc = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "laser-cnc";
+
+  const SVG_WORKS_WITH_DEFAULT = ["Cricut", "Silhouette", "Glowforge", "Brother ScanNCut"];
+  const getWorksWithValues = () => {
+    const w = form.technical_attributes?.works_with;
+    return Array.isArray(w) ? w : w ? [w] : [];
+  };
+  const toggleWorksWith = (machine) => {
+    setForm((prev) => {
+      const current = prev.technical_attributes?.works_with;
+      const arr = Array.isArray(current) ? [...current] : current ? [current] : [];
+      const next = arr.includes(machine) ? arr.filter((m) => m !== machine) : [...arr, machine];
+      return { ...prev, technical_attributes: { ...prev.technical_attributes, works_with: next } };
+    });
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -368,7 +502,22 @@ function AddDesignForm() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-1">Main Theme</label>
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <label className="block text-sm font-semibold text-gray-800">Main Theme</label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setThemeModalOpen(true);
+                        setThemeModalType("theme");
+                        setThemeModalName("");
+                        setThemeModalParentId("");
+                        setThemeModalError("");
+                      }}
+                      className="text-xs text-lv-red hover:underline font-medium"
+                    >
+                      Add theme or sub-theme
+                    </button>
+                  </div>
                   <select
                     name="theme_id"
                     value={form.theme_id}
@@ -381,7 +530,7 @@ function AddDesignForm() {
                     ))}
                   </select>
                 </div>
-                {subThemes.length > 0 && (
+                {subThemes.length > 0 && !isEmbroidery && (
                   <div>
                     <label className="block text-sm font-semibold text-gray-800 mb-1">Sub Theme</label>
                     <select
@@ -473,21 +622,134 @@ function AddDesignForm() {
                   </>
                 )}
 
-                {Object.entries(filterOptions).map(([key, options]) => (
-                  <div key={key}>
-                    <label className="block text-sm font-semibold text-gray-800 mb-1 capitalize">{key.replace(/_/g, " ")}</label>
-                    <select
-                      value={form.technical_attributes[key] || ""}
-                      onChange={(e) => setTechnical(key, e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
-                    >
-                      <option value="">Select</option>
-                      {options.map((opt) => (
-                        <option key={opt.value} value={opt.value}>{opt.value}</option>
+                {isSvgCricut && (filterOptions.file_format?.length > 0) && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">Formats included</label>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.file_format.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => toggleFormat(opt.value)}
+                          className={`px-3 py-1.5 rounded-lg text-sm border ${
+                            form.formats.includes(opt.value) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                          }`}
+                        >
+                          {opt.value}
+                        </button>
                       ))}
-                    </select>
+                    </div>
                   </div>
-                ))}
+                )}
+                {isSvgCricut && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-2">Works with</label>
+                      <div className="flex flex-wrap gap-2">
+                        {["Cricut", "Silhouette", "Glowforge", "Brother ScanNCut"].map((machine) => (
+                          <button
+                            key={machine}
+                            type="button"
+                            onClick={() => toggleWorksWith(machine)}
+                            className={`px-3 py-1.5 rounded-lg text-sm border ${
+                              getWorksWithValues().includes(machine) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                            }`}
+                          >
+                            {machine}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-1">License</label>
+                      <select
+                        value={form.technical_attributes?.license || ""}
+                        onChange={(e) => setForm((prev) => ({
+                          ...prev,
+                          technical_attributes: { ...prev.technical_attributes, license: e.target.value },
+                        }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                      >
+                        <option value="">Select</option>
+                        <option value="Personal Use Only">Personal Use Only</option>
+                        <option value="Commercial Use">Commercial Use</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+                {isLaserCnc && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-1">Best Use</label>
+                      <input
+                        type="text"
+                        value={form.technical_attributes?.best_use || ""}
+                        onChange={(e) => setForm((prev) => ({
+                          ...prev,
+                          technical_attributes: { ...prev.technical_attributes, best_use: e.target.value },
+                        }))}
+                        placeholder="e.g. Wood, acrylic, engraved decor, signs"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-1">License</label>
+                      <select
+                        value={form.technical_attributes?.license || ""}
+                        onChange={(e) => setForm((prev) => ({
+                          ...prev,
+                          technical_attributes: { ...prev.technical_attributes, license: e.target.value },
+                        }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                      >
+                        <option value="">Select</option>
+                        <option value="Personal Use Only">Personal Use Only</option>
+                        <option value="Commercial Use">Commercial Use</option>
+                      </select>
+                    </div>
+                  </>
+                )}
+                {Object.entries(filterOptions).map(([key, options]) => {
+                  if (isSvgCricut && (key === "design_style" || key === "file_format")) return null;
+                  const isMulti = isEmbroidery && (key === "placement" || key === "hoop_size");
+                  if (isMulti) {
+                    const selected = getTechnicalMultiValues(key);
+                    return (
+                      <div key={key}>
+                        <label className="block text-sm font-semibold text-gray-800 mb-2 capitalize">{key.replace(/_/g, " ")}</label>
+                        <div className="flex flex-wrap gap-2">
+                          {options.map((opt) => (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              onClick={() => setTechnicalMulti(key, opt.value)}
+                              className={`px-3 py-1.5 rounded-lg text-sm border ${
+                                selected.includes(opt.value) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                              }`}
+                            >
+                              {opt.value}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div key={key}>
+                      <label className="block text-sm font-semibold text-gray-800 mb-1 capitalize">{key.replace(/_/g, " ")}</label>
+                      <select
+                        value={Array.isArray(form.technical_attributes[key]) ? form.technical_attributes[key][0] || "" : (form.technical_attributes[key] || "")}
+                        onChange={(e) => setTechnical(key, e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                      >
+                        <option value="">Select</option>
+                        {options.map((opt) => (
+                          <option key={opt.value} value={opt.value}>{opt.value}</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="space-y-6">
@@ -616,6 +878,90 @@ function AddDesignForm() {
           </form>
         </div>
       </section>
+
+      {themeModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Add theme or sub-theme</h3>
+            <form onSubmit={handleThemeModalSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="themeModalType"
+                      checked={themeModalType === "theme"}
+                      onChange={() => setThemeModalType("theme")}
+                      className="text-lv-red focus:ring-lv-red"
+                    />
+                    <span>Theme</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="themeModalType"
+                      checked={themeModalType === "subtheme"}
+                      onChange={() => setThemeModalType("subtheme")}
+                      className="text-lv-red focus:ring-lv-red"
+                    />
+                    <span>Sub-theme</span>
+                  </label>
+                </div>
+              </div>
+              {themeModalType === "subtheme" && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Parent theme</label>
+                  <select
+                    value={themeModalParentId}
+                    onChange={(e) => setThemeModalParentId(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                    required={themeModalType === "subtheme"}
+                  >
+                    <option value="">Select theme</option>
+                    {themes.map((t) => (
+                      <option key={t.id} value={t.id}>{t.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input
+                  type="text"
+                  value={themeModalName}
+                  onChange={(e) => setThemeModalName(e.target.value)}
+                  placeholder={themeModalType === "theme" ? "e.g. Animals" : "e.g. Dogs"}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                  required
+                />
+              </div>
+              {themeModalError && (
+                <p className="text-sm text-red-600">{themeModalError}</p>
+              )}
+              <div className="flex gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setThemeModalOpen(false);
+                    setThemeModalError("");
+                  }}
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={themeModalSaving}
+                  className="flex-1 px-4 py-2 bg-lv-red text-white rounded-lg hover:bg-lv-red-dark disabled:opacity-60"
+                >
+                  {themeModalSaving ? "Saving…" : "Save"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <Footer />
       <GoUp />

@@ -7,10 +7,12 @@ export default function FilterSidebar({
   filterOptions,
   mainCategory,
   themeId,
+  access,
   selectedMainCategories,
   selectedThemeIds,
   selectedSubThemeIds,
   selectedTechnical,
+  onAccessChange,
   onMainCategoryToggle,
   onThemeToggle,
   onSubThemeToggle,
@@ -22,6 +24,7 @@ export default function FilterSidebar({
   const themes = filtersData?.themes || [];
   const sub_themes = filtersData?.sub_themes || [];
   const filter_options = filterOptions || {};
+  const activeAccess = access || "all";
 
   const toggleTheme = (id) => {
     setExpandedThemes((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -38,6 +41,29 @@ export default function FilterSidebar({
         >
           Clear all
         </button>
+      </div>
+
+      {/* Free or Premium */}
+      <div>
+        <h3 className="text-sm font-semibold text-gray-800 mb-2">Price</h3>
+        <div className="space-y-1.5">
+          {[
+            { id: "all", label: "All" },
+            { id: "free", label: "Free" },
+            { id: "premium", label: "Premium" },
+          ].map((opt) => (
+            <label key={opt.id} className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="access"
+                checked={activeAccess === opt.id}
+                onChange={() => onAccessChange?.(opt.id)}
+                className="border-gray-300 text-lv-red focus:ring-lv-red"
+              />
+              <span className="text-gray-700 text-sm">{opt.label}</span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Main category */}

@@ -23,7 +23,7 @@ function buildDesignsParams(searchParams) {
   const main = searchParams.get("main_category");
   if (main) params.set("main_category", main);
   const theme = searchParams.get("theme_id");
-  if (theme) params.set("theme_id", theme.split(",")[0] || theme);
+  if (theme) params.set("theme_id", theme);
   const sub = searchParams.get("sub_theme_id");
   if (sub) params.set("sub_theme_id", sub);
   const search = searchParams.get("search");
@@ -113,7 +113,7 @@ function DesignLibraryContent() {
     setParam("theme_id", next.length ? next.join(",") : "");
   };
 
-  const onSubThemeToggle = () => {}
+  const onSubThemeToggle = () => { }
   const onTechnicalToggle = (filterKey, value) => {
     const key = `${filterKey}:${value}`;
     const next = new URLSearchParams(searchParams.toString());
@@ -139,8 +139,9 @@ function DesignLibraryContent() {
     fetch(`/api/designs/filters?${params.toString()}`)
       .then((res) => res.json())
       .then((data) => {
-        setFiltersData(data);
         setFiltersLoading(false);
+        if (data.error) return; // keep previous filtersData so sidebar does not disappear
+        setFiltersData(data);
       })
       .catch(() => setFiltersLoading(false));
   }, [mainCategory, themeId, access]);
@@ -232,10 +233,12 @@ function DesignLibraryContent() {
                     filterOptions={filterOptions}
                     mainCategory={mainCategorySlug}
                     themeId={themeId}
+                    access={access}
                     selectedMainCategories={selectedMainCategories}
                     selectedThemeIds={selectedThemeIds}
                     selectedSubThemeIds={selectedSubThemeIds}
                     selectedTechnical={selectedTechnical}
+                    onAccessChange={onAccessChange}
                     onMainCategoryToggle={onMainCategoryToggle}
                     onThemeToggle={onThemeToggle}
                     onSubThemeToggle={onSubThemeToggle}
