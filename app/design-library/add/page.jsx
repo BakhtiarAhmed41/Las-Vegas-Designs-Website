@@ -174,6 +174,22 @@ function AddDesignForm() {
       .catch(() => setFilterOptions({}));
   }, [form.main_category_id, categories]);
 
+  const isEmbroidery = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "embroidery";
+  const isSvgCricut = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "svg-cricut";
+  const isLaserCnc = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "laser-cnc";
+  const getWorksWithValues = () => {
+    const w = form.technical_attributes?.works_with;
+    return Array.isArray(w) ? w : w ? [w] : [];
+  };
+  const toggleWorksWith = (machine) => {
+    setForm((prev) => {
+      const current = prev.technical_attributes?.works_with;
+      const arr = Array.isArray(current) ? [...current] : current ? [current] : [];
+      const next = arr.includes(machine) ? arr.filter((m) => m !== machine) : [...arr, machine];
+      return { ...prev, technical_attributes: { ...prev.technical_attributes, works_with: next } };
+    });
+  };
+
   useEffect(() => {
     if (!isSvgCricut) return;
     const cutType = form.technical_attributes?.svg_type;
@@ -393,24 +409,6 @@ function AddDesignForm() {
       setLoading(false);
       submittingRef.current = false;
     }
-  };
-
-  const isEmbroidery = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "embroidery";
-  const isSvgCricut = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "svg-cricut";
-  const isLaserCnc = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "laser-cnc";
-
-  const SVG_WORKS_WITH_DEFAULT = ["Cricut", "Silhouette", "Glowforge", "Brother ScanNCut"];
-  const getWorksWithValues = () => {
-    const w = form.technical_attributes?.works_with;
-    return Array.isArray(w) ? w : w ? [w] : [];
-  };
-  const toggleWorksWith = (machine) => {
-    setForm((prev) => {
-      const current = prev.technical_attributes?.works_with;
-      const arr = Array.isArray(current) ? [...current] : current ? [current] : [];
-      const next = arr.includes(machine) ? arr.filter((m) => m !== machine) : [...arr, machine];
-      return { ...prev, technical_attributes: { ...prev.technical_attributes, works_with: next } };
-    });
   };
 
   const handleFormSubmit = (e) => {
