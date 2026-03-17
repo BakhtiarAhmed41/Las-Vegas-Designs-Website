@@ -53,7 +53,7 @@ function OrderPageContent() {
         <Navbar />
         <div className="max-w-xl mx-auto px-4 py-16 text-center">
           <p className="text-gray-600 mb-4">Order not found.</p>
-          <Link href="/design-library" className="text-lv-red font-semibold hover:underline">Back to Design Library</Link>
+          <Link href="/design" className="text-lv-red font-semibold hover:underline">Back to Design Library</Link>
         </div>
         <Footer />
         <GoUp />
@@ -108,7 +108,7 @@ function OrderPageContent() {
           )}
 
           <Link
-            href="/design-library"
+            href="/design"
             className="inline-block mt-8 px-6 py-3 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg transition-colors"
           >
             Back to Design Library

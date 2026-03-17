@@ -81,13 +81,13 @@ export default function ManageDesignsPage() {
             </div>
             <div className="flex gap-3">
               <Link
-                href="/design-library/add"
+                href="/design/add"
                 className="inline-flex items-center px-4 py-2 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg"
               >
                 Add design
               </Link>
               <Link
-                href="/design-library"
+                href="/design"
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-gray-800 font-semibold rounded-lg hover:bg-gray-50"
               >
                 View library
@@ -194,7 +194,7 @@ export default function ManageDesignsPage() {
                       <td className="py-3 px-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Link
-                            href={`/design-library/design/${d.slug}`}
+                            href={`/design/${d.slug}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-sm text-gray-600 hover:text-lv-red"
@@ -202,7 +202,7 @@ export default function ManageDesignsPage() {
                             View
                           </Link>
                           <Link
-                            href={`/design-library/edit/${d.id}`}
+                            href={`/design/edit/${d.id}`}
                             className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-gray-800 text-sm font-medium rounded-lg hover:bg-gray-50"
                           >
                             Edit

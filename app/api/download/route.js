@@ -9,13 +9,22 @@ export async function GET(request) {
 
     if (designId && !token) {
       const rows = await query(
-        "SELECT id, main_preview_url, title FROM designs WHERE id = ? AND status = 'published' AND is_free = true",
+        "SELECT id, main_preview_url, technical_attributes, title FROM designs WHERE id = ? AND status = 'published' AND is_free = true",
         [designId]
       );
       const design = rows?.[0];
       if (!design) return NextResponse.json({ error: "Not found" }, { status: 404 });
-      if (design.main_preview_url) {
-        return NextResponse.redirect(design.main_preview_url);
+      let tech = design.technical_attributes;
+      if (tech != null && typeof tech === "string") {
+        try {
+          tech = JSON.parse(tech);
+        } catch {
+          tech = null;
+        }
+      }
+      const downloadUrl = (tech && tech.download_url) || design.main_preview_url;
+      if (downloadUrl) {
+        return NextResponse.redirect(downloadUrl);
       }
       return NextResponse.json({ message: "No file URL for this design yet." }, { status: 200 });
     }
@@ -25,7 +34,7 @@ export async function GET(request) {
     }
 
     const rows = await query(
-      `SELECT od.id, od.design_id, od.expires_at, d.main_preview_url, d.title
+      `SELECT od.id, od.design_id, od.expires_at, d.main_preview_url, d.technical_attributes, d.title
        FROM order_downloads od
        INNER JOIN orders o ON o.id = od.order_id AND o.status = 'paid'
        LEFT JOIN designs d ON d.id = od.design_id
@@ -37,8 +46,17 @@ export async function GET(request) {
       return NextResponse.json({ error: "Invalid or expired download link" }, { status: 404 });
     }
 
-    if (row.main_preview_url) {
-      return NextResponse.redirect(row.main_preview_url);
+    let tech = row.technical_attributes;
+    if (tech != null && typeof tech === "string") {
+      try {
+        tech = JSON.parse(tech);
+      } catch {
+        tech = null;
+      }
+    }
+    const downloadUrl = (tech && tech.download_url) || row.main_preview_url;
+    if (downloadUrl) {
+      return NextResponse.redirect(downloadUrl);
     }
 
     return NextResponse.json({

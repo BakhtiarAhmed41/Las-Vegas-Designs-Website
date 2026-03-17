@@ -52,7 +52,7 @@ export default function DesignDetailPage() {
         <Navbar />
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Design not found</h1>
-          <Link href="/design-library" className="text-lv-red font-semibold hover:underline">
+          <Link href="/design" className="text-lv-red font-semibold hover:underline">
             Back to Design Library
           </Link>
         </div>
@@ -82,7 +82,7 @@ export default function DesignDetailPage() {
 
       <section className="py-10 md:py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link href="/design-library" className="inline-block text-gray-600 hover:text-lv-red text-sm font-medium mb-6">
+          <Link href="/design" className="inline-block text-gray-600 hover:text-lv-red text-sm font-medium mb-6">
             ← Back to Design Library
           </Link>
 
@@ -143,7 +143,7 @@ export default function DesignDetailPage() {
                 {design.is_free ? "$0.00" : `$${Number(design.price).toFixed(2)}`}
               </p>
 
-              <div className="mb-6 p-5 rounded-xl border border-gray-200 bg-gray-50">
+              <div className="mb-6 p-5 rounded-xl border border-gray-200 bg-white">
                 <h3 className="font-bold text-lv-blue text-base mb-4">Quick Details</h3>
                 <dl className="text-sm">
                   {design.formats?.length > 0 && (
@@ -179,6 +179,34 @@ export default function DesignDetailPage() {
                           </table>
                         </div>
                       </dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "embroidery" && (() => {
+                    const pl = design.technical_attributes?.placement;
+                    const list = Array.isArray(pl) ? pl : pl ? [pl] : [];
+                    if (list.length === 0) return null;
+                    return (
+                      <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                        <dt className="font-medium text-gray-700">Placement</dt>
+                        <dd className="text-gray-800 text-left">{list.join(", ")}</dd>
+                      </div>
+                    );
+                  })()}
+                  {design.main_category_slug === "print" && (() => {
+                    const pm = design.technical_attributes?.print_method;
+                    const list = Array.isArray(pm) ? pm : pm ? [pm] : [];
+                    if (list.length === 0) return null;
+                    return (
+                      <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                        <dt className="font-medium text-gray-700">Print Method</dt>
+                        <dd className="text-gray-800 text-left">{list.join(", ")}</dd>
+                      </div>
+                    );
+                  })()}
+                  {design.main_category_slug === "print" && design.technical_attributes?.license && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">License</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.license}</dd>
                     </div>
                   )}
                   {design.main_category_slug === "svg-cricut" && design.technical_attributes?.svg_type && (
@@ -251,7 +279,7 @@ export default function DesignDetailPage() {
                   </button>
                 )}
                 <Link
-                  href="/design-library/cart"
+                  href="/design/cart"
                   className="inline-flex justify-center px-6 py-3 border border-gray-300 text-gray-800 font-semibold rounded-lg hover:border-gray-400 transition-colors"
                 >
                   View cart
@@ -260,7 +288,11 @@ export default function DesignDetailPage() {
 
               <p className="text-sm text-gray-500">
                 <Link href="/contact" className="text-lv-red hover:underline">
-                  {design.main_category_slug === "svg-cricut" ? "Need a custom SVG? Contact us." : "Need custom embroidery digitizing? Contact us."}
+                  {design.main_category_slug === "embroidery" && "Need custom embroidery digitizing? Contact us."}
+                  {design.main_category_slug === "svg-cricut" && "Need a custom SVG? Contact us."}
+                  {design.main_category_slug === "print" && "Need custom print designs? Contact us."}
+                  {design.main_category_slug === "laser-cnc" && "Need custom CNC or laser cut files? Contact us today."}
+                  {!["embroidery", "svg-cricut", "print", "laser-cnc"].includes(design.main_category_slug) && "Need a custom design? Contact us."}
                 </Link>
               </p>
             </div>

@@ -73,7 +73,7 @@ function designToForm(d) {
     technical_attributes: (() => {
       const raw = d.technical_attributes && typeof d.technical_attributes === "object" ? d.technical_attributes : {};
       const out = { ...raw };
-      for (const key of ["placement", "hoop_size"]) {
+      for (const key of ["placement", "hoop_size", "print_method"]) {
         if (out[key] !== undefined && !Array.isArray(out[key])) out[key] = out[key] ? [out[key]] : [];
       }
       if (out.works_with !== undefined && !Array.isArray(out.works_with)) out.works_with = out.works_with ? [out.works_with] : [];
@@ -174,9 +174,11 @@ function AddDesignForm() {
       .catch(() => setFilterOptions({}));
   }, [form.main_category_id, categories]);
 
-  const isEmbroidery = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "embroidery";
-  const isSvgCricut = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "svg-cricut";
-  const isLaserCnc = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug === "laser-cnc";
+  const selectedCategorySlug = categories.find((c) => c.id === parseInt(form.main_category_id, 10))?.slug;
+  const isEmbroidery = selectedCategorySlug === "embroidery";
+  const isSvgCricut = selectedCategorySlug === "svg-cricut";
+  const isLaserCnc = selectedCategorySlug === "laser-cnc";
+  const isPrint = selectedCategorySlug === "print";
   const getWorksWithValues = () => {
     const w = form.technical_attributes?.works_with;
     return Array.isArray(w) ? w : w ? [w] : [];
@@ -242,7 +244,18 @@ function AddDesignForm() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Upload failed");
       const url = data.url;
-      setForm((prev) => ({ ...prev, [field]: url }));
+      setForm((prev) => {
+        if (field === "download_url") {
+          return {
+            ...prev,
+            technical_attributes: {
+              ...prev.technical_attributes,
+              download_url: url,
+            },
+          };
+        }
+        return { ...prev, [field]: url };
+      });
       if (field === "main_preview_url") mainPreviewFileRef.current = null;
       return url;
     } catch (err) {
@@ -258,6 +271,13 @@ function AddDesignForm() {
     if (file) {
       if (field === "main_preview_url") mainPreviewFileRef.current = file;
       uploadFile(file, field);
+    }
+  };
+
+  const handleZipChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      uploadFile(file, "download_url");
     }
   };
 
@@ -401,7 +421,7 @@ function AddDesignForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || (editId ? "Failed to update design" : "Failed to create design"));
-      router.push(`/design-library/design/${data.design?.slug || data.design?.id}`);
+      router.push(`/design/${data.design?.slug || data.design?.id}`);
       router.refresh();
     } catch (err) {
       setError(err.message || "Something went wrong");
@@ -428,7 +448,7 @@ function AddDesignForm() {
               {editId ? "Edit Design" : "Upload New Design"}
             </h1>
             <Link
-              href={editId ? "/design-library/manage" : "/design-library"}
+              href={editId ? "/design/manage" : "/design"}
               className="text-lv-red font-semibold hover:underline"
             >
               ← Back to {editId ? "Manage designs" : "Design Library"}
@@ -528,7 +548,7 @@ function AddDesignForm() {
                     ))}
                   </select>
                 </div>
-                {subThemes.length > 0 && !isEmbroidery && (
+                {subThemes.length > 0 && (
                   <div>
                     <label className="block text-sm font-semibold text-gray-800 mb-1">Sub Theme</label>
                     <select
@@ -675,6 +695,25 @@ function AddDesignForm() {
                     </div>
                   </>
                 )}
+                {isLaserCnc && (filterOptions.file_format?.length > 0) && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">Formats included</label>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.file_format.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => toggleFormat(opt.value)}
+                          className={`px-3 py-1.5 rounded-lg text-sm border ${
+                            form.formats.includes(opt.value) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                          }`}
+                        >
+                          {opt.value}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {isLaserCnc && (
                   <>
                     <div>
@@ -707,8 +746,65 @@ function AddDesignForm() {
                     </div>
                   </>
                 )}
+                {isPrint && (filterOptions.file_format?.length > 0) && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">Formats included</label>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.file_format.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => toggleFormat(opt.value)}
+                          className={`px-3 py-1.5 rounded-lg text-sm border ${
+                            form.formats.includes(opt.value) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                          }`}
+                        >
+                          {opt.value}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {isPrint && (filterOptions.print_method?.length > 0) && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">Print method</label>
+                    <div className="flex flex-wrap gap-2">
+                      {filterOptions.print_method.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setTechnicalMulti("print_method", opt.value)}
+                          className={`px-3 py-1.5 rounded-lg text-sm border ${
+                            getTechnicalMultiValues("print_method").includes(opt.value) ? "border-lv-red bg-lv-red-pale text-lv-red" : "border-gray-300 text-gray-600 hover:border-gray-400"
+                          }`}
+                        >
+                          {opt.value}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {isPrint && (
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-1">License</label>
+                    <select
+                      value={form.technical_attributes?.license || ""}
+                      onChange={(e) => setForm((prev) => ({
+                        ...prev,
+                        technical_attributes: { ...prev.technical_attributes, license: e.target.value },
+                      }))}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                    >
+                      <option value="">Select</option>
+                      <option value="Personal Use Only">Personal Use Only</option>
+                      <option value="Commercial Use">Commercial Use</option>
+                    </select>
+                  </div>
+                )}
                 {Object.entries(filterOptions).map(([key, options]) => {
                   if (isSvgCricut && (key === "design_style" || key === "file_format")) return null;
+                  if (isLaserCnc && key === "file_format") return null;
+                  if (isPrint && (key === "file_format" || key === "print_method")) return null;
                   const isMulti = isEmbroidery && (key === "placement" || key === "hoop_size");
                   if (isMulti) {
                     const selected = getTechnicalMultiValues(key);
@@ -840,6 +936,20 @@ function AddDesignForm() {
                   />
                   {uploading === "mockup_url" && <span className="text-sm text-gray-500">Uploading…</span>}
                   {form.mockup_url && <p className="text-sm text-green-600 mt-1">Uploaded</p>}
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-800 mb-1">Download ZIP (customer file)</label>
+                  <input
+                    type="file"
+                    accept=".zip,.rar,.7z,.tar,.gz,.bz2,application/zip,application/x-zip-compressed"
+                    onChange={handleZipChange}
+                    disabled={!!uploading}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-gray-100"
+                  />
+                  {uploading === "download_url" && <span className="text-sm text-gray-500">Uploading…</span>}
+                  {form.technical_attributes?.download_url && (
+                    <p className="text-sm text-green-600 mt-1">ZIP uploaded</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-800 mb-1">Internal notes</label>
@@ -977,7 +1087,7 @@ function AddDesignPageFallback() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Upload New Design</h1>
-            <Link href="/design-library" className="text-lv-red font-semibold hover:underline">← Back to Design Library</Link>
+            <Link href="/design" className="text-lv-red font-semibold hover:underline">← Back to Design Library</Link>
           </div>
           <p className="text-gray-500">Loading…</p>
         </div>

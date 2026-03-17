@@ -25,7 +25,7 @@ export default function CartPage() {
             <div className="bg-gray-50 rounded-xl border border-gray-200 p-8 text-center">
               <p className="text-gray-600 mb-4">Your cart is empty.</p>
               <Link
-                href="/design-library"
+                href="/design"
                 className="inline-block px-6 py-3 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg transition-colors"
               >
                 Browse designs
@@ -58,7 +58,7 @@ export default function CartPage() {
                   Total: <span className="text-lv-red">${total.toFixed(2)}</span>
                 </p>
                 <Link
-                  href="/design-library/checkout"
+                  href="/design/checkout"
                   className="inline-flex justify-center px-6 py-3 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg transition-colors"
                 >
                   Proceed to checkout

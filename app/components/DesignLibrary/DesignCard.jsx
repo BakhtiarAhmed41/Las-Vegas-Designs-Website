@@ -26,7 +26,7 @@ export default function DesignCard({ design }) {
 
   return (
     <article className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
-      <Link href={`/design-library/design/${design.slug}`} className="block relative aspect-square bg-gray-100">
+      <Link href={`/design/${design.slug}`} className="block relative aspect-square bg-gray-100">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -54,7 +54,7 @@ export default function DesignCard({ design }) {
       </Link>
       <div className="p-4 flex-1 flex flex-col">
         <h3 className="font-semibold text-gray-800 line-clamp-2 mb-2">
-          <Link href={`/design-library/design/${design.slug}`} className="hover:text-lv-red transition-colors">
+          <Link href={`/design/${design.slug}`} className="hover:text-lv-red transition-colors">
             {design.title}
           </Link>
         </h3>
@@ -72,14 +72,14 @@ export default function DesignCard({ design }) {
         </p>
         <div className="flex gap-2 mt-auto">
           <Link
-            href={`/design-library/design/${design.slug}`}
+            href={`/design/${design.slug}`}
             className="flex-1 text-center px-3 py-2 border border-gray-300 text-gray-800 font-medium rounded-lg text-sm hover:border-gray-400 transition-colors"
           >
             View
           </Link>
           {design.is_free ? (
             <Link
-              href={`/design-library/design/${design.slug}`}
+              href={`/design/${design.slug}`}
               className="flex-1 text-center px-3 py-2 bg-lv-red hover:bg-lv-red-dark text-white font-medium rounded-lg text-sm transition-colors"
             >
               Download

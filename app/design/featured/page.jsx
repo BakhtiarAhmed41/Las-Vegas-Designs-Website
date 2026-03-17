@@ -81,7 +81,7 @@ export default function FeaturedDesignsPage() {
             <p className="text-gray-500 mt-1">Add or remove designs from the featured section on the Design Library page.</p>
           </div>
           <Link
-            href="/design-library"
+            href="/design"
             className="text-sm text-lv-red hover:underline font-medium"
           >
             Back to Design Library

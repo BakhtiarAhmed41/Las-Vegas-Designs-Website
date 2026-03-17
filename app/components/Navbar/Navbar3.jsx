@@ -77,10 +77,10 @@ export default function Navbar3() {
             label: "Design Library",
             hasDropdown: true,
             dropdownHeading: "DESIGN LIBRARY",
-            href: "/design-library",
+            href: "/design",
             sub: [
-                { label: "Free Designs", href: "/design-library?access=free" },
-                { label: "Design Gallery", href: "/design-library" },
+                { label: "Free Designs", href: "/design?access=free" },
+                { label: "Design Gallery", href: "/design" },
             ],
         },
         { label: "Pricing", hasDropdown: false, href: "/embroidery-pricing" },
@@ -163,7 +163,7 @@ export default function Navbar3() {
                             Get a Quote
                         </Link>
                         <Link
-                            href="/design-library/cart"
+                            href="/design/cart"
                             className="relative inline-flex items-center justify-center w-9 h-9 shrink-0 rounded-full bg-white/90 text-gray-500 hover:text-lv-red border border-gray-300 shadow-sm transition-colors duration-200"
                             title="Cart"
                         >

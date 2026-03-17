@@ -77,7 +77,7 @@ export async function GET(request) {
       "svg_type",
       "layer_type",
     ];
-    const multiValueKeys = ["placement", "hoop_size"];
+    const multiValueKeys = ["placement", "hoop_size", "print_method"];
     for (const key of categorySpecificKeys) {
       const value = searchParams.get(key);
       if (!value) continue;

@@ -80,7 +80,7 @@ export async function GET(request) {
         );
         const mcForCount = main_categories.length > 0 ? main_categories : [first_main_category];
         const mcPlaceholders = mcForCount.map(() => "?").join(",");
-        const multiValueKeys = ["placement", "hoop_size"];
+        const multiValueKeys = ["placement", "hoop_size", "print_method"];
         const withCounts = await Promise.all(
           options.map(async (opt) => {
             const key = opt.filter_key;

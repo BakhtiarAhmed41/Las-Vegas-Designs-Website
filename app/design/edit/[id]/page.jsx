@@ -9,7 +9,7 @@ export default function EditDesignRedirectPage() {
   const id = params?.id;
 
   useEffect(() => {
-    if (id) router.replace(`/design-library/add?edit=${id}`);
+    if (id) router.replace(`/design/add?edit=${id}`);
   }, [id, router]);
 
   return (

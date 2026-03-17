@@ -73,8 +73,8 @@ export async function POST(request) {
             },
           ],
           application_context: {
-            return_url: `${request.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/design-library/orders/${orderId}?paid=1`,
-            cancel_url: `${request.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/design-library/checkout`,
+            return_url: `${request.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/design/orders/${orderId}?paid=1`,
+            cancel_url: `${request.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/design/checkout`,
           },
         }),
       }).then((r) => r.json());
@@ -118,8 +118,8 @@ export async function POST(request) {
         },
       ],
       mode: "payment",
-      success_url: `${baseUrl}/design-library/orders/${orderId}?paid=1`,
-      cancel_url: `${baseUrl}/design-library/checkout`,
+      success_url: `${baseUrl}/design/orders/${orderId}?paid=1`,
+      cancel_url: `${baseUrl}/design/checkout`,
       customer_email: email,
       metadata: { orderId: String(orderId) },
     });

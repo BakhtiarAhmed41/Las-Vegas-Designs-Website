@@ -20,7 +20,7 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     if (items.length === 0 && count === 0) {
-      router.replace("/design-library/cart");
+      router.replace("/design/cart");
     }
   }, [items.length, count, router]);
 
@@ -66,7 +66,7 @@ export default function CheckoutPage() {
         <Navbar />
         <div className="max-w-xl mx-auto px-4 py-16 text-center">
           <p className="text-gray-600 mb-4">Your cart is empty.</p>
-          <Link href="/design-library" className="text-lv-red font-semibold hover:underline">Browse designs</Link>
+          <Link href="/design" className="text-lv-red font-semibold hover:underline">Browse designs</Link>
         </div>
         <Footer />
         <GoUp />

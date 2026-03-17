@@ -86,7 +86,7 @@ function DesignLibraryContent() {
       else next.set(key, value);
       next.delete("page");
       const q = next.toString();
-      router.replace(q ? `/design-library?${q}` : "/design-library", { scroll: false });
+      router.replace(q ? `/design?${q}` : "/design", { scroll: false });
     },
     [searchParams, router]
   );
@@ -121,10 +121,10 @@ function DesignLibraryContent() {
     else next.set(filterKey, value);
     next.delete("page");
     const q = next.toString();
-    router.replace(q ? `/design-library?${q}` : "/design-library", { scroll: false });
+    router.replace(q ? `/design?${q}` : "/design", { scroll: false });
   };
 
-  const onClear = () => router.replace("/design-library", { scroll: false });
+  const onClear = () => router.replace("/design", { scroll: false });
 
   const onSearchChange = (v) => setParam("search", v);
   const onSortChange = (v) => setParam("sort", v);

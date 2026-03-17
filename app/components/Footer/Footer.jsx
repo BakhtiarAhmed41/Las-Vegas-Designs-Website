@@ -229,12 +229,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/design-library" className="text-sm text-white/90 hover:text-white transition-colors">
+                  <Link href="/design" className="text-sm text-white/90 hover:text-white transition-colors">
                     Design Library
                   </Link>
                 </li>
                 <li>
-                  <Link href="/design-library" className="text-sm text-white/90 hover:text-white transition-colors">
+                  <Link href="/design?access=free" className="text-sm text-white/90 hover:text-white transition-colors">
                     Free Designs
                   </Link>
                 </li>
