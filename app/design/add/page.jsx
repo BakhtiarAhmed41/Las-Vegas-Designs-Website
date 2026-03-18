@@ -637,6 +637,22 @@ function AddDesignForm() {
                         ))}
                       </div>
                     </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-800 mb-1">License</label>
+                      <select
+                        value={form.technical_attributes?.license || ""}
+                        onChange={(e) => setForm((prev) => ({
+                          ...prev,
+                          technical_attributes: { ...prev.technical_attributes, license: e.target.value },
+                        }))}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+                      >
+                        <option value="">Select</option>
+                        <option value="Personal Use Only">Personal Use Only</option>
+                        <option value="Personal and Commercial Use">Personal and Commercial Use</option>
+                        <option value="Commercial Use">Commercial Use</option>
+                      </select>
+                    </div>
                   </>
                 )}
 

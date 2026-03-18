@@ -13,7 +13,9 @@ import { useCart } from "@/app/context/CartContext";
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, total, count } = useCart();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,8 +27,16 @@ export default function CheckoutPage() {
   }, [items.length, count, router]);
 
   const handleCreatePayment = async () => {
-    if (!email) {
+    if (!name.trim()) {
+      setError("Please enter your name");
+      return;
+    }
+    if (!email.trim()) {
       setError("Please enter your email");
+      return;
+    }
+    if (!phone.trim()) {
+      setError("Please enter your phone number");
       return;
     }
     setError("");
@@ -36,7 +46,9 @@ export default function CheckoutPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          name,
           email,
+          phone,
           items: items.map((i) => ({ design_id: i.design_id, price: i.price, quantity: i.quantity || 1 })),
           paymentMethod,
         }),
@@ -86,12 +98,32 @@ export default function CheckoutPage() {
 
           <div className="space-y-6 bg-white rounded-xl border border-gray-200 p-6">
             <div>
+              <label className="block text-sm font-semibold text-gray-800 mb-1">Full Name *</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="John Doe"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+              />
+            </div>
+            <div>
               <label className="block text-sm font-semibold text-gray-800 mb-1">Email *</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-800 mb-1">Phone *</label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+1 (555) 000-0000"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
               />
             </div>

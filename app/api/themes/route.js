@@ -37,6 +37,19 @@ export async function GET(request) {
   }
 }
 
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
+    await query("DELETE FROM themes WHERE id = ?", [id]);
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("DELETE /api/themes error:", err);
+    return NextResponse.json({ error: err.message || "Failed to delete theme" }, { status: 500 });
+  }
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();

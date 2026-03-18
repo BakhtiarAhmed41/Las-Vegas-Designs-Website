@@ -20,6 +20,33 @@ export default function DesignDetailPage() {
   const [imageIndex, setImageIndex] = useState(0);
   const { addItem } = useCart();
 
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [dlName, setDlName] = useState("");
+  const [dlEmail, setDlEmail] = useState("");
+  const [dlPhone, setDlPhone] = useState("");
+  const [dlError, setDlError] = useState("");
+  const [dlSubmitting, setDlSubmitting] = useState(false);
+
+  const handleDownloadSubmit = (e) => {
+    e.preventDefault();
+    if (!dlName.trim()) { setDlError("Please enter your name."); return; }
+    if (!dlEmail.trim()) { setDlError("Please enter your email."); return; }
+    if (!dlPhone.trim()) { setDlError("Please enter your phone number."); return; }
+    setDlError("");
+    setDlSubmitting(true);
+    const a = document.createElement("a");
+    a.href = `/api/download?design_id=${design.id}`;
+    a.download = "";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => {
+      setDlSubmitting(false);
+      setShowDownloadModal(false);
+      setDlName(""); setDlEmail(""); setDlPhone("");
+    }, 800);
+  };
+
   useEffect(() => {
     if (!slug) return;
     fetch(`/api/designs/by-slug/${encodeURIComponent(slug)}`)
@@ -192,6 +219,24 @@ export default function DesignDetailPage() {
                       </div>
                     );
                   })()}
+                  {design.main_category_slug === "embroidery" && design.technical_attributes?.license && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">License</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.license}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "print" && design.technical_attributes?.design_style && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Design Style</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.design_style}</dd>
+                    </div>
+                  )}
+                  {design.main_category_slug === "print" && design.technical_attributes?.background && (
+                    <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start py-2.5 border-b border-gray-200">
+                      <dt className="font-medium text-gray-700">Background</dt>
+                      <dd className="text-gray-800 text-left">{design.technical_attributes.background}</dd>
+                    </div>
+                  )}
                   {design.main_category_slug === "print" && (() => {
                     const pm = design.technical_attributes?.print_method;
                     const list = Array.isArray(pm) ? pm : pm ? [pm] : [];
@@ -263,12 +308,13 @@ export default function DesignDetailPage() {
 
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 {design.is_free ? (
-                  <Link
-                    href={`/api/download?design_id=${design.id}`}
+                  <button
+                    type="button"
+                    onClick={() => setShowDownloadModal(true)}
                     className="inline-flex justify-center px-6 py-3 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg transition-colors"
                   >
                     Download
-                  </Link>
+                  </button>
                 ) : (
                   <button
                     type="button"
@@ -341,6 +387,63 @@ export default function DesignDetailPage() {
       <Footer />
       <GoUp />
       <ChatButton />
+
+      {showDownloadModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative">
+            <button
+              type="button"
+              onClick={() => { setShowDownloadModal(false); setDlError(""); }}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl leading-none"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+            <h2 className="text-lg font-bold text-gray-800 mb-1">Get Your Free Design</h2>
+            <p className="text-sm text-gray-500 mb-5">Fill in the form below to download the design.</p>
+            <form onSubmit={handleDownloadSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  value={dlName}
+                  onChange={(e) => setDlName(e.target.value)}
+                  placeholder="John Doe"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lv-red"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Email *</label>
+                <input
+                  type="email"
+                  value={dlEmail}
+                  onChange={(e) => setDlEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lv-red"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1">Phone *</label>
+                <input
+                  type="tel"
+                  value={dlPhone}
+                  onChange={(e) => setDlPhone(e.target.value)}
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-lv-red"
+                />
+              </div>
+              {dlError && <p className="text-red-600 text-sm">{dlError}</p>}
+              <button
+                type="submit"
+                disabled={dlSubmitting}
+                className="w-full py-3 bg-lv-red hover:bg-lv-red-dark text-white font-semibold rounded-lg transition-colors disabled:opacity-60"
+              >
+                {dlSubmitting ? "Starting download…" : "Download Now"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
