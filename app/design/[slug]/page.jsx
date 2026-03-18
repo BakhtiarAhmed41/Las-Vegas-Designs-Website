@@ -88,7 +88,7 @@ export default function DesignDetailPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div className="space-y-4">
-              <div className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden">
+              <div className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden border border-gray-200">
                 {currentImage ? (
                   <Image
                     src={currentImage}
