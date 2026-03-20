@@ -222,9 +222,9 @@ function DesignLibraryContent() {
           <p className="text-gray-600 text-sm mb-6">
             General filters on this page. Select a main category to see advanced filters.
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl border border-gray-200 p-4 sticky top-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10">
+            <div className="lg:col-span-4 min-w-0">
+              <div className="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 lg:p-7 sticky top-4">
                 {filtersLoading ? (
                   <p className="text-sm text-gray-500">Loading filters…</p>
                 ) : (
@@ -248,7 +248,7 @@ function DesignLibraryContent() {
                 )}
               </div>
             </div>
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-8 min-w-0">
               {loading ? (
                 <p className="text-gray-500 py-12">Loading designs…</p>
               ) : (
