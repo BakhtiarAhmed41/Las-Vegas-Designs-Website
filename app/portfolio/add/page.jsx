@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -39,7 +39,7 @@ const emptyForm = {
   status: "published",
 };
 
-export default function AddPortfolioPage() {
+function PortfolioAddPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get("edit");
@@ -364,5 +364,26 @@ export default function AddPortfolioPage() {
       <GoUp />
       <ChatButton />
     </main>
+  );
+}
+
+export default function AddPortfolioPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="bg-white min-h-screen">
+          <TopTicker />
+          <Navbar />
+          <div className="max-w-4xl mx-auto px-4 py-16 text-center text-gray-500">
+            Loading…
+          </div>
+          <Footer />
+          <GoUp />
+          <ChatButton />
+        </main>
+      }
+    >
+      <PortfolioAddPageContent />
+    </Suspense>
   );
 }
