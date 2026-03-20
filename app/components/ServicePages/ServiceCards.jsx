@@ -15,7 +15,7 @@ function ServiceCard({ card, index }) {
     <ScrollAnimation animation="fadeInUp" delay={index * 0.15}>
       <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full flex flex-col group hover:-translate-y-1">
         {/* Image Container */}
-        <div className="bg-gradient-to-br from-gray-50 to-white h-56 sm:h-64 md:h-72 lg:h-80 flex items-center justify-center relative overflow-hidden">
+        <div className="bg-gradient-to-br from-white to-white h-56 sm:h-64 md:h-72 lg:h-80 flex items-center justify-center relative overflow-hidden">
           {card.imageSrc ? (
             <div className="w-full h-full p-2 sm:p-3 md:p-4">
               <Image

@@ -53,7 +53,7 @@ export default function EmbroideryPricingPage() {
       <TopTicker />
       <Navbar />
 
-      <section className="bg-slate-50 py-10 md:py-14 lg:py-20">
+      <section className="bg-white py-10 md:py-14 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollAnimation animation="fadeInUp" delay={0}>
             <PricingHero

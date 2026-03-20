@@ -17,6 +17,10 @@ export const appliqueHeroData = {
     text: "Get Appliqué Embroidery Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   featureCards: [
     {
       title: "Fast Turnaround",

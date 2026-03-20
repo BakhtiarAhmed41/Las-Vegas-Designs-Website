@@ -17,6 +17,10 @@ export const satinStitchSectionData = {
     text: "Get Satin Stitch Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: "/assets/images/applqiue/Satin stitch Appliqué Embroidery Logo Digitizing.jpg",
   imageAlt: "Satin Stitch Appliqué Digitizing",
   swapLayout: false,

@@ -117,7 +117,7 @@ export default function AboutUsPage() {
       <Navbar />
 
       {/* Hero: Clean files, no surprises – two-column layout per design */}
-      <section className="bg-[#F8F8FA] py-6 md:py-8 lg:py-10">
+      <section className="bg-white py-6 md:py-8 lg:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             <div className="lg:col-span-7">
@@ -180,7 +180,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Who we are / What makes our files different – two card columns */}
-      <section className="py-8 md:py-10 lg:py-12 bg-slate-50">
+      <section className="py-8 md:py-10 lg:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             <div className="bg-gray-100 rounded-xl border border-slate-200 shadow-md p-6 md:p-8">
@@ -238,7 +238,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* How we work – workflow + CTA */}
-      <section className="py-8 md:py-10 lg:py-12 bg-slate-50/60">
+      <section className="py-8 md:py-10 lg:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-flex items-center rounded-full bg-lv-red text-white text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5">
             Workflow
@@ -301,7 +301,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* Who we serve */}
-      <section className="py-8 md:py-10 lg:py-12 bg-slate-50/60">
+      <section className="py-8 md:py-10 lg:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="inline-flex items-center rounded-full bg-lv-red text-white text-[11px] font-semibold tracking-wide uppercase px-3 py-1.5">
             Customers

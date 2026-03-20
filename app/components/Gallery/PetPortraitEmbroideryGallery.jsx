@@ -131,7 +131,7 @@ export default function PetPortraitEmbroideryGallery() {
     return (
         <section
             id="gallery"
-            className="bg-gradient-to-b from-white to-gray-50 py-12 md:py-16 lg:py-20 scroll-mt-20"
+            className="bg-white py-12 md:py-16 lg:py-20 scroll-mt-20"
         >
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
                 <ScrollAnimation animation="fadeInUp" delay={0.1}>
@@ -166,7 +166,7 @@ export default function PetPortraitEmbroideryGallery() {
                                     const isVisible = Math.abs(position) <= 1;
                                     const translateX = position * 100;
                                     const scale = isCenter ? 1 : 0.75;
-                                    const opacity = isVisible ? (isCenter ? 1 : 0.6) : 0;
+                                    const opacity = isVisible ? 1 : 0;
                                     const zIndex = isCenter ? 30 : isVisible ? 20 : 10;
 
                                     return (
@@ -197,34 +197,25 @@ export default function PetPortraitEmbroideryGallery() {
                                                         : "w-[240px] h-[300px] md:w-[320px] md:h-[400px] lg:w-[380px] lg:h-[475px]"
                                                 }`}
                                                 style={{
-                                                    background: "rgba(255, 255, 255, 0.25)",
-                                                    backdropFilter: "blur(10px)",
-                                                    WebkitBackdropFilter: "blur(10px)",
-                                                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                                                    background: "#ffffff",
+                                                    border: "1px solid rgba(229, 231, 235, 1)",
                                                     boxShadow: isCenter
                                                         ? "0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2) inset"
                                                         : "0 10px 30px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.2) inset",
                                                     transition: "box-shadow 3000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                                                 }}
                                             >
-                                                <div className="relative w-full h-[75%]">
+                                                <div className="relative w-full h-[75%] bg-white">
                                                     <Image
                                                         src={project.image}
                                                         alt={project.alt}
                                                         fill
-                                                        className="object-cover opacity-80"
+                                                        className="object-cover opacity-100"
                                                         priority={isCenter}
                                                         sizes="(max-width: 768px) 240px, (max-width: 1024px) 320px, 380px"
                                                     />
-                                                    <div
-                                                        className="absolute inset-0"
-                                                        style={{
-                                                            background:
-                                                                "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
-                                                        }}
-                                                    />
                                                 </div>
-                                                <div className="relative h-[25%] flex flex-col items-center justify-center px-4 py-3 bg-gray-100">
+                                                <div className="relative h-[25%] flex flex-col items-center justify-center px-4 py-3 bg-white">
                                                     <h3
                                                         className={`font-semibold text-gray-800 text-center line-clamp-1 ${
                                                             isCenter ? "text-base md:text-lg lg:text-xl mb-1" : "text-sm md:text-base lg:text-lg mb-1"

@@ -22,23 +22,42 @@ export async function POST(request) {
     const readTime = formData.get("readTime")?.toString() || "5 min read";
     const date = formData.get("date")?.toString() || new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" });
     const file = formData.get("featuredImage");
+    const introImageFile = formData.get("introSideImage");
+    const secondSectionImageFile = formData.get("secondSectionImage");
+
+    const introHeading = formData.get("introHeading")?.toString() || "";
+    const introText = formData.get("introText")?.toString() || "";
+    const firstH2Heading = formData.get("firstH2Heading")?.toString() || "";
+    const firstH2Text = formData.get("firstH2Text")?.toString() || "";
+    const keyPointsTitle = formData.get("keyPointsTitle")?.toString() || "";
+    const keyPoints = formData.get("keyPoints")?.toString() || "";
+    const secondH2Heading = formData.get("secondH2Heading")?.toString() || "";
+    const secondH2Text = formData.get("secondH2Text")?.toString() || "";
+    const thirdH2Heading = formData.get("thirdH2Heading")?.toString() || "";
+    const thirdH2Text = formData.get("thirdH2Text")?.toString() || "";
+    const quickTipsTitle = formData.get("quickTipsTitle")?.toString() || "";
+    const quickTips = formData.get("quickTips")?.toString() || "";
 
     if (!title.trim()) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
 
-    let featuredImage = "";
-    if (file && file.size > 0) {
+    const uploadImage = async (f, baseTitle) => {
+      if (!f || !f.size) return "";
       await mkdir(UPLOAD_DIR, { recursive: true });
-      const ext = path.extname(file.name) || ".png";
-      const baseSlug = slugify(title).slice(0, 40);
+      const ext = path.extname(f.name) || ".png";
+      const baseSlug = slugify(baseTitle || title).slice(0, 40);
       const filename = `${baseSlug}-${Date.now()}${ext}`;
       const filePath = path.join(UPLOAD_DIR, filename);
-      const bytes = await file.arrayBuffer();
+      const bytes = await f.arrayBuffer();
       const buffer = Buffer.from(bytes);
       await writeFile(filePath, buffer);
-      featuredImage = `/assets/blogs/${filename}`;
-    }
+      return `/assets/blogs/${filename}`;
+    };
+
+    const featuredImage = (await uploadImage(file, `${title}-hero`)) || "/assets/images/hat/stitch/hat embroidery logo digitizing sewout (12).png";
+    const introSideImage = await uploadImage(introImageFile, `${title}-intro`);
+    const secondSectionImage = await uploadImage(secondSectionImageFile, `${title}-second`);
 
     const slug = slugify(title);
     const id = Date.now().toString();
@@ -59,9 +78,29 @@ export async function POST(request) {
       excerpt: excerpt.trim(),
       content: content.trim(),
       category: category.trim(),
-      featuredImage: featuredImage || "/assets/images/hat/stitch/hat embroidery logo digitizing sewout (12).png",
+      featuredImage,
       readTime,
       date,
+      introHeading: introHeading.trim(),
+      introText: introText.trim(),
+      introSideImage,
+      firstH2Heading: firstH2Heading.trim(),
+      firstH2Text: firstH2Text.trim(),
+      keyPointsTitle: keyPointsTitle.trim() || "Key Points",
+      keyPoints: keyPoints
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      secondH2Heading: secondH2Heading.trim(),
+      secondH2Text: secondH2Text.trim(),
+      secondSectionImage,
+      thirdH2Heading: thirdH2Heading.trim(),
+      thirdH2Text: thirdH2Text.trim(),
+      quickTipsTitle: quickTipsTitle.trim() || "Quick Tip or Quick Points",
+      quickTips: quickTips
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean),
       createdAt,
     };
 

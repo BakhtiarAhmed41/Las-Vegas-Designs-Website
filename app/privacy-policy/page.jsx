@@ -32,7 +32,7 @@ export default function PrivacyPage() {
       <TopTicker />
       <Navbar />
 
-      <section className="bg-slate-50 py-10 md:py-14 lg:py-20">
+      <section className="bg-white py-10 md:py-14 lg:py-20">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Header */}
           <header className="mb-10 md:mb-12">

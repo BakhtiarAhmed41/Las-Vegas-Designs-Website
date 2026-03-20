@@ -240,7 +240,7 @@ export default function PaymentFormSection() {
               {/* Payment Method Section */}
               <div>
                 <label className={labelClass}>Payment method</label>
-                <div className="border-2 border-dashed border-gray-300 rounded-md p-6 bg-gray-50 text-center">
+                <div className="border-2 border-dashed border-gray-300 rounded-md p-6 bg-white text-center">
                   <p className="text-sm text-gray-600">
                     Replace this box with your real payment button, Stripe checkout link, PayPal button, or your embed.
                   </p>
@@ -259,7 +259,7 @@ export default function PaymentFormSection() {
           </div>
 
           {/* Right Card - Payment Summary */}
-          <div className="bg-gray-100 rounded-xl shadow-md p-6 md:p-8">
+          <div className="bg-white rounded-xl shadow-md p-6 md:p-8 border border-gray-200">
             {/* Payment Summary Section */}
             <div className=" rounded-lg p-5 mb-6">
               <h3 className="text-lg font-bold text-gray-800 mb-4">

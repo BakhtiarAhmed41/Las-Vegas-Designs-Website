@@ -17,6 +17,10 @@ export const puffAppliqueSectionData = {
     text: "Get 3D Puff Appliqué Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: "/assets/images/applqiue/3D puff Appliqué   Embroidery Logo Digitizing.jpg",
   imageAlt: "3D Puff Appliqué Digitizing",
   swapLayout: true,

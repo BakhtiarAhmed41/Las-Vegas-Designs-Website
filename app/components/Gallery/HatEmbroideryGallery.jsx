@@ -122,7 +122,7 @@ export default function HatEmbroideryGallery() {
                             Hat & Cap Stitch Out Samples
                         </h2>
                         <p className="text-[#6b7280] text-sm sm:text-base leading-relaxed max-w-3xl mx-auto font-medium text-shadow-sm">
-                            Real stitch outs of logos on caps, bucket hats, and beanies—showing clarity, density balance, and clean edges.
+                            Customer stitch-outs on caps and hats showing clean stitching, sharp logo details, and amazing results on curved surfaces.
                         </p>
                     </div>
                 </ScrollAnimation>

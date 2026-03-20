@@ -25,7 +25,7 @@ export default function EtsyReviews() {
 
           {/* Descriptive Paragraph */}
           <p className="text-[15px] sm:text-base text-[#6b7280] max-w-3xl mx-auto leading-relaxed">
-            Here are a few recent reviews from our customers. Clean output, fast turnaround, and production ready files for printing, cutting, and stitching.
+            Customer feedback on our embroidery digitizing, vector art, and SVG services, known for quality work, quick turnaround, and dependable service.
           </p>
         </div>
 

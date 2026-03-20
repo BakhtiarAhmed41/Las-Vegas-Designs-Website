@@ -130,7 +130,7 @@ export default function AppliqueGallery() {
               Appliqué Stitch Out Samples
             </h2>
             <p className="text-[#6b7280] text-sm sm:text-base leading-relaxed max-w-3xl mx-auto font-medium text-shadow-sm">
-              Real appliqué stitch outs on fabric—running stitch, satin, zigzag, and more—showing clean edges and professional results.
+              Real appliqué stitch-outs showing clean fabric edges, smooth satin borders, running stitch borders, and other appliqué techniques.
             </p>
           </div>
         </ScrollAnimation>

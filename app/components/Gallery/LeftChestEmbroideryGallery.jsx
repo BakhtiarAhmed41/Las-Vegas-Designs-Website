@@ -143,7 +143,7 @@ export default function LeftChestEmbroideryGallery() {
                             Left Chest Stitch Out Samples
                         </h2>
                         <p className="text-[#6b7280] text-sm sm:text-base leading-relaxed max-w-3xl mx-auto font-medium text-shadow-sm">
-                            Real stitch outs of left chest and pocket logos on polos, jackets, and twill—showing clarity, density balance, and clean edges.
+                            Small logo embroidery stitch-outs designed for shirts and polos, showing sharp lettering and clean stitch definition.
                         </p>
                     </div>
                 </ScrollAnimation>

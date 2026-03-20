@@ -17,6 +17,10 @@ export const doubleLayerSectionData = {
     text: "Get Double Layer Quote",
     href: "/contact",
   },
+  secondaryButton: {
+    text: "View Example Stitch Outs",
+    href: "#gallery",
+  },
   imageSrc: "/assets/images/applqiue/Double Appliqué Embroidery Logo Digitizing.jpg",
   imageAlt: "Double Layer Appliqué Digitizing",
   swapLayout: false,

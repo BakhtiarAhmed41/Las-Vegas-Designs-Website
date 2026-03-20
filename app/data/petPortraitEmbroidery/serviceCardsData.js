@@ -73,7 +73,7 @@ export const serviceCardsData = {
         "Low stitch count with smooth flow control",
         "Perfect for minimal fashion and modern branding",
       ],
-      imageSrc: "/assets/images/pets/pets emb/custom portrait digitizing service (2).png",
+      imageSrc: "/assets/images/pets/pets emb/Single-line and outline-only portrait digitizing.jpg",
       imageAlt: "Line Art & Minimal Portrait Digitizing",
       button: {
         text: "Get Quote",
