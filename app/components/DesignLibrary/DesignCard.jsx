@@ -73,7 +73,7 @@ export default function DesignCard({ design }) {
         <div className="flex gap-2 mt-auto">
           <Link
             href={`/design/${design.slug}`}
-            className="flex-1 text-center px-3 py-2 border border-gray-300 text-gray-800 font-medium rounded-lg text-sm hover:border-gray-400 transition-colors"
+            className="flex-1 inline-flex items-center justify-center text-center px-3 py-2 border border-gray-300 text-gray-800 font-medium rounded-lg text-sm hover:border-gray-400 transition-colors"
           >
             View
           </Link>

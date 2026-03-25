@@ -14,7 +14,7 @@ import DesignGrid from "@/app/components/DesignLibrary/DesignGrid";
 import DesignCard from "@/app/components/DesignLibrary/DesignCard";
 import Link from "next/link";
 
-const LIMIT = 24;
+const LIMIT = 12;
 
 function buildDesignsParams(searchParams) {
   const params = new URLSearchParams();
@@ -84,7 +84,7 @@ function DesignLibraryContent() {
       const next = new URLSearchParams(searchParams.toString());
       if (value === "" || value == null) next.delete(key);
       else next.set(key, value);
-      next.delete("page");
+      if (key !== "page") next.delete("page");
       const q = next.toString();
       router.replace(q ? `/design?${q}` : "/design", { scroll: false });
     },
@@ -196,16 +196,18 @@ function DesignLibraryContent() {
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Featured designs</h2>
-              <Link
-                href="#browse-all-designs"
-                className="text-lv-red font-semibold hover:underline"
-              >
-                View all designs
-              </Link>
+              {featured.length > 5 && (
+                <Link
+                  href="/design/featured"
+                  className="text-lv-red font-semibold hover:underline"
+                >
+                  View all designs
+                </Link>
+              )}
             </div>
             <div className="overflow-x-auto pb-4 -mx-2">
-              <div className="flex gap-4 min-w-max md:min-w-0 md:grid md:grid-cols-2 lg:grid-cols-4">
-                {featured.map((d) => (
+              <div className="flex gap-4 min-w-max md:min-w-0 md:grid md:grid-cols-2 lg:grid-cols-5">
+                {featured.slice(0, 5).map((d) => (
                   <div key={d.id} className="w-[280px] md:w-auto shrink-0">
                     <DesignCard design={d} />
                   </div>
@@ -222,8 +224,8 @@ function DesignLibraryContent() {
           <p className="text-gray-600 text-sm mb-6">
             General filters on this page. Select a main category to see advanced filters.
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10">
-            <div className="lg:col-span-4 min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-[20%_minmax(0,1fr)] gap-8 lg:gap-8 xl:gap-10">
+            <div className="min-w-0">
               <div className="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 lg:p-7 sticky top-4">
                 {filtersLoading ? (
                   <p className="text-sm text-gray-500">Loading filters…</p>
@@ -248,7 +250,7 @@ function DesignLibraryContent() {
                 )}
               </div>
             </div>
-            <div className="lg:col-span-8 min-w-0">
+            <div className="min-w-0">
               {loading ? (
                 <p className="text-gray-500 py-12">Loading designs…</p>
               ) : (
