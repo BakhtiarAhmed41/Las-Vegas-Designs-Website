@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }) {
               )}
 
               {(post.quickTipsTitle || quickTips.length > 0) && (
-                <div className="rounded-xl border border-amber-100 bg-amber-50 p-4 md:p-5">
+                <div className="rounded-xl border border-amber-100 bg-white p-4 md:p-5">
                   <h4 className="text-lg font-bold text-amber-800 mb-2">{post.quickTipsTitle || "Quick Tip or Quick Points"}</h4>
                   <ul className="space-y-2 text-sm text-gray-700">
                     {quickTips.length > 0 ? (
