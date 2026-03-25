@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { writeFile, readFile, mkdir } from "fs/promises";
+import { query } from "@/lib/db";
+import { getSupabase } from "@/lib/supabase";
+import { v4 as uuidv4 } from "uuid";
 import path from "path";
-
-const POSTS_PATH = path.join(process.cwd(), "app/data/blogs/posts.json");
-const UPLOAD_DIR = path.join(process.cwd(), "public/assets/blogs");
 
 function slugify(text) {
   return String(text || "")
@@ -12,39 +11,57 @@ function slugify(text) {
     .replace(/^-|-$/g, "");
 }
 
-async function readPosts() {
-  try {
-    const data = await readFile(POSTS_PATH, "utf8");
-    const posts = JSON.parse(data);
-    return Array.isArray(posts) ? posts : [];
-  } catch {
-    return [];
-  }
-}
-
-async function writePosts(posts) {
-  await writeFile(POSTS_PATH, JSON.stringify(posts, null, 2), "utf8");
-}
-
 async function uploadImage(file, baseTitle) {
   if (!file || !file.size) return "";
-  await mkdir(UPLOAD_DIR, { recursive: true });
   const ext = path.extname(file.name) || ".png";
   const baseSlug = slugify(baseTitle).slice(0, 40) || "blog";
-  const filename = `${baseSlug}-${Date.now()}${ext}`;
-  const filePath = path.join(UPLOAD_DIR, filename);
+  const key = `blogs/${baseSlug}-${uuidv4()}${ext}`;
   const bytes = await file.arrayBuffer();
-  await writeFile(filePath, Buffer.from(bytes));
-  return `/assets/blogs/${filename}`;
+  const supabase = getSupabase();
+  const { error } = await supabase.storage.from("designs").upload(key, Buffer.from(bytes), {
+    contentType: file.type || "image/png",
+    upsert: false,
+  });
+  if (error) throw error;
+  const { data } = supabase.storage.from("designs").getPublicUrl(key);
+  return data?.publicUrl || "";
 }
 
 export async function GET(request, { params }) {
   try {
+    await ensureBlogsTable();
     const { id } = await params;
-    const posts = await readPosts();
-    const post = posts.find((p) => p.id === id);
+    const rows = await query(
+      `SELECT
+        id, slug, title, excerpt, content, category,
+        featured_image AS "featuredImage",
+        read_time AS "readTime",
+        date,
+        intro_heading AS "introHeading",
+        intro_text AS "introText",
+        intro_side_image AS "introSideImage",
+        first_h2_heading AS "firstH2Heading",
+        first_h2_text AS "firstH2Text",
+        key_points_title AS "keyPointsTitle",
+        key_points AS "keyPoints",
+        second_h2_heading AS "secondH2Heading",
+        second_h2_text AS "secondH2Text",
+        second_section_image AS "secondSectionImage",
+        third_h2_heading AS "thirdH2Heading",
+        third_h2_text AS "thirdH2Text",
+        quick_tips_title AS "quickTipsTitle",
+        quick_tips AS "quickTips",
+        created_at AS "createdAt"
+      FROM blog_posts WHERE id = ? LIMIT 1`,
+      [id]
+    );
+    const post = rows[0];
     if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    return NextResponse.json(post);
+    return NextResponse.json({
+      ...post,
+      keyPoints: Array.isArray(post.keyPoints) ? post.keyPoints : [],
+      quickTips: Array.isArray(post.quickTips) ? post.quickTips : [],
+    });
   } catch {
     return NextResponse.json({ error: "Failed to load post" }, { status: 500 });
   }
@@ -52,12 +69,34 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
   try {
+    await ensureBlogsTable();
     const { id } = await params;
-    const posts = await readPosts();
-    const idx = posts.findIndex((p) => p.id === id);
-    if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
-
-    const old = posts[idx];
+    const rows = await query(
+      `SELECT
+        id, slug, title, excerpt, content, category,
+        featured_image AS "featuredImage",
+        read_time AS "readTime",
+        date,
+        intro_heading AS "introHeading",
+        intro_text AS "introText",
+        intro_side_image AS "introSideImage",
+        first_h2_heading AS "firstH2Heading",
+        first_h2_text AS "firstH2Text",
+        key_points_title AS "keyPointsTitle",
+        key_points AS "keyPoints",
+        second_h2_heading AS "secondH2Heading",
+        second_h2_text AS "secondH2Text",
+        second_section_image AS "secondSectionImage",
+        third_h2_heading AS "thirdH2Heading",
+        third_h2_text AS "thirdH2Text",
+        quick_tips_title AS "quickTipsTitle",
+        quick_tips AS "quickTips",
+        created_at AS "createdAt"
+      FROM blog_posts WHERE id = ? LIMIT 1`,
+      [id]
+    );
+    const old = rows[0];
+    if (!old) return NextResponse.json({ error: "Not found" }, { status: 404 });
     const formData = await request.formData();
     const title = formData.get("title")?.toString().trim() || old.title || "";
     if (!title) return NextResponse.json({ error: "Title is required" }, { status: 400 });
@@ -98,8 +137,55 @@ export async function PUT(request, { params }) {
         .filter(Boolean),
     };
 
-    posts[idx] = next;
-    await writePosts(posts);
+    await query(
+      `UPDATE blog_posts SET
+        title = ?,
+        excerpt = ?,
+        content = ?,
+        category = ?,
+        read_time = ?,
+        date = ?,
+        featured_image = ?,
+        intro_heading = ?,
+        intro_text = ?,
+        intro_side_image = ?,
+        first_h2_heading = ?,
+        first_h2_text = ?,
+        key_points_title = ?,
+        key_points = ?::jsonb,
+        second_h2_heading = ?,
+        second_h2_text = ?,
+        second_section_image = ?,
+        third_h2_heading = ?,
+        third_h2_text = ?,
+        quick_tips_title = ?,
+        quick_tips = ?::jsonb
+      WHERE id = ?`,
+      [
+        next.title,
+        next.excerpt,
+        next.content,
+        next.category,
+        next.readTime,
+        next.date,
+        next.featuredImage,
+        next.introHeading,
+        next.introText,
+        next.introSideImage,
+        next.firstH2Heading,
+        next.firstH2Text,
+        next.keyPointsTitle,
+        JSON.stringify(next.keyPoints || []),
+        next.secondH2Heading,
+        next.secondH2Text,
+        next.secondSectionImage,
+        next.thirdH2Heading,
+        next.thirdH2Text,
+        next.quickTipsTitle,
+        JSON.stringify(next.quickTips || []),
+        id,
+      ]
+    );
     return NextResponse.json({ success: true, post: next });
   } catch (err) {
     console.error("PUT /api/blogs/[id] error:", err);
@@ -109,12 +195,42 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
+    await ensureBlogsTable();
     const { id } = await params;
-    const posts = await readPosts();
-    const next = posts.filter((p) => p.id !== id);
-    await writePosts(next);
+    await query("DELETE FROM blog_posts WHERE id = ?", [id]);
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete blog post" }, { status: 500 });
   }
+}
+
+async function ensureBlogsTable() {
+  await query(`
+    CREATE TABLE IF NOT EXISTS blog_posts (
+      id TEXT PRIMARY KEY,
+      slug TEXT UNIQUE NOT NULL,
+      title TEXT NOT NULL,
+      excerpt TEXT DEFAULT '',
+      content TEXT DEFAULT '',
+      category TEXT DEFAULT 'Uncategorized',
+      featured_image TEXT DEFAULT '',
+      read_time TEXT DEFAULT '5 min read',
+      date TEXT DEFAULT '',
+      intro_heading TEXT DEFAULT '',
+      intro_text TEXT DEFAULT '',
+      intro_side_image TEXT DEFAULT '',
+      first_h2_heading TEXT DEFAULT '',
+      first_h2_text TEXT DEFAULT '',
+      key_points_title TEXT DEFAULT 'Key Points',
+      key_points JSONB DEFAULT '[]'::jsonb,
+      second_h2_heading TEXT DEFAULT '',
+      second_h2_text TEXT DEFAULT '',
+      second_section_image TEXT DEFAULT '',
+      third_h2_heading TEXT DEFAULT '',
+      third_h2_text TEXT DEFAULT '',
+      quick_tips_title TEXT DEFAULT 'Quick Tip or Quick Points',
+      quick_tips JSONB DEFAULT '[]'::jsonb,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
 }

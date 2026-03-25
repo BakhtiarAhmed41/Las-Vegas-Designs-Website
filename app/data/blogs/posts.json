@@ -1,5 +1,42 @@
 [
   {
+    "id": "1774465110248",
+    "slug": "testing-another-blog",
+    "title": "Testing Another Blog",
+    "excerpt": "Testing Another Blog Testing Another Blog Testing Another Blog",
+    "content": "Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog",
+    "category": "Testing Category",
+    "featuredImage": "/assets/blogs/testing-another-blog-hero-1774465110235.png",
+    "readTime": "5 min read",
+    "date": "Mar 2026",
+    "introHeading": "Adding this test blog",
+    "introText": "Testing Another Blog Testing Another Blog Testing Another Blog",
+    "introSideImage": "/assets/blogs/testing-another-blog-intro-1774465110241.png",
+    "firstH2Heading": "Heading 1",
+    "firstH2Text": "Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog",
+    "keyPointsTitle": "Key Points",
+    "keyPoints": [
+      "Testing Another Blog",
+      "Testing Another Blog",
+      "Testing Another Blog",
+      "Testing Another Blog",
+      "Testing Another Blog"
+    ],
+    "secondH2Heading": "Heading 2",
+    "secondH2Text": "Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog",
+    "secondSectionImage": "/assets/blogs/testing-another-blog-second-1774465110245.jpeg",
+    "thirdH2Heading": "Heading 3",
+    "thirdH2Text": "Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog Testing Another Blog",
+    "quickTipsTitle": "Quick Tip or Quick Points",
+    "quickTips": [
+      "Testing Another Blog",
+      "Testing Another Blog",
+      "Testing Another Blog",
+      "Testing Another Blog"
+    ],
+    "createdAt": "2026-03-25T18:58:30.248Z"
+  },
+  {
     "id": "1774046884071",
     "slug": "test-blog",
     "title": "Test Blog",
