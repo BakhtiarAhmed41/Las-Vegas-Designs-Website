@@ -45,6 +45,7 @@ export async function PUT(request, { params }) {
       description,
       customer_file_url,
       final_result_url,
+      extra_image_url,
       tags,
       overview,
       service,
@@ -71,7 +72,7 @@ export async function PUT(request, { params }) {
     const rows = await query(
       `UPDATE portfolio_items SET
         title = ?, category = ?, category_id = ?, category_ids = ?::jsonb, description = ?,
-        customer_file_url = ?, final_result_url = ?, tags = ?::jsonb,
+        customer_file_url = ?, final_result_url = ?, extra_image_url = ?, tags = ?::jsonb,
         overview = ?, service = ?, used_for = ?, formats = ?,
         project_type = ?, sort_order = ?, status = ?
        WHERE id = ? RETURNING *`,
@@ -83,6 +84,7 @@ export async function PUT(request, { params }) {
         description || "",
         customer_file_url || "",
         final_result_url || "",
+        extra_image_url || "",
         tagsJson,
         overview || "",
         service || "",

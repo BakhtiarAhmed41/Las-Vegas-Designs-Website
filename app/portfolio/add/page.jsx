@@ -20,6 +20,7 @@ const emptyForm = {
   description: "",
   customer_file_url: "",
   final_result_url: "",
+  extra_image_url: "",
   tags: [],
   overview: "",
   service: "",
@@ -58,6 +59,7 @@ function PortfolioAddPageContent() {
             description: data.description || "",
             customer_file_url: data.customer_file_url || "",
             final_result_url: data.final_result_url || "",
+            extra_image_url: data.extra_image_url || "",
             tags: Array.isArray(data.tags) ? data.tags : [],
             overview: data.overview || "",
             service: data.service || "",
@@ -237,6 +239,25 @@ function PortfolioAddPageContent() {
                 <p className="text-xs text-gray-500 mt-1">Upload JPG, PNG, or WebP image</p>
                 {uploading === "final_result_url" && <p className="text-xs text-lv-red mt-1">Uploading…</p>}
               </div>
+            </div>
+
+            <div className="border border-dashed border-gray-300 rounded-xl p-4 md:p-5 bg-gray-50/50">
+              <label className="block text-sm font-semibold text-gray-800 mb-1">Additional image (optional)</label>
+              <p className="text-xs text-gray-500 mb-3">
+                This image is not used on the portfolio card. It appears at the bottom of the project detail view, after all text details.
+              </p>
+              {form.extra_image_url && (
+                <div className="relative w-full max-w-lg aspect-video bg-gray-100 rounded-lg overflow-hidden mb-2">
+                  <Image src={form.extra_image_url} alt="Additional project image" fill className="object-cover" unoptimized />
+                </div>
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadFile(f, "extra_image_url"); }}
+                className="w-full text-sm text-gray-700 border border-gray-300 rounded-lg file:mr-4 file:px-4 file:py-2.5 file:rounded-l-lg file:border-0 file:bg-gray-100 file:text-gray-700 file:font-medium hover:file:bg-gray-200"
+              />
+              {uploading === "extra_image_url" && <p className="text-xs text-lv-red mt-1">Uploading…</p>}
             </div>
 
             {/* Tags */}

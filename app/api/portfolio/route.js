@@ -114,6 +114,7 @@ export async function POST(request) {
       description,
       customer_file_url,
       final_result_url,
+      extra_image_url,
       tags,
       overview,
       service,
@@ -145,8 +146,8 @@ export async function POST(request) {
     const categoryIdsJson = JSON.stringify(category_ids);
 
     const rows = await query(
-      `INSERT INTO portfolio_items (title, slug, category, category_id, category_ids, description, customer_file_url, final_result_url, tags, overview, service, used_for, formats, project_type, sort_order, status)
-       VALUES (?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?, ?, ?)
+      `INSERT INTO portfolio_items (title, slug, category, category_id, category_ids, description, customer_file_url, final_result_url, extra_image_url, tags, overview, service, used_for, formats, project_type, sort_order, status)
+       VALUES (?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?::jsonb, ?, ?, ?, ?, ?, ?, ?)
        RETURNING *`,
       [
         title.trim(),
@@ -157,6 +158,7 @@ export async function POST(request) {
         description || "",
         customer_file_url || "",
         final_result_url || "",
+        extra_image_url || "",
         tagsJson,
         overview || "",
         service || "",

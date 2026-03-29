@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS portfolio_items (
   description TEXT DEFAULT '',
   customer_file_url TEXT DEFAULT '',
   final_result_url TEXT DEFAULT '',
+  extra_image_url TEXT DEFAULT '',
   tags JSONB DEFAULT '[]'::jsonb,
   overview TEXT DEFAULT '',
   service TEXT DEFAULT '',
