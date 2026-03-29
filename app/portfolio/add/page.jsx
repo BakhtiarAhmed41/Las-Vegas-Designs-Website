@@ -9,23 +9,14 @@ import Navbar from "@/app/components/Navbar/Navbar3";
 import Footer from "@/app/components/Footer/Footer";
 import GoUp from "@/app/components/Buttons/GoUp";
 import ChatButton from "@/app/components/Buttons/ChatButton";
-
-const CATEGORIES = [
-  { id: "embroidery", label: "Embroidery Digitizing" },
-  { id: "vector", label: "Vector Artwork" },
-  { id: "svg", label: "SVG and PNG" },
-  { id: "cnc", label: "CNC and Laser" },
-  { id: "hats", label: "Hats" },
-  { id: "leftchest", label: "Left Chest" },
-  { id: "jacketback", label: "Jacket Back" },
-  { id: "vehicles", label: "Vehicles" },
-  { id: "patches", label: "Patches" },
-];
+import {
+  PORTFOLIO_CATEGORIES,
+  normalizeCategoryIds,
+} from "@/lib/portfolioCategories";
 
 const emptyForm = {
   title: "",
-  category_id: "",
-  category: "",
+  category_ids: [],
   description: "",
   customer_file_url: "",
   final_result_url: "",
@@ -58,8 +49,12 @@ function PortfolioAddPageContent() {
           if (data.error) { setError(data.error); return; }
           setForm({
             title: data.title || "",
-            category_id: data.category_id || "",
-            category: data.category || "",
+            category_ids:
+              normalizeCategoryIds(data.category_ids).length > 0
+                ? normalizeCategoryIds(data.category_ids)
+                : data.category_id
+                  ? [data.category_id]
+                  : [],
             description: data.description || "",
             customer_file_url: data.customer_file_url || "",
             final_result_url: data.final_result_url || "",
@@ -94,10 +89,13 @@ function PortfolioAddPageContent() {
     }
   };
 
-  const handleCategoryChange = (e) => {
-    const id = e.target.value;
-    const cat = CATEGORIES.find((c) => c.id === id);
-    setForm((prev) => ({ ...prev, category_id: id, category: cat?.label || "" }));
+  const toggleCategory = (id) => {
+    setForm((prev) => {
+      const set = new Set(prev.category_ids);
+      if (set.has(id)) set.delete(id);
+      else set.add(id);
+      return { ...prev, category_ids: Array.from(set) };
+    });
   };
 
   const addTag = () => {
@@ -114,7 +112,7 @@ function PortfolioAddPageContent() {
 
   const handleSubmit = async () => {
     if (!form.title.trim()) { setError("Title is required"); return; }
-    if (!form.category_id) { setError("Category is required"); return; }
+    if (!form.category_ids?.length) { setError("Select at least one category"); return; }
     setError("");
     setLoading(true);
     try {
@@ -142,13 +140,18 @@ function PortfolioAddPageContent() {
 
       <section className="py-10 md:py-14">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
               {editId ? "Edit Portfolio Item" : "Add Portfolio Item"}
             </h1>
-            <Link href="/portfolio" className="text-lv-red font-semibold hover:underline">
-              ← Back to Portfolio
-            </Link>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link href="/portfolio/manage" className="text-gray-700 font-semibold hover:text-lv-red hover:underline">
+                Manage projects
+              </Link>
+              <Link href="/portfolio" className="text-lv-red font-semibold hover:underline">
+                ← Back to Portfolio
+              </Link>
+            </div>
           </div>
 
           {error && (
@@ -168,18 +171,24 @@ function PortfolioAddPageContent() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-1">Category *</label>
-                <select
-                  value={form.category_id}
-                  onChange={handleCategoryChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-lv-red"
-                >
-                  <option value="">Select category</option>
-                  {CATEGORIES.map((c) => (
-                    <option key={c.id} value={c.id}>{c.label}</option>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-semibold text-gray-800 mb-2">Categories * (select one or more)</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[220px] overflow-y-auto p-3 border border-gray-200 rounded-lg bg-gray-50/80">
+                  {PORTFOLIO_CATEGORIES.map((c) => (
+                    <label
+                      key={c.id}
+                      className="flex items-center gap-2.5 cursor-pointer text-sm text-gray-800 hover:text-lv-red"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={form.category_ids.includes(c.id)}
+                        onChange={() => toggleCategory(c.id)}
+                        className="rounded border-gray-300 text-lv-red focus:ring-lv-red"
+                      />
+                      <span>{c.label}</span>
+                    </label>
                   ))}
-                </select>
+                </div>
               </div>
             </div>
 

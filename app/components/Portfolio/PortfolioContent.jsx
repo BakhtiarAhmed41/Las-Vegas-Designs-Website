@@ -5,42 +5,64 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoClose } from "react-icons/io5";
 import { FiArrowRight } from "react-icons/fi";
+import { PORTFOLIO_CATEGORIES } from "@/lib/portfolioCategories";
 
-const FILTERS = [
-  { id: "all", label: "All" },
-  { id: "embroidery", label: "Embroidery" },
-  { id: "vector", label: "Vector" },
-  { id: "svg", label: "SVG and PNG" },
-  { id: "cnc", label: "CNC and Laser" },
-  { id: "hats", label: "Hats" },
-  { id: "leftchest", label: "Left Chest" },
-  { id: "jacketback", label: "Jacket Back" },
-  { id: "vehicles", label: "Vehicles" },
-  { id: "patches", label: "Patches" },
-];
+const PAGE_SIZE = 6;
+
+const FILTERS = [{ id: "all", label: "All" }, ...PORTFOLIO_CATEGORIES];
+
+function categoryLabelsForItem(item) {
+  if (item.category_ids?.length) {
+    return item.category_ids.map(
+      (id) => PORTFOLIO_CATEGORIES.find((c) => c.id === id)?.label || id
+    );
+  }
+  if (item.category) return item.category.split(", ").map((s) => s.trim()).filter(Boolean);
+  return [];
+}
 
 export default function PortfolioContent() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [total, setTotal] = useState(0);
   const [detailItem, setDetailItem] = useState(null);
+  const [searchNonce, setSearchNonce] = useState(0);
 
-  const fetchItems = useCallback(() => {
+  useEffect(() => {
+    setPage(1);
+  }, [activeFilter, search]);
+
+  useEffect(() => {
+    let cancelled = false;
     setLoading(true);
     const params = new URLSearchParams();
     if (activeFilter !== "all") params.set("category", activeFilter);
     if (search.trim()) params.set("search", search.trim());
+    params.set("page", String(page));
+    params.set("limit", String(PAGE_SIZE));
     fetch(`/api/portfolio?${params.toString()}`)
       .then((r) => r.json())
-      .then((data) => setItems(data.items || []))
-      .catch(() => setItems([]))
-      .finally(() => setLoading(false));
-  }, [activeFilter, search]);
-
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
+      .then((data) => {
+        if (cancelled) return;
+        setItems(data.items || []);
+        setTotalPages(data.totalPages || 1);
+        setTotal(data.total ?? 0);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setItems([]);
+        setTotalPages(1);
+        setTotal(0);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [activeFilter, search, page, searchNonce]);
 
   useEffect(() => {
     const handleEscape = (e) => {
@@ -59,7 +81,10 @@ export default function PortfolioContent() {
     return () => { document.body.style.overflow = ""; };
   }, [detailItem]);
 
-  const handleSearch = () => fetchItems();
+  const handleSearch = () => {
+    setPage(1);
+    setSearchNonce((n) => n + 1);
+  };
 
   return (
     <>
@@ -101,13 +126,13 @@ export default function PortfolioContent() {
             </button>
           </div>
 
-          <div className="flex gap-2 justify-center overflow-x-auto pb-2">
+          <div className="flex gap-2 justify-center overflow-x-auto pb-2 flex-wrap">
             {FILTERS.map((f) => (
               <button
                 key={f.id}
                 type="button"
                 onClick={() => setActiveFilter(f.id)}
-                className={`shrink-0 px-5 py-2.5 rounded-full text-sm font-medium transition-colors ${activeFilter === f.id
+                className={`shrink-0 px-4 py-2.5 rounded-full text-sm font-medium transition-colors ${activeFilter === f.id
                   ? "bg-lv-blue text-white shadow-sm"
                   : "bg-white text-gray-600 border border-gray-300 hover:border-gray-400"
                   }`}
@@ -119,7 +144,7 @@ export default function PortfolioContent() {
         </div>
       </section>
 
-      {/* Grid */}
+      {/* Grid — 3 columns × 2 rows = 6 items per page */}
       <section className="bg-gray-50 pt-4 md:pt-6 pb-10 md:pb-14">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
@@ -127,81 +152,118 @@ export default function PortfolioContent() {
           ) : items.length === 0 ? (
             <p className="text-center text-gray-500 py-12">No portfolio items match your search or filter.</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {items.map((item) => (
-                <article
-                  key={item.id}
-                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-                >
-                  {/* Side-by-side images */}
-                  <div className="grid grid-cols-2 relative p-2.5 pb-0 gap-2">
-                    <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
-                      {item.customer_file_url ? (
-                        <Image
-                          src={item.customer_file_url}
-                          alt="Customer file"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 18vw"
-                          unoptimized={item.customer_file_url?.startsWith("http")}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No image</div>
-                      )}
-                      <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold text-lv-red shadow-sm uppercase tracking-wide">
-                        Customer File
-                      </span>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {items.map((item) => (
+                  <article
+                    key={item.id}
+                    className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="grid grid-cols-2 relative p-2.5 pb-0 gap-2">
+                      <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
+                        {item.customer_file_url ? (
+                          <Image
+                            src={item.customer_file_url}
+                            alt="Customer file"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 18vw"
+                            unoptimized={item.customer_file_url?.startsWith("http")}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No image</div>
+                        )}
+                        <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold text-lv-red shadow-sm uppercase tracking-wide">
+                          Customer File
+                        </span>
+                      </div>
+                      <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
+                        {item.final_result_url ? (
+                          <Image
+                            src={item.final_result_url}
+                            alt="Final result"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 18vw"
+                            unoptimized={item.final_result_url?.startsWith("http")}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No image</div>
+                        )}
+                        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-lv-blue text-white rounded text-[10px] font-bold shadow-sm uppercase tracking-wide">
+                          Final Result
+                        </span>
+                      </div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md border border-gray-100 flex items-center justify-center z-10">
+                        <FiArrowRight className="text-gray-500" size={15} />
+                      </div>
                     </div>
-                    <div className="relative aspect-square bg-gray-50 rounded-xl overflow-hidden">
-                      {item.final_result_url ? (
-                        <Image
-                          src={item.final_result_url}
-                          alt="Final result"
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 18vw"
-                          unoptimized={item.final_result_url?.startsWith("http")}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No image</div>
-                      )}
-                      <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-lv-blue text-white rounded text-[10px] font-bold shadow-sm uppercase tracking-wide">
-                        Final Result
-                      </span>
-                    </div>
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md border border-gray-100 flex items-center justify-center z-10">
-                      <FiArrowRight className="text-gray-500" size={15} />
-                    </div>
-                  </div>
 
-                  {/* Card body */}
-                  <div className="px-4 pt-3.5 pb-4">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-lv-red mb-1">
-                      {item.category}
-                    </p>
-                    <h3 className="text-[15px] font-bold text-gray-800 mb-2.5 leading-snug line-clamp-2">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex flex-wrap gap-1.5 min-w-0">
-                        {item.tags?.slice(0, 3).map((tag) => (
-                          <span key={tag} className="px-2.5 py-0.5 border border-gray-200 rounded-full text-xs text-gray-500 whitespace-nowrap">
-                            {tag}
+                    <div className="px-4 pt-3.5 pb-4">
+                      <div className="flex flex-wrap gap-1 mb-1.5">
+                        {categoryLabelsForItem(item).slice(0, 4).map((label, idx) => (
+                          <span
+                            key={`${item.id}-c-${idx}`}
+                            className="text-[10px] font-bold uppercase tracking-widest text-lv-red px-1.5 py-0.5 bg-red-50 rounded"
+                          >
+                            {label}
                           </span>
                         ))}
+                        {categoryLabelsForItem(item).length > 4 && (
+                          <span className="text-[10px] text-gray-500">+{categoryLabelsForItem(item).length - 4}</span>
+                        )}
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => setDetailItem(item)}
-                        className="shrink-0 px-4 py-2 bg-lv-blue hover:bg-lv-blue-dark text-white text-xs font-semibold rounded-lg transition-colors"
-                      >
-                        View Project
-                      </button>
+                      <h3 className="text-[15px] font-bold text-gray-800 mb-2.5 leading-snug line-clamp-2">
+                        {item.title}
+                      </h3>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex flex-wrap gap-1.5 min-w-0">
+                          {item.tags?.slice(0, 3).map((tag) => (
+                            <span key={tag} className="px-2.5 py-0.5 border border-gray-200 rounded-full text-xs text-gray-500 whitespace-nowrap">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setDetailItem(item)}
+                          className="shrink-0 px-4 py-2 bg-lv-blue hover:bg-lv-blue-dark text-white text-xs font-semibold rounded-lg transition-colors"
+                        >
+                          View Project
+                        </button>
+                      </div>
                     </div>
+                  </article>
+                ))}
+              </div>
+
+              {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 pt-6 border-t border-gray-200">
+                  <p className="text-sm text-gray-600">
+                    Page {page} of {totalPages}
+                    <span className="text-gray-400 ml-2">({total} projects)</span>
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={page <= 1}
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      className="px-5 py-2.5 rounded-lg border border-gray-300 bg-white text-gray-800 font-medium text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      disabled={page >= totalPages}
+                      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                      className="px-5 py-2.5 rounded-lg bg-lv-blue text-white font-medium text-sm hover:bg-lv-blue-dark disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Next
+                    </button>
                   </div>
-                </article>
-              ))}
-            </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
@@ -272,10 +334,13 @@ export default function PortfolioContent() {
             </button>
 
             <div className="p-6 md:p-8">
-              {/* Header */}
-              <p className="text-xs font-bold uppercase tracking-wider text-lv-red mb-2">
-                {detailItem.category}
-              </p>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {categoryLabelsForItem(detailItem).map((label, idx) => (
+                  <span key={`d-${idx}-${label}`} className="text-xs font-bold uppercase tracking-wider text-lv-red px-2 py-1 bg-red-50 rounded-lg">
+                    {label}
+                  </span>
+                ))}
+              </div>
               <h2 className="text-2xl font-bold text-gray-800 mb-2">
                 {detailItem.title}
               </h2>
@@ -283,7 +348,6 @@ export default function PortfolioContent() {
                 <p className="text-gray-600 text-sm mb-4">{detailItem.description}</p>
               )}
 
-              {/* Tags */}
               {detailItem.tags?.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {detailItem.tags.map((tag) => (
@@ -294,7 +358,6 @@ export default function PortfolioContent() {
                 </div>
               )}
 
-              {/* Side-by-side images */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="rounded-xl border border-gray-200 overflow-hidden">
                   <p className="text-sm font-semibold text-gray-800 px-4 py-2.5 bg-gray-50 border-b border-gray-200">Customer File</p>
@@ -332,7 +395,6 @@ export default function PortfolioContent() {
                 </div>
               </div>
 
-              {/* Overview + Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {detailItem.overview && (
                   <div className="rounded-xl border border-gray-200 p-5">

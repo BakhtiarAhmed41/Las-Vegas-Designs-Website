@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS portfolio_items (
   slug TEXT NOT NULL UNIQUE,
   category TEXT NOT NULL,
   category_id TEXT NOT NULL,
+  category_ids JSONB DEFAULT '[]'::jsonb,
   description TEXT DEFAULT '',
   customer_file_url TEXT DEFAULT '',
   final_result_url TEXT DEFAULT '',
@@ -20,3 +21,4 @@ CREATE TABLE IF NOT EXISTS portfolio_items (
 
 CREATE INDEX IF NOT EXISTS idx_portfolio_items_category_id ON portfolio_items(category_id);
 CREATE INDEX IF NOT EXISTS idx_portfolio_items_status ON portfolio_items(status);
+CREATE INDEX IF NOT EXISTS idx_portfolio_items_category_ids ON portfolio_items USING GIN (category_ids);
