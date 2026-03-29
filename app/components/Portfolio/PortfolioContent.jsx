@@ -437,14 +437,16 @@ export default function PortfolioContent() {
 
               {detailItem.extra_image_url ? (
                 <div className="mt-8 pt-8 bg-white">
-                  <Image
-                    src={detailItem.extra_image_url}
-                    alt=""
-                    width={2000}
-                    height={2000}
-                    className="w-full max-w-full h-auto block"
-                    unoptimized={detailItem.extra_image_url?.startsWith("http")}
-                  />
+                  <div className="relative w-full overflow-hidden bg-white aspect-video max-h-[min(420px,70vh)]">
+                    <Image
+                      src={detailItem.extra_image_url}
+                      alt=""
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 100vw, 48rem"
+                      unoptimized={detailItem.extra_image_url?.startsWith("http")}
+                    />
+                  </div>
                 </div>
               ) : null}
             </div>
