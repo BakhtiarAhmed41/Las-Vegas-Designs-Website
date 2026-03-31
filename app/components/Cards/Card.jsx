@@ -26,12 +26,12 @@ export default function Card({
       aria-labelledby={id}
       className={
         `${baseSizeClasses} ${className} transform transition-transform duration-300 ` +
-        "bg-white rounded-xl border border-transparent shadow-sm hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] " +
+        "bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] " +
         "flex flex-col items-center text-center p-8"
       }
     >
       {/* image area: size controlled via imageClass prop */}
-      <div className={`${imageClass} relative mb-4 flex-shrink-0`}>
+      <div className={`${imageClass} relative mb-4 shrink-0`}>
         <Image
           src={imageSrc}
           alt={alt || title}
@@ -41,7 +41,7 @@ export default function Card({
         />
       </div>
 
-      <h3 id={id} className="text-lg font-semibold text-rose-700 mb-2">
+      <h3 id={id} className="text-lg font-bold text-lv-blue mb-2">
         {title}
       </h3>
 
@@ -51,7 +51,7 @@ export default function Card({
 
       <div className="mt-auto pb-1">
         <Link href={href}>
-          <button className="bg-[var(--lv-blue)] cursor-pointer text-white text-sm px-5 py-2 rounded-full shadow-sm hover:bg-[var(--lv-blue-light)]">
+          <button className="bg-lv-red cursor-pointer text-white text-sm px-5 py-2 rounded-full shadow-sm hover:bg-lv-red-dark transition-colors">
             Learn More →
           </button>
         </Link>

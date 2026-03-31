@@ -21,13 +21,14 @@ export default function ReviewHeader() {
           <span className="font-bold text-lv-blueGreen">5.0</span>
         </span>
 
-        <div className="flex text-yellow-500 text-2xl" aria-label="5 out of 5 stars">
+        <div
+          className="flex text-yellow-500 text-2xl"
+          aria-label="5 out of 5 stars"
+        >
           {"★★★★★"}
         </div>
 
-        <span className="text-slate-700 text-xs font-normal pb-0">
-          (3,143)
-        </span>
+        <span className="text-slate-700 text-xs font-normal pb-0">(3,143)</span>
 
         <button className="bg-lv-red text-white px-5 py-2 rounded-full hover:bg-lv-red-dark font-bold text-sm cursor-pointer transition-colors">
           Write a review
@@ -36,3 +37,4 @@ export default function ReviewHeader() {
     </div>
   );
 }
+

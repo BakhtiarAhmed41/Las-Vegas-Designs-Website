@@ -6,7 +6,6 @@ export default function WhyChooseUs() {
   return (
     <section className="bg-white py-10 md:py-14 lg:py-18">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading */}
         <ScrollAnimation animation="fadeInUp" delay={0}>
           <div className="text-center mb-8 md:mb-12">
             <span className="inline-flex items-center rounded-full bg-lv-red/10 text-lv-red text-[11px] font-semibold tracking-wide uppercase px-3 py-1">
@@ -16,12 +15,12 @@ export default function WhyChooseUs() {
               Why Las Vegas Designs USA?
             </h2>
             <p className="mt-4 max-w-3xl mx-auto text-sm md:text-base text-slate-600 leading-relaxed">
-              Built for real production—clean files, consistent quality checks, and support when you need a tweak.
+              Built for real production—clean files, consistent quality checks, and
+              support when you need a tweak.
             </p>
           </div>
         </ScrollAnimation>
 
-        {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {whyChooseUsData.map((benefit, index) => {
             const Icon = benefit.icon;
@@ -53,3 +52,4 @@ export default function WhyChooseUs() {
     </section>
   );
 }
+

@@ -15,7 +15,6 @@ function FaqSection() {
       <div className="rounded-2xl divide-y w-full flex flex-col border border-slate-200 overflow-hidden">
         {faqs.map((item, i) => (
           <div key={i} className="py-2 border-none bg-white">
-            {/* Question Row */}
             <button
               className="w-full flex justify-between items-center text-left hover:bg-slate-50 transition-colors"
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -39,7 +38,6 @@ function FaqSection() {
               </span>
             </button>
 
-            {/* Smooth Expand / Collapse */}
             <div
               className={`overflow-hidden transition-all duration-500 ease-in-out ${
                 openIndex === i
@@ -59,3 +57,4 @@ function FaqSection() {
 }
 
 export default FaqSection;
+

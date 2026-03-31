@@ -15,7 +15,6 @@ export default function ReviewSlider() {
             items={reviews}
             renderItem={(item) => <ReviewCard review={item} />}
             autoPlay={false}
-            // autoPlayInterval={5000}
             itemsPerView={{ mobile: 1, tablet: 3, desktop: 5 }}
             gap={20}
           />
@@ -24,3 +23,4 @@ export default function ReviewSlider() {
     </section>
   );
 }
+

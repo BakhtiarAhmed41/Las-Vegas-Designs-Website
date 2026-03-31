@@ -56,7 +56,6 @@ export default function Vectorization({ items = vectorization }) {
                   />
                 </div>
 
-                {/* Leaf-shaped badge at top */}
                 <div className="absolute right-4 top-4">
                   <div className="relative">
                     <div className="rotate-45">
@@ -66,7 +65,6 @@ export default function Vectorization({ items = vectorization }) {
                         viewBox="0 0 60 60"
                         className="drop-shadow-md"
                       >
-                        {/* Leaf shape */}
                         <path
                           d="M30 5 Q50 15 50 30 Q50 45 30 55 Q10 45 10 30 Q10 15 30 5 Z"
                           fill="white"
@@ -83,14 +81,12 @@ export default function Vectorization({ items = vectorization }) {
 
                 <div className="absolute inset-0 bg-[rgba(0,0,0,0.52)] opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
 
-                {/* Title - shows by default, hides on hover */}
                 <div className="absolute left-6 bottom-5 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
                   <div className="bg-white/95 backdrop-blur-sm p-2 rounded-xl outline-none font-semibold text-sm border border-slate-200">
                     {item.title}
                   </div>
                 </div>
 
-                {/* Description - hidden by default, slides up on hover */}
                 <div className="absolute left-0 right-0 bottom-0 px-6 pb-5 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-400 ease-out text-black bg-white pt-4 rounded-t-2xl border-t border-slate-200">
                   <h4 className="font-semibold">{item.title}</h4>
                   <p className="text-xs leading-relaxed line-clamp-2">
@@ -106,3 +102,4 @@ export default function Vectorization({ items = vectorization }) {
     </section>
   );
 }
+

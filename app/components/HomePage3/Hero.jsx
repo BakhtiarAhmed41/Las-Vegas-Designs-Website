@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "../../styles/HomePage/hero.module.css";
+import styles from "../../styles/HomePage3/hero.module.css";
 
 const slides = [
   {
@@ -30,7 +30,6 @@ export default function HeroSlideshow() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const groupRef = useRef(null);
 
-  // Auto-advance slides
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -38,7 +37,6 @@ export default function HeroSlideshow() {
     return () => clearInterval(interval);
   }, []);
 
-  // 3D tilt effect
   useEffect(() => {
     const group = groupRef.current;
     if (!group) return;
@@ -134,7 +132,6 @@ export default function HeroSlideshow() {
 
   return (
     <section className="relative min-h-[82vh] overflow-hidden bg-white flex items-center justify-center px-4 sm:px-6 lg:px-8">
-      {/* Soft background image wash */}
       <div
         className={styles.bgZoom}
         role="img"
@@ -147,13 +144,10 @@ export default function HeroSlideshow() {
         }}
       />
 
-      {/* Light gradient overlay for readability */}
       <div className="absolute inset-0 bg-linear-to-b from-white via-white/90 to-white/70" />
 
-      {/* Content Container */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-12 items-center text-center lg:text-left">
-          {/* LEFT column */}
           <div
             className="order-2 lg:order-1 text-lv-blue space-y-6 transition-all duration-700 ease-out"
             key={`content-${currentSlide}`}
@@ -185,7 +179,6 @@ export default function HeroSlideshow() {
             <div className="mb-12 pb-6 block lg:hidden"></div>
           </div>
 
-          {/* RIGHT column  */}
           <div className="order-1 lg:order-2 relative flex items-center justify-center">
             <div
               ref={groupRef}
@@ -212,7 +205,6 @@ export default function HeroSlideshow() {
           </div>
         </div>
 
-        {/* Navigation Dots */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex gap-3 z-20 mt-0 md:mt-6 lg:mt-0">
           {slides.map((_, idx) => (
             <button
@@ -228,7 +220,6 @@ export default function HeroSlideshow() {
           ))}
         </div>
 
-        {/* Arrow Navigation */}
         <button
           onClick={() =>
             setCurrentSlide(
@@ -238,18 +229,8 @@ export default function HeroSlideshow() {
           className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full border border-slate-200 shadow-md transition-all duration-300 hover:scale-110 cursor-pointer hidden md:block text-lv-blue"
           aria-label="Previous slide"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
@@ -258,23 +239,12 @@ export default function HeroSlideshow() {
           className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/80 hover:bg-white backdrop-blur-sm rounded-full border border-slate-200 shadow-md transition-all duration-300 hover:scale-110 cursor-pointer hidden md:block text-lv-blue"
           aria-label="Next slide"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>
 
-      {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -291,3 +261,4 @@ export default function HeroSlideshow() {
     </section>
   );
 }
+

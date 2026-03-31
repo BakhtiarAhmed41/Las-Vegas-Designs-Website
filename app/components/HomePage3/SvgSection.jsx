@@ -40,7 +40,7 @@ export default function SvgSection() {
           {svgCards.map((c, idx) => (
             <ScrollAnimation key={c.slug} animation="fadeInUp" delay={0.05 + idx * 0.03}>
               <article
-                className="flex flex-col h-full items-center text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-shadow"
+                className="flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-shadow"
                 aria-labelledby={c.slug}
                 role="listitem"
                 id={c.slug}
@@ -68,9 +68,7 @@ export default function SvgSection() {
               >
                 {c.title}
               </h3>
-              <p className="text-sm leading-relaxed text-slate-600 flex-1">
-                {c.text}
-              </p>
+              <p className="text-sm leading-relaxed text-slate-600">{c.text}</p>
               </article>
             </ScrollAnimation>
           ))}
@@ -79,3 +77,4 @@ export default function SvgSection() {
     </section>
   );
 }
+

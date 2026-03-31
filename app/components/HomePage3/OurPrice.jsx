@@ -12,7 +12,6 @@ export default function OurPrice() {
   const [customEmbroideryButtonClicked, setcustomEmbroideryButtonClicked] =
     useState(true);
 
-  // Prevent hydration mismatch by adding animation AFTER mount
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -61,7 +60,6 @@ export default function OurPrice() {
           </div>
         </ScrollAnimation>
 
-        {/* Animated Cards Grid */}
         <div
           key={customEmbroideryButtonClicked ? "embroidery" : "vector"}
           className={`w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8
@@ -85,3 +83,4 @@ export default function OurPrice() {
     </section>
   );
 }
+
