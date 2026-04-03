@@ -5,6 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/app/context/CartContext";
 
+function labelsFromAttr(value) {
+  if (value == null || value === "") return [];
+  if (Array.isArray(value)) return value.filter(Boolean).map(String);
+  return [String(value)];
+}
+
 export default function DesignCard({ design }) {
   const { addItem } = useCart();
   const imageUrl = design.main_preview_url || null;
@@ -18,11 +24,12 @@ export default function DesignCard({ design }) {
       price: design.price,
     });
   };
-  const tags = [];
-  if (design.technical_attributes?.placement) tags.push(design.technical_attributes.placement);
-  if (design.technical_attributes?.hoop_size) tags.push(design.technical_attributes.hoop_size);
-  if (design.theme_name) tags.push(design.theme_name);
-  const displayTags = tags.slice(0, 3);
+  const tags = [
+    ...labelsFromAttr(design.technical_attributes?.placement),
+    ...labelsFromAttr(design.technical_attributes?.hoop_size),
+    ...(design.theme_name ? [String(design.theme_name)] : []),
+  ];
+  const displayTags = tags.slice(0, 8);
 
   return (
     <article className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
@@ -59,9 +66,12 @@ export default function DesignCard({ design }) {
           </Link>
         </h3>
         {displayTags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            {displayTags.map((t) => (
-              <span key={t} className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+          <div className="flex flex-wrap gap-2 mb-2">
+            {displayTags.map((t, i) => (
+              <span
+                key={`${design.id}-${i}-${t}`}
+                className="inline-flex px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded shrink-0"
+              >
                 {t}
               </span>
             ))}
