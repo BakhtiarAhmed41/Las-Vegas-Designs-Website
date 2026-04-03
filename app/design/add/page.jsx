@@ -8,6 +8,7 @@ import Navbar from "@/app/components/Navbar/Navbar3";
 import Footer from "@/app/components/Footer/Footer";
 import GoUp from "@/app/components/Buttons/GoUp";
 import ChatButton from "@/app/components/Buttons/ChatButton";
+import { uploadFileToDesignsBucket } from "@/lib/uploadToDesignsStorage";
 
 const EMBROIDERY_FORMATS = ["DST", "PES", "EXP", "JEF", "HUS", "VIP", "VP3", "XXX", "PDF Production Sheet", "PNG Preview"];
 
@@ -238,12 +239,7 @@ function AddDesignForm() {
     if (!file?.size) return null;
     setUploading(field);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
-      const url = data.url;
+      const { url } = await uploadFileToDesignsBucket(file);
       setForm((prev) => {
         if (field === "download_url") {
           return {

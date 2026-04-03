@@ -13,6 +13,7 @@ import {
   PORTFOLIO_CATEGORIES,
   normalizeCategoryIds,
 } from "@/lib/portfolioCategories";
+import { uploadFileToDesignsBucket } from "@/lib/uploadToDesignsStorage";
 
 const emptyForm = {
   title: "",
@@ -78,12 +79,8 @@ function PortfolioAddPageContent() {
     if (!file?.size) return;
     setUploading(field);
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Upload failed");
-      setForm((prev) => ({ ...prev, [field]: data.url }));
+      const { url } = await uploadFileToDesignsBucket(file);
+      setForm((prev) => ({ ...prev, [field]: url }));
     } catch (err) {
       setError(err.message || "Upload failed");
     } finally {

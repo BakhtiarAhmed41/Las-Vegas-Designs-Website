@@ -3,6 +3,7 @@ import { getSupabase } from "@/lib/supabase";
 import { v4 as uuidv4 } from "uuid";
 import path from "path";
 
+/** Proxies file bytes through this server (Vercel ~4.5 MB body limit). Prefer POST /api/upload/sign + client upload for larger files. */
 export async function POST(request) {
   try {
     const formData = await request.formData();
